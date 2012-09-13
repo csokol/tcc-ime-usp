@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011TeX Live 2011/Slackware (SBo)) (format=pdflatex 2012.2.6)  12 SEP 2012 14:15
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011TeX Live 2011/Slackware (SBo)) (format=pdflatex 2012.2.6)  13 SEP 2012 10:48
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -490,24 +490,28 @@ Cap\'{\i }tulo 4.
 
 ]
 Cap\'{\i }tulo 5.
-[9] (./monografia.aux) ) 
+[9] [10
+
+]
+Cap\'{\i }tulo 6.
+[11] (./monografia.aux) ) 
 Here is how much of TeX's memory you used:
  1616 strings out of 493633
  19039 string characters out of 3148804
- 65344 words of memory out of 3000000
+ 66344 words of memory out of 3000000
  4923 multiletter control sequences out of 15000+200000
  11007 words of font info for 29 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
  25i,4n,24p,226b,155s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-supe
-r-t1.enc}</usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr/
-share/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/share/texmf-dis
-t/fonts/type1/public/cm-super/sfbx2488.pfb></usr/share/texmf-dist/fonts/type1/p
-ublic/cm-super/sfrm1200.pfb>
-Output written on monografia.pdf (10 pages, 74669 bytes).
+{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-sup
+er-t1.enc}</usr/share/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></usr
+/share/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/share/texmf-di
+st/fonts/type1/public/cm-super/sfbx2488.pfb></usr/share/texmf-dist/fonts/type1/
+public/cm-super/sfrm1200.pfb>
+Output written on monografia.pdf (12 pages, 75884 bytes).
 PDF statistics:
- 54 PDF objects out of 1000 (max. 8388607)
- 37 compressed objects within 1 object stream
+ 60 PDF objects out of 1000 (max. 8388607)
+ 41 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

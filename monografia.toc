@@ -1,12 +1,18 @@
 \select@language {brazil}
 \contentsline {chapter}{\numberline {1}Introdu\IeC {\c c}\IeC {\~a}o}{1}
-\contentsline {section}{\numberline {1.1}Motiva\IeC {\c c}\IeC {\~a}o}{1}
-\contentsline {section}{\numberline {1.2}Estrutura da monografia}{1}
-\contentsline {chapter}{\numberline {2}Minera\IeC {\c c}\IeC {\~a}o de Reposit\IeC {\'o}rios de Software}{3}
-\contentsline {section}{\numberline {2.1}M\IeC {\'e}tricas de software}{3}
-\contentsline {section}{\numberline {2.2}Trabalhos relacionados}{3}
+\contentsline {section}{\numberline {1.1}Contextualiza\IeC {\c c}\IeC {\~a}o}{1}
+\contentsline {section}{\numberline {1.2}Motiva\IeC {\c c}\IeC {\~a}o}{1}
+\contentsline {section}{\numberline {1.3}Estrutura da monografia}{1}
+\contentsline {chapter}{\numberline {2}Conceitos estudados}{3}
+\contentsline {section}{\numberline {2.1}Evolu\IeC {\c c}\IeC {\~a}o de software}{3}
+\contentsline {section}{\numberline {2.2}M\IeC {\'e}tricas de c\IeC {\'o}digo}{3}
+\contentsline {section}{\numberline {2.3}Minera\IeC {\c c}\IeC {\~a}o de reposit\IeC {\'o}rios de software}{3}
 \contentsline {chapter}{\numberline {3}Arquitetura da ferramenta e tecnologias envolvidas}{5}
 \contentsline {section}{\numberline {3.1}Tecnologias envolvidas}{5}
 \contentsline {section}{\numberline {3.2}Decis\IeC {\~o}es arquiteturais}{5}
+\contentsline {section}{\numberline {3.3}Estendendo e contribuindo com o projeto}{5}
+\contentsline {section}{\numberline {3.4}Trabalhos relacionados}{5}
 \contentsline {chapter}{\numberline {4}Avalia\IeC {\c c}\IeC {\~a}o da ferramenta}{7}
+\contentsline {section}{\numberline {4.1}Resultados obtidos com a minera\IeC {\c c}\IeC {\~a}o de reposit\IeC {\'o}rios p\IeC {\'u}blicos}{7}
 \contentsline {chapter}{\numberline {5}Conclus\IeC {\~a}o e trabalhos futuros}{9}
+\contentsline {chapter}{\numberline {6}Parte subjetiva}{11}
