@@ -3,3 +3,6 @@
 *.toc
 *.aux
 *.idx
+*.blg
+*.bbl
+
