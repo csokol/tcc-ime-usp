@@ -4,6 +4,7 @@
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
 \documentclass[a4paper, 12pt, twoside]{book}
 
 %% Escrevendo em portugues:
@@ -15,19 +16,23 @@
 \usepackage{upquote} %fix minted quotes
 \usepackage{parskip} %fix paragraph spacing inside tubainabox
 \usepackage{setspace}
+\usepackage{monografia}
 \usepackage[a4paper, top=46mm, left=29mm, right=29mm, bottom=32mm, includefoot]{geometry}
+
+\usepackage{fancyhdr}
+
 
 \begin{document}
 
 \begin{titlepage}
 \vspace*{\fill}
 \vspace{-5cm}
-\center{\begin{spacing}{1.0}\huge \textbf {MetricMiner: uma ferramenta web de apoio à mineração de repositórios de software}\end{spacing}}
+\center{\begin{spacing}{1.0}\huge \textbf{\textsc{MetricMiner: uma ferramenta web de apoio à mineração de repositórios de software}}\end{spacing}}
 \vspace{2cm}
-\center{\Large Francisco Sokol}
+\center\textsc{{\Large Francisco Sokol}}
 \vspace{1cm}
-\center{\large \emph{Orientador}: Marco Aurélio Gerosa}
-\center{\large \emph{Co-orientador}: Maurício Finavaro Aniche}
+\center\textsc{{\large Orientador: Marco Aurélio Gerosa}}
+\center\textsc{{\large Co-orientador: Maurício Finavaro Aniche}}
 \vfill
 \end{titlepage}
 
@@ -55,9 +60,9 @@
         representam alguma atividade do mundo real evoluem continuamente, caso contrário, se tornam
         menos úteis e perdem seu valor \cite{Lehman1980b}. Além disso, Lehman afirma que este processo 
         de mudança contínua faz com que a complexidade do software cresça inevitavelmente, tornando sua 
-        estrutura cada vez mais podre e seu custo de manutenção maior.
+        estrutura cada vez mais pobre e seu custo de manutenção maior.
         
-        Considereando ainda diversos trabalhos indicando que o custo de manutenção de um software 
+        Considerando ainda diversos trabalhos indicando que o custo de manutenção de um software 
         ultrapassa 50\% do custo total de um projeto, observa-se que encontrar meios de se
         manter a qualidade interna de um software é muito importante. Por meio do desenvolvimento 
         ferramentas e métodos, a evolução de software busca entender e controlar esse processo
@@ -68,11 +73,41 @@
         controle de versão e sistemas de rastreamento de bugs \cite{Kagdi:2007}. 
 
     \section{Motivação}
+        Para desenvolver um trabalho em mineração de repositórios, o pesquisador é obrigado a carregar 
+        diversos projetos em sua estação de trabalho e realizar uma série de cálculos sobre o código 
+        dos projetos e sobre os metadados de seu repositório. Esse processo requer a instalação de diversas
+        ferramentas e bibliotecas localmente para reaproveitar as ferramentas desenvolvidas nessa área,
+        tornando o processo trabalhoso e demorado.
+
+        Além de ser um processo complexo, esse tipo de pesquisa consome muitos recursos computacionais.
+        Baixar os repositórios a serem minerados consome um volume considerável de banda. Depois, os 
+        dados devem ser processados e persistidos em um banco de dados, ocupando um grande volume de 
+        disco. Só então o pesquisador pode calcular métricas sobre esses dados, além de extrair relações
+        entre os metadados do histórico do sistema de controle de versão, gastando uma quantidade grande 
+        de processamento de CPU. Só depois de passar por todas essas etapas, é possível extrair dados e 
+        avaliar hipóteses por meio de análises estatísticas.
+
+        Dessas dificuldades surgiu a motivação para o desenvolvimento do MetricMiner, uma aplicação web
+        que realiza todas as etapas da mineração de um repositório de software. Essa ferramenta disponibiliza
+        um grande volume de dados já processados prontos para serem extraídos e analisados pelo pesquisador, 
+        poupando tempo e recursos computacionais.
     
     \section{Estrutura da monografia}
-
+        O restante desta monografia está estruturada da seguinte forma: 
+        \begin{itemize}
+            \item Seção \ref{ch:conceitos}: nesta seção são abordados temas 
+                envolvidos no desenvolvimento desse trabalho, em um breve levantamento bibliográfico.
+            \item Seção \ref{ch:arquitetura}: apresenta a arquitetura e as tecnologias
+            envolvidas no desenvolvimento do MetricMiner.
+            \item Seção \ref{ch:avaliacao}: expõe os resultados obtidos com a ferramenta 
+                na mineração de repositórios de projetos de código aberto.
+            \item Seção \ref{ch:conclusao}: análise dos resultados e levantamento 
+                de possíveis extensões futuras do projeto.
+            \item Seção \ref{ch:subjetiva}: apresenta as impressões do aluno na realização 
+                desse trabalho e a sua relação com o curso de Bacharelado em Ciência da Computação.
+        \end{itemize}
     
-\chapter{Conceitos estudados}
+\chapter{Mineração de Repositórios de Software} \label{ch:conceitos}
 
     \section{Evolução de software}
     
@@ -82,7 +117,7 @@
 
     \section{Trabalhos relacionados}
     
-\chapter{Arquitetura do MetricMiner}
+\chapter{Arquitetura do MetricMiner} \label{ch:arquitetura}
 
     \section{Tecnologias envolvidas}
     
@@ -90,13 +125,13 @@
     
     \section{Estendendo e contribuindo com o projeto}
     
-\chapter{Avaliação da ferramenta}
+\chapter{Avaliação da ferramenta} \label{ch:avaliacao}
 
     \section{Resultados obtidos com a mineração de repositórios públicos}
 
-\chapter{Conclusão e trabalhos futuros}
+\chapter{Conclusão e trabalhos futuros} \label{ch:conclusao}
 
-\chapter{Parte subjetiva}
+\chapter{Parte subjetiva} \label{ch:subjetiva}
 
 \bibliographystyle{sbc}
 \bibliography{monografia}

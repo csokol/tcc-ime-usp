@@ -1,0 +1,16 @@
+\renewcommand{\@makechapterhead}[1]{
+  \thispagestyle{empty}
+  \vspace*{1cm}
+  {\parindent \z@ \raggedright
+
+
+    \ifnum \c@secnumdepth >\m@ne
+        \scshape{Seção\space \thechapter} % Chapter number
+        \vskip -3mm
+    \fi
+    \interlinepenalty\@M
+    \Huge\normalfont\textbf{#1}\par                         % chapter title
+
+    \nobreak
+    \vskip 1cm
+  }}
