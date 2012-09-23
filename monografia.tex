@@ -108,14 +108,55 @@
         \end{itemize}
     
 \chapter{Mineração de Repositórios de Software} \label{ch:conceitos}
+    Esta seção é uma introdução aos principais temas de pesquisa envolvidos no desenvolvimento
+    deste trabalho. A subseção \ref{ch:trabalhos}, contém uma breve análise de outras ferramentas
+    relacionadas ao MetricMiner e à área de mineração de repositórios de software.
 
     \section{Evolução de software}
+        A partir do final da década de sessenta, o termo ``manutenção de software'' era considerado qualquer 
+        atividade de desenvolvimento realizada sobre o software após a sua entrega e implantação inicial.
+        Essa também era a visão estabelecida no modelo de desenvolvimento de software em cascata, proposto 
+        por Royce, em 1970 \cite{DBLP:series/springer/Mens08}. Neste modelo, que foi o mais 
+        utilizado durante um longo tempo, a manuteção do sistema era a fase final do desenvolvimento, 
+        em que eram feitos apenas pequenos ajustes e correção de erros.
+        
+        Com o passar do tempo, percebeu-se que esse processo era pouco eficiente, principalmente porque os requisitos
+        que eram levantados apenas na fase inicial do projeto se modificavam frequentemente, mesmo durante a 
+        fase de manutenção. Passou-se então a se buscar a construção de outros processos de desenvolvimento, 
+        que levassem em consideração as constantes mudanças nos requisitos dos sistemas de software produzidos.
+        Na tentativa de compreender a natureza dessas mudanças no processo de desenvolvimento, Manny Lehman relaizou
+        um estudo empírico sobre o desenvolvimento de sistemas da IBM.
+        
+        Como resultado de seu trabalho, Lehman definiu três classes de programas. A classe S, são os programas 
+        cuja a funcionalidade pode ser especificada formalmente e possuem uma solução precisa. Problemas famosos 
+        como o do caixeiro viajante, n-rainhas, do fluxo máximo, entre outros, são exemplos de problemas que 
+        podem servir de especificação para um programa da classe S. Esse tipo de programa é 
+        estático (a letra S vem de \textit{static}), uma vez estabelecida a solução para seu problema, esta 
+        satisfaz seus requisitos por completo.
+        
+        A classe P, contém programas criados para solucionar algum problema do mundo real, que também pode
+        ser especificada formalmente, porém não podem ser solucionadas com precisão absoluta. Exemplos dessa classe
+        incluem programas para previsão do tempo, um jogador de xadrez, um escalonador de vôos e linhas de trem, entre 
+        outros. Os resultados obtidos por programas dessa classe não são soluções exatas do problema, devido a 
+        complexidade ou a própria natureza deste. Programas da classe P, portanto, também tem seus requisitos 
+        especificados com precisão e as mudanças realizadas sobre eles acontecem apenas com o objetivo de aprimorar
+        sua performance ou a qualidade dos resultados.
+        
+        Os programas da classe E são aqueles cuja a especificação não pode ser definida completamente. Tais programas
+        são inseridos no mundo real para agilizar tarefas humanas, modificando a forma como as atividades são 
+        realizadas. Exemplos de programas da classe E são: sistemas operacionais, de controle aéreo, de 
+        controle de mercado financeiro, entre outros. Programas dessa classe modificam o seu domínio de 
+        aplicação após sua implantação inicial, portanto, é natural que com o passar do tempo novos 
+        requisitos sejam levantados para satisfazer novas necessidades da atividade que foi alterada.
+        
+        
+        
     
     \section{Métricas de código}
     
     \section{Mineração de repositórios de software}
 
-    \section{Trabalhos relacionados}
+    \section{Trabalhos relacionados} \label{ch:trabalhos}
     
 \chapter{Arquitetura do MetricMiner} \label{ch:arquitetura}
 
