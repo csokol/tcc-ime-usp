@@ -41,21 +41,20 @@
 % \maketitle
 
 \pagestyle{plain}
-\pagenumbering{roman}
-\setcounter{page}{1} 
-\tableofcontents
-
-\newpage
 
 \pagenumbering{arabic}
 \setcounter{page}{1}
+
+\tableofcontents
+
+\newpage
 
 \chapter{Introdução}
 
     \section{Contextualização}
         Evolução de Software é uma área da Engenharia de Software que estuda as atividades de desenvolvimento
         em um sistema de software após a sua concepção inicial e implantação em produção. Esse termo foi 
-        usado pela primeira vez em um artigo publicado por Manny Lehman \cite{DBLP:series/springer/Mens08}. 
+        usado pela primeira vez em um trabalho publicado por Manny Lehman \cite{DBLP:series/springer/Mens08}. 
         Neste trabalho, o autor enuncia as ``leis da evolução de software'', defendendo que programas que 
         representam alguma atividade do mundo real evoluem continuamente, caso contrário, se tornam
         menos úteis e perdem seu valor \cite{Lehman1980b}. Além disso, Lehman afirma que este processo 
@@ -93,7 +92,7 @@
         poupando tempo e recursos computacionais.
     
     \section{Estrutura da monografia}
-        O restante desta monografia está estruturada da seguinte forma: 
+        O restante desta monografia está estruturado da seguinte forma: 
         \begin{itemize}
             \item Seção \ref{ch:conceitos}: nesta seção são abordados temas 
                 envolvidos no desenvolvimento desse trabalho, em um breve levantamento bibliográfico.
@@ -121,37 +120,52 @@
         em que eram feitos apenas pequenos ajustes e correção de erros.
         
         Com o passar do tempo, percebeu-se que esse processo era pouco eficiente, principalmente porque os requisitos
-        que eram levantados apenas na fase inicial do projeto se modificavam frequentemente, mesmo durante a 
-        fase de manutenção. Passou-se então a se buscar a construção de outros processos de desenvolvimento, 
-        que levassem em consideração as constantes mudanças nos requisitos dos sistemas de software produzidos.
-        Na tentativa de compreender a natureza dessas mudanças no processo de desenvolvimento, Manny Lehman relaizou
-        um estudo empírico sobre o desenvolvimento de sistemas da IBM.
+        levantados apenas na fase inicial do projeto se modificavam frequentemente, mesmo durante a 
+        fase de manutenção. Na tentativa de compreender a natureza dessas mudanças no processo de desenvolvimento, 
+        Manny Lehman realizou um estudo empírico sobre o desenvolvimento de sistemas da IBM.
         
-        Como resultado de seu trabalho, Lehman definiu três classes de programas. A classe S, são os programas 
-        cuja a funcionalidade pode ser especificada formalmente e possuem uma solução precisa. Problemas famosos 
-        como o do caixeiro viajante, n-rainhas, do fluxo máximo, entre outros, são exemplos de problemas que 
+        Como resultado de seu trabalho, Lehman definiu três classes de programas. A classe S, contém programas 
+        cujas funcionalidades podem ser especificada formalmente e possuem uma solução precisa. Problemas famosos 
+        como o do caixeiro viajante, n-rainhas, fluxo máximo, entre outros, são exemplos que 
         podem servir de especificação para um programa da classe S. Esse tipo de programa é 
-        estático (a letra S vem de \textit{static}), uma vez estabelecida a solução para seu problema, esta 
+        estático (a letra S vem de \textit{static}) pois, uma vez estabelecida a solução para seu problema, esta 
         satisfaz seus requisitos por completo.
         
         A classe P, contém programas criados para solucionar algum problema do mundo real, que também pode
-        ser especificada formalmente, porém não podem ser solucionadas com precisão absoluta. Exemplos dessa classe
+        ser especificado formalmente, porém não pode ser solucionado com precisão absoluta. Exemplos dessa classe
         incluem programas para previsão do tempo, um jogador de xadrez, um escalonador de vôos e linhas de trem, entre 
         outros. Os resultados obtidos por programas dessa classe não são soluções exatas do problema, devido a 
-        complexidade ou a própria natureza deste. Programas da classe P, portanto, também tem seus requisitos 
+        complexidade ou a própria natureza deste. Programas da classe P, portanto, também possuem seus requisitos 
         especificados com precisão e as mudanças realizadas sobre eles acontecem apenas com o objetivo de aprimorar
         sua performance ou a qualidade dos resultados.
         
         Os programas da classe E são aqueles cuja a especificação não pode ser definida completamente. Tais programas
-        são inseridos no mundo real para agilizar tarefas humanas, modificando a forma como as atividades são 
-        realizadas. Exemplos de programas da classe E são: sistemas operacionais, de controle aéreo, de 
-        controle de mercado financeiro, entre outros. Programas dessa classe modificam o seu domínio de 
-        aplicação após sua implantação inicial, portanto, é natural que com o passar do tempo novos 
-        requisitos sejam levantados para satisfazer novas necessidades da atividade que foi alterada.
+        são inseridos no mundo real para agilizar tarefas de seu domínio, modificando a forma como as atividades são 
+        realizadas. Exemplos de programas da classe E são: sistemas operacionais, sistemas de controle aéreo, de mercado 
+        financeiro, entre outros. Programas dessa classe modificam o seu domínio de aplicação após sua implantação 
+        inicial, então é natural que com o passar do tempo novos requisitos sejam levantados para satisfazer 
+        novas necessidades da atividade que foi alterada. 
         
+        Dessa forma, sistemas dessa classe estão mais sujeitos a mudanças que programas das classes S e P, por isso
+        Lehman dirigiu seu trabalho sobre análise da evolução de programas dessa classe. Em uma tentativa de descrever
+        esse processo de evolução em \ref{Lehman1980b}, o autor propõe as \textit{leis da evolução de software}:
+        \begin{itemize}
+            \item Mudança contínua: Um programa da classe E muda continuamente, caso contrário, se torna menos útil 
+                  gradativamente.
+            \item Complexidade crescente: Com o processo de mudança contínua, a complexidade do software cresce a menos
+                  que sejam dirigidos esforços para reduzir ou manter essa complexidade.
+            \item Auto regulação: A evolução de software é um processo auto regulado pelo feedback das mudanças
+                  feitas no sistema e as reações a essas no domínio em que ele é utilizado.
+            \item Conservação de estabilidade organizacional: A taxa com que as modificações são feitas sobre
+                  o software ao longo de seu ciclo de vida é estatisticamente invariante.
+            \item Conservação de familiaridade: A evolução de um programa é limitada pela familiaridade com que
+                  seus desenvoldores tem com o sistema
+        \end{itemize}
+
+        O trabalho de Lehman foi o primeiro a utilizar o termo ``evolução de sofrware'' para descrever o processo de mudança
+        sobre sistemas de software. Hoje, essa área de pesquisa envolve diversos temas, como: engenharia reversa e reengenharia, 
+        qualidade de software, gerenciamento de configuração de software, estimativas de custos, entre outros \cite{DBLP:series/springer/Mens08}.
         
-        
-    
     \section{Métricas de código}
     
     \section{Mineração de repositórios de software}
