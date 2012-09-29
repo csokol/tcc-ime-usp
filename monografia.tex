@@ -1,9 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%
-%%                  Caelum Tubaina
-%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \documentclass[a4paper, 12pt, twoside]{book}
 
@@ -52,14 +46,15 @@
 \chapter{Introdução}
 
     \section{Contextualização}
-        Evolução de Software é uma área da Engenharia de Software que estuda as atividades de desenvolvimento
-        em um sistema de software após a sua concepção inicial e implantação em produção. Esse termo foi 
-        usado pela primeira vez em um trabalho publicado por Manny Lehman \cite{DBLP:series/springer/Mens08}. 
-        Neste trabalho, o autor enuncia as ``leis da evolução de software'', defendendo que programas que 
-        representam alguma atividade do mundo real evoluem continuamente, caso contrário, se tornam
-        menos úteis e perdem seu valor \cite{Lehman1980b}. Além disso, Lehman afirma que este processo 
-        de mudança contínua faz com que a complexidade do software cresça inevitavelmente, tornando sua 
-        estrutura cada vez mais pobre e seu custo de manutenção maior.
+        Evolução de Software é uma área da Engenharia de Software que estuda as atividades de
+        desenvolvimento em um sistema de software após a sua concepção inicial e implantação em
+        produção. Esse termo foi usado pela primeira vez em um trabalho publicado por Manny 
+        Lehman \cite{DBLP:series/springer/Mens08}. Neste trabalho, o autor enuncia as 
+        ``leis da evolução de software'', defendendo que programas que representam alguma atividade
+        do mundo real evoluem continuamente, caso contrário, se tornam menos úteis e perdem seu 
+        valor \cite{Lehman1980b}. Além disso, Lehman afirma que este processo de mudança contínua
+        faz com que a complexidade do software cresça inevitavelmente, tornando sua estrutura
+        cada vez mais pobre e seu custo de manutenção maior.
         
         Considerando ainda diversos trabalhos indicando que o custo de manutenção de um software 
         ultrapassa 50\% do custo total de um projeto, observa-se que encontrar meios de se
@@ -67,29 +62,31 @@
         ferramentas e métodos, a evolução de software busca entender e controlar esse processo
         para o tornar mais eficiente.
         
-        Nesse contexto, a Mineração de Repositórios de Software estuda esse processo de evolução de forma empírica, 
-        por meio da análise dos artefatos envolvidos no seu desenvolvimento como código fonte, dados do sistema de
-        controle de versão e sistemas de rastreamento de bugs \cite{Kagdi:2007}. 
+        Nesse contexto, a Mineração de Repositórios de Software estuda esse processo de evolução 
+        de forma empírica, por meio da análise dos artefatos envolvidos no seu desenvolvimento 
+        como código fonte, dados do sistema decontrole de versão e sistemas de rastreamento 
+        de bugs \cite{Kagdi:2007}. 
 
     \section{Motivação}
-        Para desenvolver um trabalho em mineração de repositórios, o pesquisador é obrigado a carregar 
-        diversos projetos em sua estação de trabalho e realizar uma série de cálculos sobre o código 
-        dos projetos e sobre os metadados de seu repositório. Esse processo requer a instalação de diversas
-        ferramentas e bibliotecas localmente para reaproveitar as ferramentas desenvolvidas nessa área,
-        tornando o processo trabalhoso e demorado.
+        Para desenvolver um trabalho em mineração de repositórios, o pesquisador é obrigado a carregar diversos projetos em sua estação de trabalho e realizar uma série de cálculos
+        sobre o código dos projetos e sobre os metadados de seu repositório. Esse processo 
+        requer a instalação de diversas ferramentas e bibliotecas localmente para reaproveitar
+        as ferramentas desenvolvidas nessa área, tornando o processo trabalhoso e demorado.
 
-        Além de ser um processo complexo, esse tipo de pesquisa consome muitos recursos computacionais.
-        Baixar os repositórios a serem minerados consome um volume considerável de banda. Depois, os 
-        dados devem ser processados e persistidos em um banco de dados, ocupando um grande volume de 
-        disco. Só então o pesquisador pode calcular métricas sobre esses dados, além de extrair relações
-        entre os metadados do histórico do sistema de controle de versão, gastando uma quantidade grande 
-        de processamento de CPU. Só depois de passar por todas essas etapas, é possível extrair dados e 
-        avaliar hipóteses por meio de análises estatísticas.
+        Além de ser um processo complexo, esse tipo de pesquisa consome muitos 
+        recursos computacionais. Baixar os repositórios a serem minerados consome um volume
+        considerável de banda. Depois, os dados devem ser processados e persistidos em um 
+        banco de dados, ocupando um grande volume de disco. Só então o pesquisador pode 
+        calcular métricas sobre esses dados, além de extrair relações entre os metadados do 
+        histórico do sistema de controle de versão, gastando uma quantidade grande de
+        processamento de CPU. Só depois de passar por todas essas etapas, é possível extrair
+        dados e avaliar hipóteses por meio de análises estatísticas.
 
-        Dessas dificuldades surgiu a motivação para o desenvolvimento do MetricMiner, uma aplicação web
-        que realiza todas as etapas da mineração de um repositório de software. Essa ferramenta disponibiliza
-        um grande volume de dados já processados prontos para serem extraídos e analisados pelo pesquisador, 
-        poupando tempo e recursos computacionais.
+        Dessas dificuldades surgiu a motivação para o desenvolvimento do MetricMiner,
+        uma aplicação web que realiza todas as etapas da mineração de um repositório de 
+        software. Essa ferramenta disponibiliza um grande volume de dados já processados 
+        prontos para serem extraídos e analisados pelo pesquisador, poupando tempo e recursos 
+        computacionais.
     
     \section{Estrutura da monografia}
         O restante desta monografia está estruturado da seguinte forma: 
@@ -112,63 +109,103 @@
     relacionadas ao MetricMiner e à área de mineração de repositórios de software.
 
     \section{Evolução de software}
-        A partir do final da década de sessenta, o termo ``manutenção de software'' era considerado qualquer 
-        atividade de desenvolvimento realizada sobre o software após a sua entrega e implantação inicial.
-        Essa também era a visão estabelecida no modelo de desenvolvimento de software em cascata, proposto 
-        por Royce, em 1970 \cite{DBLP:series/springer/Mens08}. Neste modelo, que foi o mais 
-        utilizado durante um longo tempo, a manuteção do sistema era a fase final do desenvolvimento, 
-        em que eram feitos apenas pequenos ajustes e correção de erros.
+        A partir do final da década de sessenta, o termo ``manutenção de software'' era 
+        considerado qualquer atividade de desenvolvimento realizada sobre o software após a sua
+        entrega e implantação inicial. Essa também era a visão estabelecida no modelo de
+        desenvolvimento de software em cascata, proposto por Royce, em 1970 
+        \cite{DBLP:series/springer/Mens08}. Neste modelo, que foi o mais utilizado durante um 
+        longo tempo, a manuteção do sistema era a fase final do desenvolvimento, em que eram 
+        feitos apenas pequenos ajustes e correção de erros.
         
-        Com o passar do tempo, percebeu-se que esse processo era pouco eficiente, principalmente porque os requisitos
-        levantados apenas na fase inicial do projeto se modificavam frequentemente, mesmo durante a 
-        fase de manutenção. Na tentativa de compreender a natureza dessas mudanças no processo de desenvolvimento, 
-        Manny Lehman realizou um estudo empírico sobre o desenvolvimento de sistemas da IBM.
+        Com o passar do tempo, percebeu-se que esse processo era pouco eficiente, 
+        principalmente porque os requisitos levantados apenas na fase inicial do projeto se 
+        modificavam frequentemente, mesmo durante a fase de manutenção. Na tentativa de compreender
+        a natureza dessas mudanças no processo de desenvolvimento, Manny Lehman realizou diversos 
+        estudos empíricos sobre o desenvolvimento de sistemas da IBM.
         
-        Como resultado de seu trabalho, Lehman definiu três classes de programas. A classe S, contém programas 
-        cujas funcionalidades podem ser especificada formalmente e possuem uma solução precisa. Problemas famosos 
-        como o do caixeiro viajante, n-rainhas, fluxo máximo, entre outros, são exemplos que 
-        podem servir de especificação para um programa da classe S. Esse tipo de programa é 
-        estático (a letra S vem de \textit{static}) pois, uma vez estabelecida a solução para seu problema, esta 
-        satisfaz seus requisitos por completo.
+        Como resultado de seu trabalho, Lehman definiu três classes de programas. A classe S, contém 
+        programas cujas funcionalidades podem ser especificada formalmente e possuem uma solução
+        precisa. Problemas famosos como o do caixeiro viajante, n-rainhas, fluxo máximo, entre 
+        outros, são exemplos que podem servir de especificação para um programa da classe S. Esse 
+        tipo de programa é estático (a letra S vem de \textit{static}) pois, uma vez estabelecida a 
+        solução para seu problema, esta satisfaz seus requisitos por completo.
         
-        A classe P, contém programas criados para solucionar algum problema do mundo real, que também pode
-        ser especificado formalmente, porém não pode ser solucionado com precisão absoluta. Exemplos dessa classe
-        incluem programas para previsão do tempo, um jogador de xadrez, um escalonador de vôos e linhas de trem, entre 
-        outros. Os resultados obtidos por programas dessa classe não são soluções exatas do problema, devido a 
-        complexidade ou a própria natureza deste. Programas da classe P, portanto, também possuem seus requisitos 
-        especificados com precisão e as mudanças realizadas sobre eles acontecem apenas com o objetivo de aprimorar
-        sua performance ou a qualidade dos resultados.
+        A classe P, contém programas criados para solucionar algum problema do mundo real, que também 
+        pode ser especificado formalmente, porém não pode ser solucionado com precisão absoluta. 
+        Exemplos dessa classe incluem programas para previsão do tempo, um jogador de xadrez, um 
+        escalonador de vôos e linhas de trem, entre outros. Os resultados obtidos por programas dessa
+        classe não são soluções exatas do problema, devido a complexidade ou a própria natureza deste.
+        Programas da classe P, portanto, também possuem seus requisitos especificados com precisão e 
+        as mudanças realizadas sobre eles acontecem apenas com o objetivo de aprimorar sua performance ou a qualidade dos resultados.
         
-        Os programas da classe E são aqueles cuja a especificação não pode ser definida completamente. Tais programas
-        são inseridos no mundo real para agilizar tarefas de seu domínio, modificando a forma como as atividades são 
-        realizadas. Exemplos de programas da classe E são: sistemas operacionais, sistemas de controle aéreo, de mercado 
-        financeiro, entre outros. Programas dessa classe modificam o seu domínio de aplicação após sua implantação 
-        inicial, então é natural que com o passar do tempo novos requisitos sejam levantados para satisfazer 
+        Os programas da classe E são aqueles cuja a especificação não pode ser definida completamente.
+        Tais programas são inseridos no mundo real para agilizar tarefas de seu domínio, modificando 
+        a forma como as atividades são realizadas. Exemplos de programas da classe E são: sistemas 
+        operacionais, sistemas de controle aéreo, de mercado financeiro, entre outros. Programas 
+        dessa classe modificam o seu domínio de aplicação após sua implantação inicial, então é 
+        natural que com o passar do tempo novos requisitos sejam levantados para satisfazer 
         novas necessidades da atividade que foi alterada. 
         
-        Dessa forma, sistemas dessa classe estão mais sujeitos a mudanças que programas das classes S e P, por isso
-        Lehman dirigiu seu trabalho sobre análise da evolução de programas dessa classe. Em uma tentativa de descrever
-        esse processo de evolução em \ref{Lehman1980b}, o autor propõe as \textit{leis da evolução de software}:
+        Dessa forma, sistemas dessa classe estão mais sujeitos a mudanças que programas das classes S 
+        e P, por isso Lehman dirigiu seu trabalho sobre análise da evolução de programas dessa classe.
+        Em uma tentativa de descrever esse processo de evolução em \ref{Lehman1980b}, o autor propõe 
+        as \textit{leis da evolução de software}:
         \begin{itemize}
-            \item Mudança contínua: Um programa da classe E muda continuamente, caso contrário, se torna menos útil 
-                  gradativamente.
-            \item Complexidade crescente: Com o processo de mudança contínua, a complexidade do software cresce a menos
-                  que sejam dirigidos esforços para reduzir ou manter essa complexidade.
-            \item Auto regulação: A evolução de software é um processo auto regulado pelo feedback das mudanças
-                  feitas no sistema e as reações a essas no domínio em que ele é utilizado.
-            \item Conservação de estabilidade organizacional: A taxa com que as modificações são feitas sobre
-                  o software ao longo de seu ciclo de vida é estatisticamente invariante.
-            \item Conservação de familiaridade: A evolução de um programa é limitada pela familiaridade com que
-                  seus desenvoldores tem com o sistema
+            \item Mudança contínua: Um programa da classe E muda continuamente, caso contrário, se 
+                   torna menos útil gradativamente.
+            \item Complexidade crescente: Com o processo de mudança contínua, a complexidade do 
+                  software cresce a menos que sejam dirigidos esforços para reduzir ou manter essa 
+                  complexidade.
+            \item Auto regulação: A evolução de software é um processo auto regulado pelo feedback 
+                  das mudanças feitas no sistema e as reações a essas no domínio em que ele é 
+                  utilizado.
+            \item Conservação de estabilidade organizacional: A taxa com que as modificações são 
+                  feitas sobre o software ao longo de seu ciclo de vida é estatisticamente invariante.
+            \item Conservação de familiaridade: A evolução de um programa é limitada pela 
+                  familiaridade com que seus desenvoldores tem com o sistema.
         \end{itemize}
 
-        O trabalho de Lehman foi o primeiro a utilizar o termo ``evolução de sofrware'' para descrever o processo de mudança
-        sobre sistemas de software. Hoje, essa área de pesquisa envolve diversos temas, como: engenharia reversa e reengenharia, 
-        qualidade de software, gerenciamento de configuração de software, estimativas de custos, entre outros \cite{DBLP:series/springer/Mens08}.
+        O trabalho de Lehman foi o primeiro a utilizar o termo ``evolução de sofrware'' para
+        descrever o processo de mudança sobre sistemas de software. Hoje, essa área de pesquisa
+        envolve diversos temas, como: engenharia reversa e reengenharia, qualidade de software,
+        gerenciamento de configuração de software, estimativas de custos, entre outros 
+        \cite{DBLP:series/springer/Mens08}.
         
-    \section{Métricas de código}
-    
+        Ainda não há um consenso da validade dessas leis para sistemas de software de código aberto. 
+        Em  cite{DBLP:series/springer/Fernandez-RamilLWC08}, os autores discutem a validade dessas
+        leis analisando diversos estudos realizados sobre projetos de código aberto, concluindo que
+        algumas das leis se aplicam, enquanto ainda não há evidências concretas de validade da a 
+        maioria delas.
+        
     \section{Mineração de repositórios de software}
+        O termo ``repositório de software'', abrange todos os artefatos produzidos durante o 
+        desenvolvimento de um sistema de software, desde de os arquivos com o código fonte do sistema, até mensagens em listas de emails trocadas entre os desenvolvedores. Tais 
+        repositórios contém informações valiosas, que podem ser exploradas para se compreender
+        a evolução de software e contribuir com o desenvolvimento de projeto.
+
+        Em \cite{DBLP:series/springer/Mens08}, os autores destacam os seguintes tópicos estudados
+        na análise de repositórios de software:
+        \begin{itemize}
+            \item Concentração do trabalho dos desenvolvedores e análise redes sociais. O objetivo
+            nesse tópico é descobrir quanto e em quais pontos do software os desenvolvedores estão 
+            dedicando mais seus esforços e como eles se comunicam entre si, para buscar soluções 
+            em problemas no processo desenvolvimento e na estrutura da equipe.
+            \item Impacto e propagação de alterações. Busca ententer o efeito das mudanças feitas em
+            certa parte do sistema sobre o resto do código do projeto. Compreendendo melhor o efeito
+            dessas alterações, a equipe pode estimar melhor os custos de certa tarefa. Além disso
+            um desenvolvedor pode ser informado de quais arquivos ele precisará checar após ter feito
+            uma certa alteração.
+            \item Análise de tendências e \textit{hotspots}. \textit{Hotspots} são pontos do software
+            que sofrem alterações frequentemente. Encontrar tais pontos do sistema, pode ajudar a 
+            levantar deficiências na arquitetura do projeto e sugerir possíveis refotatorações para
+            aprimorar sua manutenabilidade.
+            \item Previsão de falhas e defeitos. Os dados disponíveis em repositórios de software
+            podem ser usados como entrada para algoritmos de aprendizagem de máquina, para criar
+            modelos preditivos de possíveis falhas no sistema. Com esse modelo, a equipe pode
+            tomar ações preventivas para previnir tais falhas em versões futuras.
+        \end{itemize}
+    
+    \section{Métricas de código}
 
     \section{Trabalhos relacionados} \label{ch:trabalhos}
     
