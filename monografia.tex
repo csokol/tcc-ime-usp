@@ -146,19 +146,19 @@
         natural que com o passar do tempo novos requisitos sejam levantados para satisfazer 
         novas necessidades da atividade que foi alterada. 
         
-        Dessa forma, sistemas dessa classe estão mais sujeitos a mudanças que programas das classes S 
-        e P, por isso Lehman dirigiu seu trabalho sobre análise da evolução de programas dessa classe.
-        Em uma tentativa de descrever esse processo de evolução em \ref{Lehman1980b}, o autor propõe 
-        as \textit{leis da evolução de software}:
+        Assim, sistemas dessa classe estão mais sujeitos a mudanças do que programas das classes S 
+        e P, por isso Lehman dirigiu seu trabalho sobre a análise da evolução de programas da 
+        classe E. Em uma tentativa de descrever esse processo de evolução em \ref{Lehman1980b}, o 
+        autor propõe as \textit{leis da evolução de software}:
         \begin{itemize}
             \item Mudança contínua: Um programa da classe E muda continuamente, caso contrário, se 
                    torna menos útil gradativamente.
             \item Complexidade crescente: Com o processo de mudança contínua, a complexidade do 
-                  software cresce a menos que sejam dirigidos esforços para reduzir ou manter essa 
+                  software cresce, a menos que sejam dirigidos esforços para reduzir ou manter essa 
                   complexidade.
             \item Auto regulação: A evolução de software é um processo auto regulado pelo feedback 
-                  das mudanças feitas no sistema e as reações a essas no domínio em que ele é 
-                  utilizado.
+                  das mudanças feitas no sistema e as reações a essas mudanças no domínio em que ele 
+                  é utilizado.
             \item Conservação de estabilidade organizacional: A taxa com que as modificações são 
                   feitas sobre o software ao longo de seu ciclo de vida é estatisticamente invariante.
             \item Conservação de familiaridade: A evolução de um programa é limitada pela 
@@ -172,39 +172,76 @@
         \cite{DBLP:series/springer/Mens08}.
         
         Ainda não há um consenso da validade dessas leis para sistemas de software de código aberto. 
-        Em  cite{DBLP:series/springer/Fernandez-RamilLWC08}, os autores discutem a validade dessas
+        Em  \cite{DBLP:series/springer/Fernandez-RamilLWC08}, os autores discutem a validade dessas
         leis analisando diversos estudos realizados sobre projetos de código aberto, concluindo que
-        algumas das leis se aplicam, enquanto ainda não há evidências concretas de validade da a 
+        algumas das leis se aplicam, enquanto ainda não há evidências concretas de validade da 
         maioria delas.
         
     \section{Mineração de repositórios de software}
-        O termo ``repositório de software'', abrange todos os artefatos produzidos durante o 
-        desenvolvimento de um sistema de software, desde de os arquivos com o código fonte do sistema, até mensagens em listas de emails trocadas entre os desenvolvedores. Tais 
+        O termo ``repositório de software'' abrange todos os artefatos produzidos durante o 
+        desenvolvimento de um sistema de software, desde os arquivos com o código fonte do sistema, até mensagens em listas de emails trocadas entre os desenvolvedores. Tais 
         repositórios contém informações valiosas, que podem ser exploradas para se compreender
-        a evolução de software e contribuir com o desenvolvimento de projeto.
+        a evolução de software e contribuir com o desenvolvimento do projeto.
 
-        Em \cite{DBLP:series/springer/Mens08}, os autores destacam os seguintes tópicos estudados
-        na análise de repositórios de software:
+        Em \cite{Kagdi:2007}, é apresentada uma avaliação de diversos trabalhos de Mineração
+        de Repositórios de Software (MRS). A partir da análise desses trabalhos, os autores propõem
+        uma taxonomia para classificar os estudos nessa área. Essa classificação se baseia
+        em quatro aspectos dos estudos avaliados: a fonte de informação dos dados, os objetivos
+        do trabalho, a metodologia adotada para analisar os dados e a granularidade dos dados
+        analisados.
+
+        Em relação às fontes de informação, três categorias foram levantadas: as versões do software 
+        e de seus artefatos, as diferenças entre esses artefatos e os metadados de cada mudança
+        feita sobre o software. As versões e alterações do software podem ser coletadas de Sistemas
+        de Controle de Versão (SCV). Os metadados dessas alterações, como autor, data e comentário do 
+        autor também podem ser extraídas do SCV e complementadas com dados de um sistema de 
+        rastreamento de bugs e mensagens trocadas pelos desenvolvedores em listas de email.
+
+        Quanto aos objetivos dos estudos em MRS, os autores classificam os trabalhos analisados
+        em relação às questões de pequisa que dirigem esses estudos. Foram criadas duas classes
+        de questão de pesquisa. A primeira é composta por questões do tipo \textit{market-basket}
+        (termo emprestado da mineração de dados). São estudos que buscam avaliar a relação
+        entre certos eventos na evolução de software.
+
+        Dois métodos principais foram encontrados nos estudos avaliados. O primeiro é o estudo
+        de mudanças sobre propriedades do software (\textit{changes to properties}), que é a 
+        análise de propriedades de alto nível dos sistemas, como métricas de complexidade ou
+        manutenabilidade, por exemplo. Na segunda estratégia de estudo, são analisadas 
+        as alterações diretamente nos artefatos, em um nível mais baixo 
+        (\textit{changes to artifacts}).
+
+        Em \cite{DBLP:series/springer/DAmbrosGLP08}, os autores destacam os seguintes tópicos 
+        estudados na análise de repositórios de software:
         \begin{itemize}
-            \item Concentração do trabalho dos desenvolvedores e análise redes sociais. O objetivo
-            nesse tópico é descobrir quanto e em quais pontos do software os desenvolvedores estão 
-            dedicando mais seus esforços e como eles se comunicam entre si, para buscar soluções 
-            em problemas no processo desenvolvimento e na estrutura da equipe.
-            \item Impacto e propagação de alterações. Busca ententer o efeito das mudanças feitas em
+            \item \textbf{Concentração do trabalho dos desenvolvedores e análise de redes sociais}. 
+            O objetivo nesse tópico é descobrir quanto e em quais pontos do software os desenvolvedores estão dedicando mais seus esforços e como eles se comunicam entre si, para buscar soluções em problemas no processo de desenvolvimento e na estrutura da equipe.
+            \item \textbf{Impacto e propagação de alterações}. 
+            Busca ententer o efeito das mudanças feitas em
             certa parte do sistema sobre o resto do código do projeto. Compreendendo melhor o efeito
-            dessas alterações, a equipe pode estimar melhor os custos de certa tarefa. Além disso
+            dessas alterações, a equipe pode estimar melhor os custos de certa tarefa. Além disso,
             um desenvolvedor pode ser informado de quais arquivos ele precisará checar após ter feito
             uma certa alteração.
-            \item Análise de tendências e \textit{hotspots}. \textit{Hotspots} são pontos do software
+            \item \textbf{Análise de tendências e \textit{hotspots}}. 
+            \textit{Hotspots} são pontos do software
             que sofrem alterações frequentemente. Encontrar tais pontos do sistema, pode ajudar a 
             levantar deficiências na arquitetura do projeto e sugerir possíveis refotatorações para
             aprimorar sua manutenabilidade.
-            \item Previsão de falhas e defeitos. Os dados disponíveis em repositórios de software
+            \item \textbf{Previsão de falhas e defeitos}.
+            Os dados disponíveis em repositórios de software
             podem ser usados como entrada para algoritmos de aprendizagem de máquina, para criar
             modelos preditivos de possíveis falhas no sistema. Com esse modelo, a equipe pode
             tomar ações preventivas para previnir tais falhas em versões futuras.
         \end{itemize}
-    
+
+        Neste trabalho, os autores descrevem um modelo de dados para armazenar informações do
+        sistema de controle de versão e de um sistema de rastreamento de bugs de um certo software.
+        Esse modelo guarda os dados de cada commit do projeto, como arquivos modificados, linha adicionadas/removidas, mensagem do autor e associa essas informações com um bug extraído 
+        do sistema de rastreamento de bugs. Para popular esse modelo, é utilizado arquivo de log
+        do sistema de controle de versão \textit{CVS} e o sistema de rastreamento de bugs 
+        \textit{Bugzilla}. Os autores denominaram esse modelo de dados \textit{Release History 
+        Database} (RHDB). Com os dados deste modelo, foram desenvolvidas três ferramentas para 
+        vizualização das informações extraídas.
+
     \section{Métricas de código}
 
     \section{Trabalhos relacionados} \label{ch:trabalhos}
