@@ -11,7 +11,10 @@
 \usepackage{parskip} %fix paragraph spacing inside tubainabox
 \usepackage{setspace}
 \usepackage{monografia}
+\usepackage{hyperref}
 \usepackage[a4paper, top=46mm, left=29mm, right=29mm, bottom=32mm, includefoot]{geometry}
+
+\usepackage[pdftex]{graphicx}           % usamos arquivos pdf/png como figuras
 
 \usepackage{fancyhdr}
 
@@ -198,7 +201,7 @@
         rastreamento de bugs e mensagens trocadas pelos desenvolvedores em listas de email.
 
         Quanto aos objetivos dos estudos em MRS, os autores classificam os trabalhos analisados
-        em relação às questões de pequisa que dirigem esses estudos. Foram criadas duas classes
+        em relação às questões de pesquisa que dirigem esses estudos. Foram criadas duas classes
         de questão de pesquisa. A primeira é composta por questões do tipo \textit{market-basket}
         (termo emprestado da mineração de dados). São estudos que buscam avaliar a relação
         entre certos eventos na evolução de software.
@@ -233,7 +236,7 @@
             tomar ações preventivas para previnir tais falhas em versões futuras.
         \end{itemize}
 
-        Neste trabalho, os autores descrevem um modelo de dados para armazenar informações do
+        Neste trabalho, os autores também descrevem um modelo de dados para armazenar informações do
         sistema de controle de versão e de um sistema de rastreamento de bugs de um certo software.
         Esse modelo guarda os dados de cada commit do projeto, como arquivos modificados, linha adicionadas/removidas, mensagem do autor e associa essas informações com um bug extraído 
         do sistema de rastreamento de bugs. Para popular esse modelo, é utilizado arquivo de log
@@ -247,10 +250,71 @@
     \section{Trabalhos relacionados} \label{ch:trabalhos}
     
 \chapter{Arquitetura do MetricMiner} \label{ch:arquitetura}
+    Nessa seção é apresentada a ferramenta desenvolvida, o MetricMiner. Em \ref{sc:abordagem},
+    será apresentado o fluxo do processo de mineração realizado pelo MetricMiner. Na seção 
+    \ref{sc:tecnologias}, as tecnologias utilizadas para o desenvolvimento do sistema serão
+    descritos brevemente. Em \ref{sc:arquitetura}, serão apresentados os detalhes da arquitetura
+    da ferramenta.
 
-    \section{Tecnologias envolvidas}
+    \section{Funcionalidades} \label{sc:abordagem}
+        O MetricMiner possui uma interface web, pela qual os usuários podem cadastrar projetos de
+        sofware para serem minerados, devem ser fornecidos um nome e a url pública para o repositório
+        de código do projeto. Como a maioria das etapas da mineração de dados são demoradas, como
+        clonar repositórios, persistir suas informações no banco de dados e calcular métricas sobre o
+        código fonte, essas tarefas são executadas de maneira assíncrona, por meio 
+        de uma fila de execução representada no banco de dados. Cada tarefa é armazenada no sistema e 
+        processada por um componente que constrói as dependências de cada tarefa e as executa na 
+        ordem em que foram cadastradas.
+
+        Portanto, após o cadastro do projeto, são registradas quatro tarefas relativas a esse 
+        projeto: carregamento do repositório de código, processamento de todas as versões
+        dos arquivos do repositório de seus metadados e armazenamento dos dados,
+        remoção dos arquivos carregados e cálculo das métricas de código sobre todos
+        as versões do código fonte do projeto.
+
+        Ao final desse processo, todas as informações do projeto estão persistidas no banco de dados 
+        e disponíveis para serem extraídas pelo pesquisador. É importante ressaltar que após a 
+        extração dos dados do sistema de controle de versão, é possível implementar novas métricas 
+        para serem calculadas sobre o código, sem precisar executar todos os passos anteriores 
+        novamente. A Figura \ref{fig:diagrama} descreve as tarefas envolvidas no processo de 
+        mineração sobre um repositório de software cadastrado na ferramenta.
+
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=1.0\textwidth]{img/diagrama.png}
+            \caption{Diagrama do processo de mineração realizado pelo MetricMiner}
+            \label{fig:diagrama}
+        \end{figure}
+
+        Cada projeto possui sua própria página no sistema. A Figura \ref{fig:screen_projeto} exibe a 
+        tela de vizualização no MetricMiner do projeto Ant, software de código aberto da fundação     
+        Apache com mais de doze mil \textit{commits}. Nessa tela, são exibidas informações básicas 
+        sobre o projeto como número de \textit{commits}, número de \textit{commiters}, url do 
+        repositório, data do primeiro e último \textit{commit}. São exibidos também dois gráficos 
+        simples nos quais pode ser vizualizado o número de \textit{commits} nos últimos doze meses 
+        (agrupados por mês) e o número de arquivos modificados em cada \textit{commit} nos últimos 
+        seis meses (agrupados por commit). Também podem ser adicionadas \textit{tags},
+        para permitir que projetos de domínios semelhantes sejam agrupados.
     
-    \section{Decisões arquiteturais}
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=1.00\textwidth]{img/ant.png}
+            \caption{Tela de vizualização de projeto}
+            \label{fig:screen_projeto}
+        \end{figure}
+
+        Após o fim do processamento do projeto, o usuário pode realizar consultas aos dados processados pela ferramenta. A Figura \ref{fig:screen_query} exibe a tela na qual é possível inserir uma consulta em SQL ao banco de dados do MetricMiner. Depois de salvar a consulta, uma nova tarefa é adicionada à fila de execução e, ao final dessa tarefa, o usuário é informado por email do fim da execução da query e pode acessar a página da query para baixar os resultados em um arquivo no formato CSV (\textit{Comma Separated Values}). O usuário também pode acessar as queries criadas por outros usuários e reexecutar tais queries sobre a base de dados.
+
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=1.00\textwidth]{img/query.png}
+            \caption{Tela de consultas aos dados armazenados}
+            \label{fig:screen_query}
+        \end{figure}
+
+    \section{Tecnologias envolvidas} \label{sc:tecnologias}
+    
+    \section{Decisões arquiteturais} \label{sc:arquitetura}
     
     \section{Estendendo e contribuindo com o projeto}
     
