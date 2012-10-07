@@ -340,7 +340,18 @@
 
     \section{Decisões arquiteturais} \label{sc:arquitetura}
 
-    %% destacar: TaskRunner, RunnableTask, RunnableTaskFactory, Metric, MetricFactory
+        \subsection*{Modelo de dados}
+            O diagrama da Figura \ref{fig:uml_modelo} exibe as classes que representam o modelo de dados minerados pelo MetricMiner. Todas as classes e relacionamentos representados nesse diagrama são mapeadas em tabelas no banco de dados por meio do Hibernate. 
+
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=1.00\textwidth]{img/uml-modelo.png}
+            \caption{Classes do modelo de dados}
+            \label{fig:uml_modelo}
+        \end{figure}
+
+
+    %% modelo de dados... destacar: TaskRunner, RunnableTask, RunnableTaskFactory, Metric, MetricFactory
     
     \section{Estendendo e contribuindo com o projeto}
 
