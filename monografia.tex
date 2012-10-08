@@ -18,6 +18,11 @@
 
 \usepackage{fancyhdr}
 
+\raggedbottom
+
+\newcommand{\codechunk}[1]{{\ttfamily {\small #1}}}
+
+
 
 \begin{document}
 
@@ -343,15 +348,34 @@
         \subsection*{Modelo de dados}
             O diagrama da Figura \ref{fig:uml_modelo} exibe as principais classes do modelo de dados minerados pelo MetricMiner. Todas as classes e relacionamentos representados nesse diagrama são mapeados em tabelas no banco de dados por meio do Hibernate. 
 
-        \begin{figure}[ht]
-            \centering
-            \includegraphics[width=1.00\textwidth]{img/uml-modelo.png}
-            \caption{Classes do modelo de dados}
-            \label{fig:uml_modelo}
-        \end{figure}
+                \begin{figure}[ht]
+                    \centering
+                    \includegraphics[width=1.00\textwidth]{img/uml-modelo.png}
+                    \caption{Classes do modelo de dados}
+                    \label{fig:uml_modelo}
+                \end{figure}
+
+            Com esse modelo, todo o histórico do sistema de controle de versão de um projeto fica armazenado no sistema. Cada commit está relacionado ao conjunto de modificações realizadas nesse commit. Uma modificação pode ser de três tipos: modificação comum, adição ou remoção. Adição ou remoção representam que o artefato foi adicionado ou removido do versionamento. Se o artefato não for binário, a modificação fica associada ao texto deste artefato (armazenado na classe \codechunk{SourceCode}). Dessa forma, todos as versões de cada arquivo de código do projeto ficam armazenados na base de dados. Cada versão dos arquivos de código fica associada ao resultado da execução de diferentes métricas. Para simplificar o diagrama, foram representadas apenas as classes \codechunk{CCResult}, \codechunk{LCOMResult} e \codechunk{LinesOfCodeResult} que armazenam os resultados das métricas de código complexidade ciclomática, LCOM e número de linhas de código, respectivamente. Existem outras quatro classes que armazenam resultados de outras métricas.
 
 
-    %% modelo de dados... destacar: TaskRunner, RunnableTask, RunnableTaskFactory, Metric, MetricFactory
+        \subsection*{Fila de execução} %% TaskRunner, RunnableTask, RunnableTaskFactory,
+            Existem diferentes tipos de tarefas que são executadas no MetricMiner, por exemplo clonar um repositório de código, processar informações do sistema de controle de versão, entre outras. Para cada tipo de tarefa, existem duas classes associadas que implementam duas interfaces. A primeira é a 
+            \codechunk{RunnableTask}, essa interface define apenas um método, \codechunk{run}, que deve executar o trabalho dessa tarefa. A segunda é a \codechunk{RunnableTaskFactory} onde está definido o método \codechunk{build}, que devolve uma instância de uma \codechunk{RunnableTask} para ser executada sobre um projeto específico. Essa é uma aplicação do padrão de projeto \codechunk{Abstract Factory} \cite{gof} e permitiu desacoplar os objetos que executam o trabalho da tarefa da construção desses objetos. O diagrama na Figura \ref{fig:uml_runner} exibe as classes que representam as principais tarefas executadas no MetricMiner.
+
+            \begin{figure}[ht]
+                \centering
+                \includegraphics[width=1.00\textwidth]{img/uml-runner.png}
+                \caption{Diagrama das classes que executam as tarefas do MetricMiner}
+                \label{fig:uml_runner}
+            \end{figure}
+
+            Para inserir uma tarefa na fila, as informações dessa são inseridas no banco de dados, incluindo o nome completo (\textit{Fully qualified name}) da classe que implementa \codechunk{RunnableTaskFactory} dessa tarefa em particular. Depois, o método \codechunk{execute} da classe \codechunk{TaskRunner} extrai essas informações e constrói uma instância da factory dessa tarefa por meio da 
+            \textit{Reflection API}\footnote{\url{http://docs.oracle.com/javase/tutorial/reflect/index.html}} do Java. Finalmente, uma intância de \codechunk{RunnableTask} é construída e executada. Esse método é executado
+            a cada dez segundos (por meio do plugin vraptor-tasks\footnote{\url{https://github.com/wpivotto/vraptor-tasks}}) e caso nenhuma tarefa esteja sendo executada, ela realiza o processo descrito acima.
+
+        \subsection*{Cálculo das métricas de código} %% Metric, MetricFactory, CalculateAllMetricsTask (strategy + template method), CalculateMetricTask
+
+    %% modelo de dados... destacar:  
     
     \section{Estendendo e contribuindo com o projeto}
 
@@ -361,7 +385,7 @@
 
     \section{Resultados obtidos com a mineração de repositórios públicos}
 
-    \section{Reprodução de estudo publicado}
+    \section{Estudo de caso}
 
 \chapter{Conclusão e trabalhos futuros} \label{ch:conclusao}
 
