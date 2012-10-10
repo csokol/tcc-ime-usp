@@ -395,6 +395,8 @@
 
             Para encontrar as classes que implementam as métricas no classpath do MetricMiner, foi utilizado o recurso de \textit{Annotations}\footnote{\url{http://docs.oracle.com/javase/tutorial/java/javaOO/annotations.html}} do Java. Todas as classes que implementam métricas são anotadas com a anotação \codechunk{@MetricComponent}. Na inicialização do sistema, a classe \codechunk{MetricMinerConfigs} encontra todas as classes anotadas e as adiciona a lista de métricas registradas.
 
+            Para executar tais métricas, a classe \codechunk{CalculateAllMetricsTask} é executada na fila de execução. Essa tarefa recebe as métricas registradas, percorre todas as versões de código de um determinado projeto cadastrado calculando todas as métricas e persistindo os resultados. De forma semelhante, a tarefa \codechunk{CalculateMetricTask} cálcula uma métrica específica para todas as versões de um projeto. 
+
     \section{Estendendo e contribuindo com o projeto}
 
     %% nova métrica, nova métrica pós processamento, novos scv (svn já foi), novas tasks em geral (minerar listas de email, )
