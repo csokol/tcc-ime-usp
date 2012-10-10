@@ -252,7 +252,19 @@
 
     \section{Métricas de código}
 
-    \section{Trabalhos relacionados} \label{ch:trabalhos}
+    \section{Ferramentas relacionados} \label{ch:trabalhos}
+
+    Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
+    \subsection{Sonar}
+        Não se conhece ferramentas web de suporte a mineração de repositórios de software. Uma ferramenta que se assemelha ao MetricMiner, é o Sonar \footnote{http://www.sonarsource.org/}, uma aplicação web que analisa o código fonte e extrai uma variedade de relatórios sobre o sistema, como resultados de métricas de código e dependências estruturais entre as classes. O foco desta ferramenta é apoiar a equipe de desenvolvimento e acompanhar a qualidade do código escrito. O Sonar não armazena metadados do sistema de controle versão e não permite que se extraia dados dos projetos armazenados, mas fornece uma interface de vizualização com muitos recursos. Por esses motivo, o Sonar é muito utilizado na indústria e pouco utilizado para fins acadêmicos.
+        
+        Diferentemente do Sonar, o MetricMiner tem o foco na área acadêmica, possibilitando que os usuários extraiam dados calculados pelo sistema para realizar a análise que desejar, sem focar tanto na vizualização dos dados armazenados.
+    
+    \subsection{Eclipse Metrics}
+        O Eclipse Metrics\footnote{http://metrics.sourceforge.net/} é um \textit{plugin} para o Eclipse que calcula uma variedade de métricas de código no ambiente do desenvolvedor. Dessa forma, para que se acompanhe a evolução do código do projeto é necessário executar manualmente o \textit{plugin} para os \textit{releases} que se deseja analisar. No MetricMiner, o cálculo das métricas é realizado sobre todo o histórico de versões do projeto analisado, sem que o usuário precise selecionar as versões manualmente. Além disso, não é necessário que o usuário configure nada em seu ambiente e nem que mantenha as versões que deseja analisar localmente.
+        
+    \subsection{Kalibro}
+        Desenvolvida no Brasil, o Kalibro\footnote{http://www.kalibro.org/} é uma ferramenta que calcula as principais métricas de código fonte. O foco do Kalibro é dar suporte ao desenvolvedor, sugerindo valores de referência para as métricas calculadas, apontando possíveis problemas no projeto analisado. A ferramenta permite que os valores de referência sejam configurados por projeto. Através de código JavaScript, é possível compor as métricas calculadas pelo Kalibro, permitindo que o usuário crie novas métricas. Assim como o Eclipse Metrics, o Kalibro não analisa todo o histório de versões, de forma que o usuário precisaria selecionar as versões e recalcular as métricas manualmente.
     
 \chapter{Arquitetura do MetricMiner} \label{ch:arquitetura}
     Nessa seção é apresentada a ferramenta desenvolvida, o MetricMiner. Em \ref{sc:abordagem}, será apresentado o fluxo do processo de mineração realizado pelo MetricMiner e as principais funcionalidades implementadas. Na seção \ref{sc:tecnologias}, as tecnologias utilizadas para o desenvolvimento do sistema serão descritos brevemente. Em \ref{sc:arquitetura}, serão presentados os detalhes da arquitetura da ferramenta.
@@ -374,7 +386,14 @@
             Dessa forma, desenvolver novas tarefas é simples, basta criar duas classes implementando as interfaces descritas anteriormente e tal tarefa já poderá ser inserida a fila de execução do MetricMiner por meio do banco de dados.
 
         \subsection*{Cálculo das métricas de código} %% Metric, MetricFactory, CalculateAllMetricsTask (template method), CalculateMetricTask
-            De forma semelhante à arquitetura das tarefas da fila execução, também foi utilizado o padrão \codechunk{Abstract Factory} na arquitetura das métricas de código implementadas no MetricMiner. Assim, para cada métrica, existem duas classes implementando duas interfaces: \codechunk{Metric} e \codechunk{MetricFactory}. 
+            De forma semelhante à arquitetura das tarefas da fila execução, também foi utilizado o padrão \codechunk{Abstract Factory} no design das métricas de código implementadas no MetricMiner. Assim, para cada métrica, existem duas classes implementando duas interfaces: \codechunk{Metric} e \codechunk{MetricFactory}. A interface \codechunk{MetricFactory} define apenas um método, \codechunk{build}, que devolve uma instância da métrica. A interface \codechunk{Metric} define dois métodos principais: 
+
+            \begin{itemize}
+                \item \codechunk{void calculate(InputStream input)}: calcula a métrica para o código forncecido no \codechunk{InputStream}.
+                \item \codechunk{Collection<MetricResult> results()}: devolve uma coleção de objetos que representam os resultados dessa métrica que serão armazenados no banco de dados.
+            \begin{end}
+
+            Para encontrar as classes que implementam as métricas no classpath do MetricMiner, foi utilizado o recurso de \textit{Annotations}\footnote{\url{http://docs.oracle.com/javase/tutorial/java/javaOO/annotations.html}} do Java. Todas as classes que implementam métricas são anotadas com a anotação \codechunk{@MetricComponent}. Na inicialização do sistema, a classe \codechunk{MetricMinerConfigs} encontra todas as classes anotadas e as adiciona a lista de métricas registradas.
 
     \section{Estendendo e contribuindo com o projeto}
 
