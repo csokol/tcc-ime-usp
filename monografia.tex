@@ -119,34 +119,39 @@
     
 \chapter{Mineração de Repositórios de Software} \label{ch:conceitos}
     Esta seção é uma introdução aos principais temas de pesquisa envolvidos no desenvolvimento
-    deste trabalho. A subseção \ref{ch:trabalhos}, contém uma breve análise de outras ferramentas
+    deste trabalho. As subseções \ref{sc:evolucao} e \ref{sc:mineracao} contém, respectivamente, 
+    uma introdução a Evolução de Software e Mineração de Repositórios de Software, as duas áreas 
+    da Engenharia de Software envolvidas no desenvolvimento desse trabalho. Na subceção 
+    \ref{sc:metricas}, são apresentadas algumas métricas de código fonte implementadas no 
+    MetricMiner. A subseção \ref{ch:trabalhos}, contém uma breve análise de outras ferramentas
     relacionadas ao MetricMiner e à área de mineração de repositórios de software.
 
-    \section{Evolução de software}
-        A partir do final da década de sessenta, o termo ``manutenção de software'' era 
-        considerado qualquer atividade de desenvolvimento realizada sobre o software após a sua
+    \section{Evolução de software} \label{sc:evolucao}
+        No final da década de sessenta, o termo ``manutenção de software'' foi definido 
+        como qualquer atividade de desenvolvimento realizada sobre o software após a sua
         entrega e implantação inicial. Essa também era a visão estabelecida no modelo de
         desenvolvimento de software em cascata, proposto por Royce, em 1970 
-        \cite{DBLP:series/springer/Mens08}. Neste modelo, que foi o mais utilizado durante um 
-        longo tempo, a manuteção do sistema era a fase final do desenvolvimento, em que eram 
-        feitos apenas pequenos ajustes e correção de erros.
+        \cite{DBLP:series/springer/Mens08}. Neste modelo, a manutenção do sistema era a fase final do 
+        desenvolvimento, em que eram feitos apenas pequenos ajustes e correção de erros.
         
         Com o passar do tempo, percebeu-se que esse processo era pouco eficiente, 
         principalmente porque os requisitos levantados apenas na fase inicial do projeto se 
         modificavam frequentemente, mesmo durante a fase de manutenção. Na tentativa de compreender
         a natureza dessas mudanças no processo de desenvolvimento, Manny Lehman realizou diversos 
-        estudos empíricos sobre o desenvolvimento de sistemas da IBM.
+        estudos empíricos sobre o desenvolvimento de sistemas da IBM \textbf{colocar refs aqui} 
+        (ver nom\cite{DBLP:series/springer/Mens08})
         
-        Como resultado de seu trabalho, Lehman definiu três classes de programas no trabalho publicado em \cite{Lehman1980b}. 
+        No trabalho publicado em \cite{Lehman1980b}, Lehman define três classes de programas.
         A classe S, contém programas cujas funcionalidades podem ser especificadas formalmente e possuem uma 
         solução precisa. Problemas famosos como o do caixeiro viajante, n-rainhas, fluxo máximo, entre outros,
         são exemplos que podem servir de especificação para um programa da classe S. Esse 
         tipo de programa é estático (a letra S vem de \textit{static}) pois, uma vez estabelecida a 
         solução para seu problema, esta satisfaz seus requisitos por completo.
         
-        A classe P, contém programas criados para solucionar algum problema do mundo real, que também 
-        pode ser especificado formalmente, porém não pode ser solucionado com precisão absoluta. 
-        Exemplos dessa classe incluem programas para previsão do tempo, um jogador de xadrez, um 
+        A classe P, contém programas criados para solucionar algum problema do mundo real, que também  pode ser 
+        especificado formalmente, porém não pode ser solucionado com precisão absoluta (a letra P 
+        vem de \textit{real world \textbf{p}roblem solution}). Exemplos
+        dessa classe incluem programas para previsão do tempo, um jogador de xadrez, um 
         escalonador de vôos e linhas de trem, entre outros. Os resultados obtidos por programas dessa
         classe não são soluções exatas do problema, devido a complexidade ou a própria natureza deste.
         Programas da classe P, portanto, também possuem seus requisitos especificados com precisão e 
@@ -158,9 +163,11 @@
         operacionais, sistemas de controle aéreo, de mercado financeiro, entre outros. Programas 
         dessa classe modificam o seu domínio de aplicação após sua implantação inicial, então é 
         natural que com o passar do tempo novos requisitos sejam levantados para satisfazer 
-        novas necessidades da atividade que foi alterada. 
+        novas necessidades da atividade que foi alterada. Programas dessa classe estão
+        sujeitos a sofrerem alterações constantes após a implantação inicial e, portanto estão
+        em um processo de evolução constante (a letra E vem de \textit{evolution}).
         
-        Assim, sistemas dessa classe estão mais sujeitos a mudanças do que programas das classes S 
+        Assim, sistemas da classe E estão mais sujeitos a mudanças do que programas das classes S 
         e P, por isso Lehman dirigiu seu trabalho sobre a análise da evolução de programas da 
         classe E. Em uma tentativa de descrever esse processo de evolução em \cite{Lehman1980b}, o 
         autor propõe as \textit{leis da evolução de software}:
@@ -170,7 +177,7 @@
             \item Complexidade crescente: Com o processo de mudança contínua, a complexidade do 
                   software cresce, a menos que sejam dirigidos esforços para reduzir ou manter essa 
                   complexidade.
-            \item Auto regulação: A evolução de software é um processo auto regulado pelo feedback 
+            \item Auto regulação: A evolução de software é um processo auto regulado pelo \textit{feedback} 
                   das mudanças feitas no sistema e as reações a essas mudanças no domínio em que ele 
                   é utilizado.
             \item Conservação de estabilidade organizacional: A taxa com que as modificações são 
@@ -179,7 +186,7 @@
                   familiaridade com que seus desenvoldores tem com o sistema.
         \end{itemize}
 
-        O trabalho de Lehman foi o primeiro a utilizar o termo ``evolução de sofrware'' para
+        O trabalho de Lehman foi o primeiro a utilizar o termo ``evolução de software'' para
         descrever o processo de mudança sobre sistemas de software. Hoje, essa área de pesquisa
         envolve diversos temas, como: engenharia reversa e reengenharia, qualidade de software,
         gerenciamento de configuração de software, estimativas de custos, entre outros 
@@ -191,7 +198,7 @@
         algumas das leis se aplicam, enquanto ainda não há evidências concretas de validade da 
         maioria delas.
         
-    \section{Mineração de repositórios de software}
+    \section{Mineração de repositórios de software} \label{sc:mineracao}
         O termo ``repositório de software'' abrange todos os artefatos produzidos durante o 
         desenvolvimento de um sistema de software, desde os arquivos com o código fonte do sistema, até mensagens em listas de emails trocadas entre os desenvolvedores. Tais 
         repositórios contém informações valiosas, que podem ser exploradas para se compreender
@@ -260,7 +267,7 @@
         Database} (RHDB). Com os dados deste modelo, foram desenvolvidas três ferramentas para 
         vizualização das informações extraídas.
 
-    \section{Métricas de código}
+    \section{Métricas de código} \label{sc:metricas}
 
     \section{Ferramentas relacionados} \label{ch:trabalhos}
 
