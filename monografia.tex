@@ -199,10 +199,17 @@
         maioria delas.
         
     \section{Mineração de repositórios de software} \label{sc:mineracao}
+%% Chico, não gostei muito dessa seção. Vc falou muitas coisas legais, mas pra quem não entende de MSR, ficou complicado. Gaste mais alguns parágrafos explicando o que é, qual o objetivo, e etc. 
+%% Depois vc pode mandar bala e comentar classificação, tópicos estudados na área e etc.
+%% Dá uma olhada no curso de Evolução de Software que eu e o Gustavo demos. Tem muita coisa introdutória que seria legal aparecer aqui!
+    (revisar)
+
         O termo ``repositório de software'' abrange todos os artefatos produzidos durante o 
-        desenvolvimento de um sistema de software, desde os arquivos com o código fonte do sistema, até mensagens em listas de emails trocadas entre os desenvolvedores. Tais 
-        repositórios contém informações valiosas, que podem ser exploradas para se compreender
-        a evolução de software e contribuir com o desenvolvimento do projeto.
+        desenvolvimento de um sistema de software, desde os arquivos com o código fonte do sistema que 
+        pode estar armazenado em um sistema de controle de versão, até mensagens em listas de
+        emails trocadas entre os desenvolvedores. Tais repositórios contém informações valiosas, 
+        que podem ser exploradas para se compreender a evolução de software e contribuir com o 
+        desenvolvimento do projeto.
 
         Em \cite{Kagdi:2007}, é apresentada uma avaliação de diversos trabalhos de Mineração
         de Repositórios de Software (MRS). A partir da análise desses trabalhos, os autores propõem
@@ -269,21 +276,29 @@
 
     \section{Métricas de código} \label{sc:metricas}
 
-    \section{Ferramentas relacionados} \label{ch:trabalhos}
+    % Explique as principais que usamos no MetricMiner, ok? Complexidade ciclomática, Acoplamento aferente e eferente, LCOM, Linhas de código por método.
 
-    Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
-    \subsection{Sonar}
-        Não se conhece ferramentas web de suporte a mineração de repositórios de software. Uma ferramenta que se assemelha ao MetricMiner, é o Sonar \footnote{http://www.sonarsource.org/}, uma aplicação web que analisa o código fonte e extrai uma variedade de relatórios sobre o sistema, como resultados de métricas de código e dependências estruturais entre as classes. O foco desta ferramenta é apoiar a equipe de desenvolvimento e acompanhar a qualidade do código escrito. O Sonar não armazena metadados do sistema de controle versão e não permite que se extraia dados dos projetos armazenados, mas fornece uma interface de vizualização com muitos recursos. Por esses motivo, o Sonar é muito utilizado na indústria e pouco utilizado para fins acadêmicos.
-        
-        Diferentemente do Sonar, o MetricMiner tem o foco na área acadêmica, possibilitando que os usuários extraiam dados calculados pelo sistema para realizar a análise que desejar, sem focar tanto na vizualização dos dados armazenados.
+\chapter{Trabalhos relacionados} \label{ch:trabalhos}
+
+(revisar)
+% As ferramentas que vc citou ajudam a calcular métricas de código, mas não olham muito evolução de software, certo (tirando o sonar)?
+% Divida seus trabalhos relacionados em 2. Ferramentas de métrica de código, e ferramenta de MSR.
+% Comente da Evoltrack, Oceano (do pessoal da UFF), CodeCity. Googla tb pelo professor Harald Gall, acha o site do grupo de pesquisa dele, lá tem as ferramentas dele, e vale a pena comentar.
+% Faça também uma seção de "comparação". E mostre o que elas não tem e quais  são os principais problemas dela e pq fizemos o metricminer.
+
+Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
+\section{Sonar}
+    Não se conhece ferramentas web de suporte a mineração de repositórios de software. Uma ferramenta que se assemelha ao MetricMiner, é o Sonar \footnote{http://www.sonarsource.org/}, uma aplicação web que analisa o código fonte e extrai uma variedade de relatórios sobre o sistema, como resultados de métricas de código e dependências estruturais entre as classes. O foco desta ferramenta é apoiar a equipe de desenvolvimento e acompanhar a qualidade do código escrito. O Sonar não armazena metadados do sistema de controle versão e não permite que se extraia dados dos projetos armazenados, mas fornece uma interface de vizualização com muitos recursos. Por esses motivo, o Sonar é muito utilizado na indústria e pouco utilizado para fins acadêmicos.
     
-    \subsection{Eclipse Metrics}
-        O Eclipse Metrics\footnote{http://metrics.sourceforge.net/} é um \textit{plugin} para o Eclipse que calcula uma variedade de métricas de código no ambiente do desenvolvedor. Dessa forma, para que se acompanhe a evolução do código do projeto é necessário executar manualmente o \textit{plugin} para os \textit{releases} que se deseja analisar. No MetricMiner, o cálculo das métricas é realizado sobre todo o histórico de versões do projeto analisado, sem que o usuário precise selecionar as versões manualmente. Além disso, não é necessário que o usuário configure nada em seu ambiente e nem que mantenha as versões que deseja analisar localmente.
-        
-    \subsection{Kalibro}
-        Desenvolvida no Brasil, o Kalibro\footnote{http://www.kalibro.org/} é uma ferramenta que calcula as principais métricas de código fonte. O foco do Kalibro é dar suporte ao desenvolvedor, sugerindo valores de referência para as métricas calculadas, apontando possíveis problemas no projeto analisado. A ferramenta permite que os valores de referência sejam configurados por projeto. Através de código JavaScript, é possível compor as métricas calculadas pelo Kalibro, permitindo que o usuário crie novas métricas. Assim como o Eclipse Metrics, o Kalibro não analisa todo o histório de versões, de forma que o usuário precisaria selecionar as versões e recalcular as métricas manualmente.
+    Diferentemente do Sonar, o MetricMiner tem o foco na área acadêmica, possibilitando que os usuários extraiam dados calculados pelo sistema para realizar a análise que desejar, sem focar tanto na vizualização dos dados armazenados.
+
+\section{Eclipse Metrics}
+    O Eclipse Metrics\footnote{http://metrics.sourceforge.net/} é um \textit{plugin} para o Eclipse que calcula uma variedade de métricas de código no ambiente do desenvolvedor. Dessa forma, para que se acompanhe a evolução do código do projeto é necessário executar manualmente o \textit{plugin} para os \textit{releases} que se deseja analisar. No MetricMiner, o cálculo das métricas é realizado sobre todo o histórico de versões do projeto analisado, sem que o usuário precise selecionar as versões manualmente. Além disso, não é necessário que o usuário configure nada em seu ambiente e nem que mantenha as versões que deseja analisar localmente.
     
-\chapter{Arquitetura do MetricMiner} \label{ch:arquitetura}
+\section{Kalibro}
+    Desenvolvida no Brasil, o Kalibro\footnote{http://www.kalibro.org/} é uma ferramenta que calcula as principais métricas de código fonte. O foco do Kalibro é dar suporte ao desenvolvedor, sugerindo valores de referência para as métricas calculadas, apontando possíveis problemas no projeto analisado. A ferramenta permite que os valores de referência sejam configurados por projeto. Através de código JavaScript, é possível compor as métricas calculadas pelo Kalibro, permitindo que o usuário crie novas métricas. Assim como o Eclipse Metrics, o Kalibro não analisa todo o histório de versões, de forma que o usuário precisaria selecionar as versões e recalcular as métricas manualmente.
+    
+\chapter{MetricMiner} \label{ch:arquitetura}
     Nessa seção é apresentada a ferramenta desenvolvida, o MetricMiner. Na seção \ref{sc:tecnologias}, as tecnologias utilizadas para o desenvolvimento do sistema serão descritos brevemente. Em \ref{sc:abordagem}, será apresentado o fluxo do processo de mineração realizado pelo MetricMiner e as principais funcionalidades implementadas. Em \ref{sc:arquitetura}, serão presentados os detalhes da arquitetura da ferramenta.
 
     \section{Tecnologias envolvidas} \label{sc:tecnologias}
