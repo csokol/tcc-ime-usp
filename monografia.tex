@@ -71,14 +71,12 @@
     
     Nesse contexto, a Mineração de Repositórios de Software estuda esse processo de evolução 
     de forma empírica, por meio da análise dos artefatos envolvidos no seu desenvolvimento 
-    como código fonte, dados do sistema decontrole de versão e sistemas de rastreamento 
-    de bugs \cite{Kagdi:2007}. Por meio da mineração desses dados, podem ser desenvolvidos
-    encontradas diversas informações, como por exemplo a indentificação de classes que são 
-    muito modificadas, classes mais propensas a falhas, entre outras. Com essas informações, 
+    como código fonte, dados do sistema de controle de versão e sistemas de rastreamento 
+    de bugs \cite{Kagdi:2007}. Por meio da mineração desses dados, podem ser extraídas diversas
+    informações úteis ao desenvolvimento de um software, como por exemplo a indentificação de classes que são 
+    modificadas constantemente, classes mais propensas a falhas, entre outras. Com essas informações, 
     equipes de desenvolvimento podem tomar ações para aprimorar o processo de desenvolvimento 
     do sistema.
-
-    dá alguns exemplos aqui, tipo se conseguirmos identificar classes que sao muito modificadas, mais propensas a bugs, podemos dar mais atencao a elas… se detectarmos trechos de codigo que somente um dev mexe, podemos trabalhar para compartilhar esse conhecimento, e etc.
 
     \section{Motivação}
         Para desenvolver um trabalho em mineração de repositórios, o pesquisador é obrigado 
@@ -204,12 +202,17 @@
 %% Dá uma olhada no curso de Evolução de Software que eu e o Gustavo demos. Tem muita coisa introdutória que seria legal aparecer aqui!
     (revisar)
 
+        Compreender o processo de evolução de um software é uma tarefa complexa. Sistemas de software grandes possuem um longo histórico de desenvolvimento com diversos desenvolvedores trabalhando em diferentes partes do sistema. É comum que nenhum desenvolvedor conheça o código do sistema por completo por conta da sua complexidade ou mesmo porque os integrantes que iniciaram o desenvolvimento do projeto já não fazem mais parte da equipe. Portanto, analisar os dados históricos do desenvolvimento de um software grande manualmente é inviável. 
+
+        Dessa forma, a Mineração de Repositórios de Software aplica técnicas da Mineração de Dados em dados históricos do desenvolvimento de sistemas de software \cite{workshop-gustavo-aniche}. 
+
         O termo ``repositório de software'' abrange todos os artefatos produzidos durante o 
         desenvolvimento de um sistema de software, desde os arquivos com o código fonte do sistema que 
-        pode estar armazenado em um sistema de controle de versão, até mensagens em listas de
+        podem estar armazenados em um sistema de controle de versão, até mensagens em listas de
         emails trocadas entre os desenvolvedores. Tais repositórios contém informações valiosas, 
         que podem ser exploradas para se compreender a evolução de software e contribuir com o 
         desenvolvimento do projeto.
+
 
         Em \cite{Kagdi:2007}, é apresentada uma avaliação de diversos trabalhos de Mineração
         de Repositórios de Software (MRS). A partir da análise desses trabalhos, os autores propõem
