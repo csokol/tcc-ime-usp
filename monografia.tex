@@ -297,50 +297,22 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
     
 \chapter{MetricMiner} \label{ch:arquitetura}
 
-%% Motivação.
-%% Fale um pouquinho novamente da nossa motivação em fazer a ferramenta. O que queremos melhorar nas ferramentas já existentes.
-%% Comenta que foi derivada do rEvolution.
+    Todo o código e o histórico de desenvolvimento do MetricMiner se encontra hospedado no github: \url{http://github.com/metricminer/metricminer}. O MetricMiner surgiu a partir do rEvolution\footnote{http://github.com/mauricioaniche/rEvolution}, uma ferramenta de linha de comando que extrai dados de um repositório local e persiste em banco de dados  relacional. Boa parte do código do rEvolution pôde ser reutilizada no MetricMiner, como o componente que realiza a interface com o sistema de controle de versão, que será descrito com mais detalhes na seção \ref{sc:tecnologias}.
 
-    O MetricMiner surgiu a partir do rEvolution\footnote{http://github.com/mauricioaniche/rEvolution}, uma ferramenta de linha de comando que extrai dados de um repositório local e persiste em banco de dados  relacional. Boa parte do código do rEvolution pôde ser reutilizada no MetricMiner, como o componente que realiza a interface com o sistema de controle de versão, que será descrito com mais detalhes na seção \ref{sc:tecnologias}.
+    As limitações do rEvolution serviram de motivação para o desenvolvimento do MetricMiner. Primeiramente, o rEvolution coleta dados de apenas único projeto, de forma que é necessário executar o programa manualmente para a mineração de sistemas diferentes. Além disso, a configuração para se executar o rEvolution é complexa. É necessário configurar a conexão com o banco de dados, instalar o sistema de controle de versão utilizado pelo projeto a ser minerado e carregar o projeto localmente (o que pode ser demorado dependendo do tamanho do projeto). 
 
-    As limitações do rEvolution serviram de motivação para o desenvolvimento do MetricMiner. Primeiramente, o rEvolution coleta dados de apenas único projeto, de forma que é necessário executar o programa manualmente para a mineração de sistemas diferentes. Além disso, para executar a rEvolution é necessário instalar o sistema de controle de versão utilizado pelo projeto a ser minerado e carregar o projeto localmente, o que pode ser custoso. 
-
-    Assim, se decidiu que o MetricMiner deveria ser uma aplicação web, poupando o pesquisador de instalar e configurar qualquer ferramenta localmente. Além disso, sendo uma aplicação web, 
+    Assim, se decidiu que o MetricMiner deveria ser uma aplicação web, poupando o pesquisador de instalar e configurar qualquer ferramenta localmente. Além disso, sendo uma aplicação web, a ferramenta pode aproveitar a escalabilidade da computação em nuvem. Atualmente o MetricMiner está implantando sobre a infraestrutura de computação em nuvem da locaweb. Durante a fase de testes da ferramenta, a capacidade de armazenamento do disco chegou ao seu limite e foi necessário aumentar tal capacidade. Esse aprimoramento foi feito sem que fosse necessário reinstalar o servidor e sem que houvesse qualquer perda dos dados armazenados. O mesmo não seria possível se o MetricMiner não fosse uma aplicação web.
 
     Nas subçeções seguintes, o MetricMiner será descrito com maiores detalhes. Na subseção \ref{sc:tecnologias}, as tecnologias utilizadas para o desenvolvimento do sistema serão descritos brevemente. Em \ref{sc:abordagem}, será apresentado o fluxo do processo de mineração realizado pelo MetricMiner e as principais funcionalidades implementadas. Em \ref{sc:arquitetura}, serão presentados os detalhes da arquitetura da ferramenta.
 
-    \section{Tecnologias envolvidas} \label{sc:tecnologias}
-
-        Nessa seção serão descritas brevemente as tecnologias envolvidas no desenvolvimento do MetricMiner.
-
-        \subsection*{VRaptor 3}
-            O VRaptor\footnote{\url{http://vraptor.caelum.com.br/}} é um \textit{framework} para desenvolvimento 
-            web em java. Este \textit{framework} foca na simplicidade e no padrão de convenção sobre 
-            configuração\footnote{\url{http://en.wikipedia.org/wiki/Convention_over_configuration}} para tornar o 
-            desenvolvimento mais simples e eficiente. O VRaptor também se baseia fortemente no conceito de injeção 
-            de dependências \cite{fowlerdi}. A ideia por trás deste padrão é que as dependências de uma classe 
-            são criadas pelo container e não pela aplicação que utiliza tais dependências. O MetricMiner utiliza a 
-            injeção de dependências em diversos componentes importantes da arquitetura que serão descritos com 
-            mais detalhes na seção \ref{sc:arquitetura}
-
-        \subsection*{Hibernate}
-            O Hibernate é uma biblioteca de mapeamento objeto-relacional. Utilizando essa biblioteca, é possível 
-            mapear classes do sistema a tabelas de um banco de dados relacional de forma transparente para o 
-            desenvolvedor. Ou seja, é possível persistir e recuperar os dados sem que seja necessário escrever 
-            queries SQL explicitamente. Para minimizar a  quantidade de requisições ao banco de dados, o Hibernate 
-            faz cache em memória dos dados que serão persistidos. Em alguns pontos do MetricMiner esse 
-            comportamento padrão do Hibernate teve que ser modificado, já que diversas tarefas realizadas no 
-            sistema manipulam um volume grande de dados, o que acabou consumindo muita memória na máquina virtual 
-            do Java.
-
-        \subsection*{HTML, CSS e JavaScript}
-            O MetricMiner é uma aplicação web, portanto a interface com o usuário foi desenvolvida em HTML, CSS e Javascript, que são linguagens interpretadas por um navegador web. HTML (\textit{HyperText Markup Language}) é uma linguagem de marcação, utilizada para estruturar uma página renderizada pelo navegador. CSS (\textit{Cascading Style Sheets}) é uma linguagem declarativa utilizada especificar o layout dos elementos representados em HTML. JavaScript é uma linguagem de script executada pelo navegador após o carregamento da página, por meio dessa linguagem é possível criar efeitos na página renderizada pelo navegador, criando interfaces mais ricas. Como o foco deste trabalho não é no desenvolvimento da interface, foi utilizado um template de HTML e CSS com o layout básico das páginas do sistema. Para a exibição dos gráficos dos projetos foi utilizada a biblioteca em JavaScript \textit{Google Chart Tools}\footnote{https://developers.google.com/chart/}.
-
-
+    
     \section{Principais funcionalidades} \label{sc:abordagem}
         O MetricMiner possui uma interface web, pela qual os usuários podem cadastrar projetos de
-        sofware para serem minerados. Para esse cadastro, devem ser fornecidos um nome e a url pública para o repositório
-        de código do projeto. Como a maioria das etapas da mineração de dados são demoradas, como
+        sofware para serem minerados. Para esse cadastro, devem ser fornecidos um nome e a url
+        pública para o repositóriode código do projeto. Até o momento, os sistemas de controle de versão 
+        suportados são o Git e o SVN.
+
+        Como a maioria das etapas da mineração de dados são demoradas, como
         clonar repositórios, persistir suas informações no banco de dados e calcular métricas sobre o
         código fonte, essas tarefas são executadas de maneira assíncrona, por meio 
         de uma fila de execução representada no banco de dados. Cada tarefa é armazenada no sistema e 
@@ -384,7 +356,9 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
             \label{fig:screen_projeto}
         \end{figure}
 
-        Após o fim do processamento do projeto, o usuário pode realizar consultas aos dados processados pela ferramenta. A Figura \ref{fig:screen_query} exibe a tela na qual é possível inserir uma consulta em SQL ao banco de dados do MetricMiner. Depois de salvar a consulta, uma nova tarefa é adicionada à fila de execução e, ao final dessa tarefa, o usuário é informado por email do fim da execução da consulta e pode acessar a página da query para baixar os resultados em um arquivo no formato CSV (\textit{Comma Separated Values}). O usuário também pode acessar as queries criadas por outros usuários e reexecutar tais queries sobre a base de dados. Caso ocorra alguma falha na execução da query (um erro de sintaxe de SQL, por exemplo), a \textit{stacktrace} da falha é armazenada e o usuário pode vizulizá-la na página de resultados.
+        Após o fim do processamento do projeto, o usuário pode realizar consultas aos dados processados pela ferramenta. A Figura \ref{fig:screen_query} exibe a tela na qual é possível inserir uma consulta em SQL ao banco de dados do MetricMiner. Para preservarção da identidade, o nome e email dos autores são anonimizados, de forma que ao consultar o email de um desenvolvedor, por exemplo, é devolvido o resultado de uma função de hash do email desejado. Além disso, não é permitido realizar consultas sobre o código fonte dos projetos, dessa forma será possível minerar também sistemas de software da indústria, que não são distribuídos sob uma licença de código aberto.
+
+        Depois de salvar a consulta, uma nova tarefa é adicionada à fila de execução e, ao final dessa tarefa, o usuário é informado por email do fim da execução da consulta e pode acessar a página da query para baixar os resultados em um arquivo no formato CSV (\textit{Comma Separated Values}). O usuário também pode acessar as queries criadas por outros usuários e reexecutar tais queries sobre a base de dados. Caso ocorra alguma falha na execução da query (um erro de sintaxe de SQL, por exemplo), a \textit{stacktrace} da falha é armazenada e o usuário pode visulizá-la na página de resultados.
 
         \begin{figure}[ht]
             \centering
@@ -394,11 +368,46 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
         \end{figure}
         \clearpage
 
+    \section{Tecnologias envolvidas} \label{sc:tecnologias}
+
+        Nessa seção serão descritas brevemente as tecnologias envolvidas no desenvolvimento do MetricMiner.
+
+        \subsection*{VRaptor 3}
+            O VRaptor\footnote{\url{http://vraptor.caelum.com.br/}} é um \textit{framework} para desenvolvimento 
+            web em java. Este \textit{framework} foca na simplicidade e no padrão de convenção sobre 
+            configuração\footnote{\url{http://en.wikipedia.org/wiki/Convention_over_configuration}} para tornar o 
+            desenvolvimento mais simples e eficiente. O VRaptor também se baseia fortemente no conceito de injeção 
+            de dependências \cite{fowlerdi}. A ideia por trás deste padrão é que as dependências de uma classe 
+            são criadas pelo container e não pela aplicação que utiliza tais dependências. O MetricMiner utiliza a 
+            injeção de dependências em diversos componentes importantes da arquitetura que serão descritos com 
+            mais detalhes na seção \ref{sc:arquitetura}
+
+        \subsection*{Hibernate}
+            O Hibernate é uma biblioteca de mapeamento objeto-relacional. Utilizando essa biblioteca, é possível 
+            mapear classes do sistema a tabelas de um banco de dados relacional de forma transparente para o 
+            desenvolvedor. Ou seja, é possível persistir e recuperar os dados sem que seja necessário escrever 
+            queries SQL explicitamente. Para minimizar a  quantidade de requisições ao banco de dados, o Hibernate 
+            faz cache em memória dos dados que serão persistidos. Em alguns pontos do MetricMiner esse 
+            comportamento padrão do Hibernate teve que ser modificado, já que diversas tarefas realizadas no 
+            sistema manipulam um volume grande de dados, o que acabou consumindo muita memória na máquina virtual 
+            do Java.
+
+        \subsection*{HTML, CSS e JavaScript}
+            O MetricMiner é uma aplicação web, portanto a interface com o usuário foi desenvolvida em HTML, CSS e Javascript, que são linguagens interpretadas por um navegador web. HTML (\textit{HyperText Markup Language}) é uma linguagem de marcação, utilizada para estruturar uma página renderizada pelo navegador. CSS (\textit{Cascading Style Sheets}) é uma linguagem declarativa utilizada especificar o layout dos elementos representados em HTML. JavaScript é uma linguagem de script executada pelo navegador após o carregamento da página, por meio dessa linguagem é possível criar efeitos na página renderizada pelo navegador, criando interfaces mais ricas. Como o foco deste trabalho não é no desenvolvimento da interface, foi utilizado um template de HTML e CSS com o layout básico das páginas do sistema. Para a exibição dos gráficos dos projetos foi utilizada a biblioteca em JavaScript \textit{Google Chart Tools}\footnote{https://developers.google.com/chart/}.
+
+
+
     \section{Decisões arquiteturais} \label{sc:arquitetura}
+    (revisar)
+    %   eu colocaria aqui um paragrafo inicial descrevendo em alto nivel o sistema…
+    %   web java deployado em um tomcat, que usa mysql como base de dados, processamento assincrono para execucao 
+    %   de  jobs.. talvez ate um diagrama de componentes para exemplificar
 
         \subsection*{Modelo de dados}
             O diagrama da Figura \ref{fig:uml_modelo} exibe as principais classes do modelo de dados minerados pelo MetricMiner. Todas as classes e relacionamentos representados nesse diagrama são mapeados em tabelas no banco de dados por meio do Hibernate. 
 
+                % use estereotipos. tipo Project <<contém>> artefatos pra facilitar a leitura
+                % Kd a interface comum entre os Result? Se não existe, puxar uma nota ou coisa do tipo pra explicar
                 \begin{figure}[ht]
                     \centering
                     \includegraphics[width=1.00\textwidth]{img/uml-modelo.png}
@@ -420,11 +429,18 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
             \end{figure}
 
             Para inserir uma tarefa na fila, as informações dessa são inseridas no banco de dados, incluindo o nome completo (\textit{Fully qualified name}) da classe que implementa \codechunk{RunnableTaskFactory} dessa tarefa em particular. Depois, o método \codechunk{execute} da classe \codechunk{TaskRunner} extrai essas informações e constrói uma instância da factory dessa tarefa por meio da 
-            \textit{Reflection API}\footnote{\url{http://docs.oracle.com/javase/tutorial/reflect/index.html}} do Java. Finalmente, uma intância de \codechunk{RunnableTask} é construída e executada. Esse método é executado a cada dez segundos (por meio do plugin vraptor-tasks\footnote{\url{https://github.com/wpivotto/vraptor-tasks}}) e caso nenhuma tarefa esteja sendo executada, ela realiza o processo descrito anteriormente.
+            \textit{Reflection API}\footnote{\url{http://docs.oracle.com/javase/tutorial/reflect/index.html}} do Java. Finalmente, uma intância de \codechunk{RunnableTask} é construída e executada. Esse método é executado a cada dez segundos e caso nenhuma tarefa esteja sendo executada, ela realiza o processo descrito anteriormente. Para a implementação da classe \codechunk{TaskRunner}, foi utilizado o plugin vraptor-tasks\footnote{\url{https://github.com/wpivotto/vraptor-tasks}}, que utiliza o  quartz, um famoso \textit{framework} para escalonamento de tarefas no mundo java.
 
             Dessa forma, desenvolver novas tarefas é simples, basta criar duas classes implementando as interfaces descritas anteriormente e tal tarefa já poderá ser inserida a fila de execução do MetricMiner por meio do banco de dados.
 
         \subsection*{Cálculo das métricas de código} %% Metric, MetricFactory, CalculateAllMetricsTask (template method), CalculateMetricTask
+
+            % diagrama uml aqui, mesmo que simples, cai bem :)
+            % comentar das metricas que sao executadas depois de todas as do repositorio. 
+            % Como vc chamou isso mesmo?
+            % comentar que usamos o japaparser aqui, que eh baseado no ANTLR (confirmar no site) para parsear 
+            % codigo java. isso facilita a vida. 
+            % mostrar como funciona isso, abre qquer visitor, e veja como eh, e detalha! 
             De forma semelhante à arquitetura das tarefas da fila execução, também foi utilizado o padrão \codechunk{Abstract Factory} no design das métricas de código implementadas no MetricMiner. Assim, para cada métrica, existem duas classes implementando duas interfaces: \codechunk{Metric} e \codechunk{MetricFactory}. A interface \codechunk{MetricFactory} define apenas um método, \codechunk{build}, que devolve uma instância da métrica. A interface \codechunk{Metric} define dois métodos principais: 
 
             \begin{itemize}
@@ -435,6 +451,11 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
             Para encontrar as classes que implementam as métricas no classpath do MetricMiner, foi utilizado o recurso de \textit{Annotations}\footnote{\url{http://docs.oracle.com/javase/tutorial/java/javaOO/annotations.html}} do Java. Todas as classes que implementam métricas são anotadas com a anotação \codechunk{@MetricComponent}. Na inicialização do sistema, a classe \codechunk{MetricMinerConfigs} encontra todas as classes anotadas e as adiciona a lista de métricas registradas.
 
             Para executar tais métricas, a classe \codechunk{CalculateAllMetricsTask} é executada na fila de execução. Essa tarefa recebe as métricas registradas, percorre todas as versões de código de um determinado projeto cadastrado calculando todas as métricas e persistindo os resultados. De forma semelhante, a tarefa \codechunk{CalculateMetricTask} cálcula uma métrica específica para todas as versões de um projeto. 
+
+            % falar tb da parte de SCM, como funciona a interface SCM. explicar os métodos da interface e como  
+            % fazer para suportar novos.
+            % fala do MVC tb. como o vraptor implementa MVC, onde ficam os controllers, como funciona uma 
+            % requisição.
 
     \section{Estendendo e contribuindo com o projeto}
 
