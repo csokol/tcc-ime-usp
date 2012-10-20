@@ -197,14 +197,9 @@
         maioria delas.
         
     \section{Mineração de repositórios de software} \label{sc:mineracao}
-%% Chico, não gostei muito dessa seção. Vc falou muitas coisas legais, mas pra quem não entende de MSR, ficou complicado. Gaste mais alguns parágrafos explicando o que é, qual o objetivo, e etc. 
-%% Depois vc pode mandar bala e comentar classificação, tópicos estudados na área e etc.
-%% Dá uma olhada no curso de Evolução de Software que eu e o Gustavo demos. Tem muita coisa introdutória que seria legal aparecer aqui!
-    (revisar)
-
         Compreender o processo de evolução de um software é uma tarefa complexa. Sistemas de software grandes possuem um longo histórico de desenvolvimento com diversos desenvolvedores trabalhando em diferentes partes do sistema. É comum que nenhum desenvolvedor conheça o código do sistema por completo por conta da sua complexidade ou mesmo porque os integrantes que iniciaram o desenvolvimento do projeto já não fazem mais parte da equipe. Portanto, analisar os dados históricos do desenvolvimento de um software grande manualmente é inviável. 
 
-        Dessa forma, a Mineração de Repositórios de Software aplica técnicas da Mineração de Dados em dados históricos do desenvolvimento de sistemas de software \cite{workshop-gustavo-aniche}. 
+        Assim, a Mineração de Repositórios de Software analisa a evolução de software de forma automatizada aplicando técnicas da Mineração de Dados sobre o histórico do desenvolvimento de sistemas de software \cite{workshop-gustavo-aniche}. Os estudos desenvolvidos nessa área podem revelar informações úteis ao desenvolvimento de um projeto em particular ou ainda encontrar padrões na evolução de software que podem ser generalizados para outros sistemas (mas sempre com as limitações de um estudo empírico).
 
         O termo ``repositório de software'' abrange todos os artefatos produzidos durante o 
         desenvolvimento de um sistema de software, desde os arquivos com o código fonte do sistema que 
@@ -212,38 +207,6 @@
         emails trocadas entre os desenvolvedores. Tais repositórios contém informações valiosas, 
         que podem ser exploradas para se compreender a evolução de software e contribuir com o 
         desenvolvimento do projeto.
-
-
-        Em \cite{Kagdi:2007}, é apresentada uma avaliação de diversos trabalhos de Mineração
-        de Repositórios de Software (MRS). A partir da análise desses trabalhos, os autores propõem
-        uma taxonomia para classificar os estudos nessa área. Essa classificação se baseia
-        em quatro aspectos dos estudos avaliados: a fonte de informação dos dados, os objetivos
-        do trabalho, a metodologia adotada para analisar os dados e a granularidade dos dados
-        analisados.
-
-        Em relação às fontes de informação, três categorias foram levantadas: as versões do software 
-        e de seus artefatos, as diferenças entre esses artefatos e os metadados de cada mudança
-        feita sobre o software. As versões e alterações do software podem ser coletadas de Sistemas
-        de Controle de Versão (SCV). Os metadados dessas alterações, como autor, data e comentário do 
-        autor também podem ser extraídas do SCV e complementadas com dados de um sistema de 
-        rastreamento de bugs e mensagens trocadas pelos desenvolvedores em listas de email.
-
-        Quanto aos objetivos dos estudos em MRS, os autores classificam os trabalhos analisados
-        em relação às questões de pesquisa que dirigem esses estudos. Foram definidas duas classes
-        de questão de pesquisa. A primeira é composta por questões do tipo \textit{market-basket}
-        (termo emprestado da mineração de dados). São estudos que buscam avaliar a relação
-        entre certos eventos e dados da evolução de software. Questões de pesquisa como ``se um evento A
-        acontece quais outros eventos decorrem de A?'' se enquadram nesse conjunto. A segunda classe
-        é composta por questões de predomínio (\textit{prevalence question}). Questões como ``quantas
-        vezes um determinado módulo foi modificado?'' ou ``quais classes foram reutilizadas no sistema?''
-        são exemplos de questões dessa classe.
-
-        Dois métodos principais foram encontrados nos estudos avaliados. O primeiro é o estudo
-        de mudanças sobre propriedades do software (\textit{changes to properties}), que é a 
-        análise de propriedades de alto nível dos sistemas, como métricas de complexidade ou
-        manutenabilidade, por exemplo. Na segunda estratégia de estudo, são analisadas 
-        as alterações diretamente nos artefatos, em um nível mais baixo 
-        (\textit{changes to artifacts}).
 
         Em \cite{DBLP:series/springer/DAmbrosGLP08}, os autores destacam os seguintes tópicos 
         estudados na análise de repositórios de software:
@@ -277,6 +240,37 @@
         Database} (RHDB). Com os dados deste modelo, foram desenvolvidas três ferramentas para 
         vizualização das informações extraídas.
 
+        Em \cite{Kagdi:2007}, é apresentada uma avaliação de diversos trabalhos de Mineração
+        de Repositórios de Software (MRS). A partir da análise desses trabalhos, os autores propõem
+        uma taxonomia para classificar os estudos nessa área. Essa classificação se baseia
+        em quatro aspectos dos estudos avaliados: a fonte de informação dos dados, os objetivos
+        do trabalho, a metodologia adotada para analisar os dados e a granularidade dos dados
+        analisados.
+
+        Em relação às fontes de informação, três categorias foram levantadas: as versões do software 
+        e de seus artefatos, as diferenças entre esses artefatos e os metadados de cada mudança
+        feita sobre o software. As versões e alterações do software podem ser coletadas de Sistemas
+        de Controle de Versão (SCV). Os metadados dessas alterações, como autor, data e comentário do 
+        autor também podem ser extraídas do SCV e complementadas com dados de um sistema de 
+        rastreamento de bugs e mensagens trocadas pelos desenvolvedores em listas de email.
+
+        Quanto aos objetivos dos estudos em MRS, os autores classificam os trabalhos analisados
+        em relação às questões de pesquisa que dirigem esses estudos. Foram definidas duas classes
+        de questão de pesquisa. A primeira é composta por questões do tipo \textit{market-basket}
+        (termo emprestado da mineração de dados). São estudos que buscam avaliar a relação
+        entre certos eventos e dados da evolução de software. Questões de pesquisa como ``se um evento A
+        acontece quais outros eventos decorrem de A?'' se enquadram nesse conjunto. A segunda classe
+        é composta por questões de predomínio (\textit{prevalence question}). Questões como ``quantas
+        vezes um determinado módulo foi modificado?'' ou ``quais classes foram reutilizadas no sistema?''
+        são exemplos de questões dessa classe.
+
+        Dois métodos principais foram encontrados nos estudos avaliados. O primeiro é o estudo
+        de mudanças sobre propriedades do software (\textit{changes to properties}), que é a 
+        análise de propriedades de alto nível dos sistemas, como métricas de complexidade ou
+        manutenabilidade, por exemplo. Na segunda estratégia de estudo, são analisadas 
+        as alterações diretamente nos artefatos, em um nível mais baixo 
+        (\textit{changes to artifacts}).
+
     \section{Métricas de código} \label{sc:metricas}
 
     % Explique as principais que usamos no MetricMiner, ok? Complexidade ciclomática, Acoplamento aferente e eferente, LCOM, Linhas de código por método.
@@ -302,7 +296,18 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
     Desenvolvida no Brasil, o Kalibro\footnote{http://www.kalibro.org/} é uma ferramenta que calcula as principais métricas de código fonte. O foco do Kalibro é dar suporte ao desenvolvedor, sugerindo valores de referência para as métricas calculadas, apontando possíveis problemas no projeto analisado. A ferramenta permite que os valores de referência sejam configurados por projeto. Através de código JavaScript, é possível compor as métricas calculadas pelo Kalibro, permitindo que o usuário crie novas métricas. Assim como o Eclipse Metrics, o Kalibro não analisa todo o histório de versões, de forma que o usuário precisaria selecionar as versões e recalcular as métricas manualmente.
     
 \chapter{MetricMiner} \label{ch:arquitetura}
-    Nessa seção é apresentada a ferramenta desenvolvida, o MetricMiner. Na seção \ref{sc:tecnologias}, as tecnologias utilizadas para o desenvolvimento do sistema serão descritos brevemente. Em \ref{sc:abordagem}, será apresentado o fluxo do processo de mineração realizado pelo MetricMiner e as principais funcionalidades implementadas. Em \ref{sc:arquitetura}, serão presentados os detalhes da arquitetura da ferramenta.
+
+%% Motivação.
+%% Fale um pouquinho novamente da nossa motivação em fazer a ferramenta. O que queremos melhorar nas ferramentas já existentes.
+%% Comenta que foi derivada do rEvolution.
+
+    O MetricMiner surgiu a partir do rEvolution\footnote{http://github.com/mauricioaniche/rEvolution}, uma ferramenta de linha de comando que extrai dados de um repositório local e persiste em banco de dados  relacional. Boa parte do código do rEvolution pôde ser reutilizada no MetricMiner, como o componente que realiza a interface com o sistema de controle de versão, que será descrito com mais detalhes na seção \ref{sc:tecnologias}.
+
+    As limitações do rEvolution serviram de motivação para o desenvolvimento do MetricMiner. Primeiramente, o rEvolution coleta dados de apenas único projeto, de forma que é necessário executar o programa manualmente para a mineração de sistemas diferentes. Além disso, para executar a rEvolution é necessário instalar o sistema de controle de versão utilizado pelo projeto a ser minerado e carregar o projeto localmente, o que pode ser custoso. 
+
+    Assim, se decidiu que o MetricMiner deveria ser uma aplicação web, poupando o pesquisador de instalar e configurar qualquer ferramenta localmente. Além disso, sendo uma aplicação web, 
+
+    Nas subçeções seguintes, o MetricMiner será descrito com maiores detalhes. Na subseção \ref{sc:tecnologias}, as tecnologias utilizadas para o desenvolvimento do sistema serão descritos brevemente. Em \ref{sc:abordagem}, será apresentado o fluxo do processo de mineração realizado pelo MetricMiner e as principais funcionalidades implementadas. Em \ref{sc:arquitetura}, serão presentados os detalhes da arquitetura da ferramenta.
 
     \section{Tecnologias envolvidas} \label{sc:tecnologias}
 

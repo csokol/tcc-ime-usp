@@ -6,5 +6,5 @@ all: clean monografia.tex
 	pdflatex -shell-escape monografia.tex
 
 clean:
-	rm -f *.pdf *.log *.toc *.aux *.idx *.blg *.bbl *.out
+	rm -f monografia.pdf *.log *.toc *.aux *.idx *.blg *.bbl *.out
 
