@@ -1,0 +1,30 @@
+para saber o numero de artefatos atualemnte por projeto
+
+SELECT p.name, COUNT(a.id) AS deleted_artifacts, 
+    (SELECT COUNT(id) FROM Artifact WHERE Artifact.project_id=p.id) - COUNT(a.id) AS total_artifacts
+FROM Artifact a 
+JOIN Project p ON p.id = a.project_id 
+JOIN Modification m ON m.artifact_id = a.id 
+WHERE m.kind = 'DELETED'   
+GROUP by p.id
+ORDER BY p.name
+
+SELECT p.name, (
+	SELECT COUNT(art.id) 
+	FROM Artifact art 
+	JOIN Modification m ON m.artifact_id = art.id 
+	WHERE art.project_id = p.id AND m.kind="NEW"
+) - COUNT(a.id) AS total_artifacts
+FROM Artifact a 
+JOIN Project p ON p.id = a.project_id 
+JOIN Modification m ON m.artifact_id = a.id 
+WHERE m.kind = 'DELETED'   
+GROUP by p.id
+ORDER BY p.name
+
+total de commits
+
+SELECT p.name, COUNT(c.id) FROM Project p 
+JOIN Commit c ON c.project_id = p.id
+GROUP BY p.id
+ORDER BY p.name
