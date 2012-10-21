@@ -9,18 +9,24 @@ WHERE m.kind = 'DELETED'
 GROUP by p.id
 ORDER BY p.name
 
-SELECT p.name, (
-	SELECT COUNT(art.id) 
-	FROM Artifact art 
-	JOIN Modification m ON m.artifact_id = art.id 
-	WHERE art.project_id = p.id AND m.kind="NEW"
-) - COUNT(a.id) AS total_artifacts
-FROM Artifact a 
-JOIN Project p ON p.id = a.project_id 
-JOIN Modification m ON m.artifact_id = a.id 
-WHERE m.kind = 'DELETED'   
-GROUP by p.id
-ORDER BY p.name
+
+SELECT deleted.name, deleted.deleted_artifacts, new.new_artifacts, new.new_artifacts - deleted.deleted_artifacts as total_artifacts from (
+	SELECT p.name as name, p.id as pid, COUNT(distinct (a.id)) AS deleted_artifacts
+	FROM Artifact a 
+	JOIN Project p ON p.id = a.project_id 
+	JOIN Modification m ON m.artifact_id = a.id 
+	WHERE m.kind = 'DELETED'   
+	GROUP by p.id
+)
+as deleted JOIN (
+	SELECT p.name as name, p.id as pid, COUNT(distinct (a.id)) AS new_artifacts
+	FROM Artifact a 
+	JOIN Project p ON p.id = a.project_id 
+	JOIN Modification m ON m.artifact_id = a.id 
+	WHERE m.kind = 'NEW'   
+	GROUP by p.id
+) as new ON new.pid = deleted.pid
+ORDER BY total_artifacts;
 
 total de commits
 

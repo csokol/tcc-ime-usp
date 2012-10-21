@@ -469,11 +469,39 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
     \section{Resultados obtidos com a mineração de repositórios públicos} \label{sc:apache}
 
-        Para avaliar a capacidade da ferramenta desenvolvida, foram utilizados os projetos de código aberto disponibilizados pela \textit{Apache Software Foundation}. O código desses projetos pode ser acessado por por meio do sistema de controle de versão Git, a lista completa de projetos se encontra em \link{http://git.apache.org/}. No total, foram cadastrados e processados 307 projetos de código aberto.
+        Para avaliar a capacidade da ferramenta desenvolvida, foram utilizados os projetos de código aberto disponibilizados pela \textit{Apache Software Foundation}. O código desses projetos pode ser acessado por por meio do sistema de controle de versão Git, a lista completa de projetos se encontra em \url{http://git.apache.org/}. No total, foram cadastrados e processados 307 projetos de código aberto.
 
-        Esse conjunto de projetos minerados possui grande variedade. Em relação ao domínio de aplicação, existem projetos de domínios complexos como o \textit{Apache Harmony} - uma implementação da JVM - como outros mais simples como \textit{Apache Commons Exec} - uma biblioteca java para a execução de comandos do sistema. Além disso os projetos variam bastante em relação ao tamanho, a tabela 
-\begin{verbatim}
-\end{verbatim}
+        Esse conjunto de projetos minerados possui grande variedade. Em relação ao domínio de aplicação, existem projetos de domínios complexos como o \textit{Harmony} - uma implementação da JVM - como outros mais simples como \textit{Commons Exec} - uma biblioteca java para a execução de comandos do sistema operacional. Além disso, os projetos variam bastante em relação ao tamanho de seu histórico, a tabela \ref{tab:commits} exibe os dez projetos com maior número de commits. Enquanto o projeto \textit{Subversion} possui mais de 40 mil commits, outros projetos menores como o \textit{Savan} possui menos de 20 commits em seu histórico de desenvolvimento. Em média, os projetos armazenados possuem 2660 commits.
+
+        \begin{table}\begin{center}
+        \begin{tabular}{| p{6cm} | p{4cm} |}
+            \hline                        
+            \textbf{Projeto} & \textbf{Total de commits} \\
+            \hline                        
+            Apache Subversion & 44224 \\
+            \hline
+            Apache Flex (Incubating) & 30372 \\
+            \hline
+            Apache HTTP Server & 24038 \\
+            \hline
+            Apache OFBiz & 19555 \\
+            \hline
+            Apache Wicket & 16437 \\
+            \hline
+            Apache Tuscany SCA 2.x & 16216 \\
+            \hline
+            Apache Axis1 & 18610 \\
+            \hline
+            Apache Geronimo & 13136 \\
+            \hline
+            Apache Cocoon & 13132 \\
+            \hline
+            Apache Ant & 12782 \\
+            \hline
+        \end{tabular}
+        \label{tab:commits}
+        \caption{Dez projetos com maior número de commits processados no MetricMiner}
+        \end{center}\end{table}
 
     \section{Estudo de caso} \label{sc:estudo-caso}
 
@@ -486,5 +514,3 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
 \end{document}
 
-
-git show 62d7d27bb005ac0f58d5b6a8d2a161943315eded --pretty=format:%H author %ae date %ai message %s
