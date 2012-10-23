@@ -12,6 +12,7 @@
 \usepackage{setspace}
 \usepackage{monografia}
 \usepackage{hyperref}
+\usepackage{verbatim}
 \usepackage[a4paper, top=46mm, left=29mm, right=29mm, bottom=32mm, includefoot]{geometry}
 
 \usepackage[pdftex]{graphicx}           % usamos arquivos pdf/png como figuras
@@ -471,10 +472,12 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
         Para avaliar a capacidade da ferramenta desenvolvida, foram utilizados os projetos de código aberto disponibilizados pela \textit{Apache Software Foundation}. O código desses projetos pode ser acessado por por meio do sistema de controle de versão Git, a lista completa de projetos se encontra em \url{http://git.apache.org/}. No total, foram cadastrados e processados 307 projetos de código aberto.
 
-        Esse conjunto de projetos minerados possui grande variedade. Em relação ao domínio de aplicação, existem projetos de domínios complexos como o \textit{Harmony} - uma implementação da JVM - como outros mais simples como \textit{Commons Exec} - uma biblioteca java para a execução de comandos do sistema operacional. Além disso, os projetos variam bastante em relação ao tamanho de seu histórico, a tabela \ref{tab:commits} exibe os dez projetos com maior número de commits. Enquanto o projeto \textit{Subversion} possui mais de 40 mil commits, outros projetos menores como o \textit{Savan} possui menos de 20 commits em seu histórico de desenvolvimento. Em média, os projetos armazenados possuem 2660 commits.
+        Esse conjunto de projetos minerados possui grande variedade em relação ao domínio de aplicação: existem projetos de domínios complexos como o \textit{Harmony} - uma implementação da máquina virtual java - assim como outros mais simples como \textit{Commons Exec} - uma biblioteca java para a execução de comandos do sistema operacional. 
+
+        Além disso, os projetos variam bastante em relação ao tamanho de seu histórico, a tabela \ref{tab:commits} exibe os dez projetos com maior número de commits. Enquanto o projeto \textit{Subversion} possui mais de 40 mil commits, outros projetos menores como o \textit{Savan} possui menos de 20 commits em seu histórico de desenvolvimento. Em média, os projetos armazenados possuem 2660 commits. A tabela \ref{tab:artefatos} exibe os projetos com maior número de artefatos de código (qualquer arquivo não binário armazenado no repositório) processados no MetricMiner. Essas informações foram extraídas por meio da execução de consultas SQL pela interface do MetricMiner\footnote{As duas consultas utilizadas para extrair essas informações podem ser vizualizadas em \url{http://metricminer.org.br/query/3} e \url{http://metricminer.org.br/query/5}. Nessas páginas também é possível baixar os resultados completos das consultas.}.
 
         \begin{table}\begin{center}
-        \begin{tabular}{| p{6cm} | p{4cm} |}
+        \begin{tabular}{| p{5cm} | p{8.5cm} |}
             \hline                        
             \textbf{Projeto} & \textbf{Total de commits} \\
             \hline                        
@@ -499,9 +502,55 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
             Apache Ant & 12782 \\
             \hline
         \end{tabular}
-        \label{tab:commits}
-        \caption{Dez projetos com maior número de commits processados no MetricMiner}
+        \caption{Dez projetos com maior número de commits processados no MetricMiner \label{tab:commits}}
         \end{center}\end{table}
+
+        \begin{table}\begin{center}
+        \begin{tabular}{| p{5cm} | p{8.5cm} |}
+            \hline                        
+            \textbf{Projeto} & \textbf{Total de artefatos de código processados} \\
+            \hline
+            106363 & Apache James \\
+            \hline
+            50469 & Apache Tuscany SCA 2.x \\
+            \hline
+            45957 & Apache Zeta Components \\
+            \hline
+            40287 & Apache Web Services Commons XMLSchema \\
+            \hline
+            32738 & Apache Tuscany SCA 1.x \\
+            \hline
+            32321 & Apache Wicket \\
+            \hline
+            31535 & Apache Cocoon \\
+            \hline
+            29158 & Apache Geronimo \\
+            \hline
+            28113 & Apache OpenEJB \\
+            \hline
+            26673 & Apache CXF \\
+            \hline
+        \end{tabular}
+        \caption{Dez projetos com maior número de artefatos processados no MetricMiner \label{tab:artefatos}}
+        \end{center}\end{table}
+
+        A mineração desses repositórios foi utilizada para dirigir a implementação do MetricMiner. Diversas pequenas otimizações foram realizadas ao longo do desenvolvimento e seus resultados foram medidos com a mineração desses repositórios. Dentre essas otimizações podemos destacar as seguintes:
+        \begin{itemize}
+            \item \textbf{Utilização \codechunk{StatelessSession} do Hibernate:} A classe utilizada normalmente para se realizar consultas ao banco de dados com o Hibernate é a \codechunk{Session}. Por padrão, essa classe faz cache das entidades persistidas ou buscadas no banco de dados. Durante os testes, percebeu-se que esse comportamento padrão causava um consumo de memória muito alto. Para contornar esse problema, foi utilizada a classe \codechunk{StatelessSession}, que não realiza nenhum tipo de cache dos dados.
+            \item \textbf{Consulta para buscar códigos fonte no cálculo de métricas:} Inicialmente, para buscar os códigos fonte para calcular as métricas de código na tarefa \codechunk{CalculateAllMetricsTask}, era utilizada uma consulta que envolvia uma operação \codechunk{JOIN} de SQL trazendo o conteúdo dos arquivos do banco de dados. Como a quantidade de resultados era muito grande, foi necessário paginar os resultados dessa consulta, e portanto essa era executada diversas vezes para processar todas as versões dos arquivos dos projetos. Com o aumento do número de entradas armazenadas, esse processo se tornou  lento. Para otimizar essa tarefa, ao invés de realizar diversos \codechunk{JOIN}'s, foi utilizada apenas uma consulta para trazer todas os identificadores dos arquivos de código para calcular as métricas e só então o conteúdo de fato desses arquivos eram trazidos do banco de dados, diretamente pela sua chave primária. Assim, ao invés de executar diversas operações de \codechunk{JOIN} (que é uma operação custosa em bancos de dados relacionais), é feita apenas uma consulta envolvendo tal operação.
+
+            \begin{comment}
+Query query = statelessSession.createQuery("select source from SourceCode source "
+    + "join fetch source.artifact as artifact where artifact.project.id = :project_id "
+    + " and source.sourceSize < :sourceSize");
+query.setParameter("project_id", project.getId())
+    .setParameter("sourceSize", MAX_SOURCE_SIZE)
+    .setFirstResult(page * PAGE_SIZE)
+    .setMaxResults(PAGE_SIZE);
+            \end{comment}
+
+            \item \textbf{Cache de segundo nível:} Além do cache de primeiro nível (descrito brevemente no primeiro item), o Hibernate possui um segundo cache
+        \end{itemize}
 
     \section{Estudo de caso} \label{sc:estudo-caso}
 

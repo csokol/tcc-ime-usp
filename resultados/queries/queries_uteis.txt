@@ -28,9 +28,16 @@ as deleted JOIN (
 ) as new ON new.pid = deleted.pid
 ORDER BY total_artifacts;
 
+
 total de commits
 
 SELECT p.name, COUNT(c.id) FROM Project p 
 JOIN Commit c ON c.project_id = p.id
+GROUP BY p.id
+ORDER BY p.name
+
+
+SELECT p.name, COUNT(a.id) FROM Project p 
+JOIN Artifact a ON a.project_id = p.id
 GROUP BY p.id
 ORDER BY p.name
