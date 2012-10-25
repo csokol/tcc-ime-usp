@@ -33,8 +33,7 @@ CREATE TABLE `Task` (
   `submitDate` datetime DEFAULT NULL,
   `project_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK27A9A5783885CC` (`project_id`),
-  CONSTRAINT `FK27A9A5783885CC` FOREIGN KEY (`project_id`) REFERENCES `Project` (`id`)
+  KEY `FK27A9A5783885CC` (`project_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1328 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
