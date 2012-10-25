@@ -534,30 +534,30 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
         \caption{Dez projetos com maior número de artefatos processados no MetricMiner \label{tab:artefatos}}
         \end{center}\end{table}
 
-        A mineração desses repositórios foi utilizada para dirigir a implementação do MetricMiner. Diversas pequenas otimizações foram realizadas ao longo do desenvolvimento e seus resultados foram medidos com a mineração desses repositórios.
+        A mineração desses repositórios foi utilizada para dirigir a implementação do MetricMiner. Diversas pequenas otimizações foram realizadas ao longo do desenvolvimento e seus resultados foram medidos com a mineração desses repositórios. A tabela \ref{tab:evolucao} exibe a evolução do desempenho ao longo do densenvolvimento da ferramenta.
 
 
         \begin{table}\begin{center}
-        \begin{tabular}{| p{4cm} | p{1.8cm} | p{1.8cm} | p{1.8cm} | p{1.8cm} | p{1.8cm} | }
+        \begin{tabular}{| p{5cm} | p{1.8cm} | p{1.8cm} | p{1.8cm} | p{1.8cm} | p{1.8cm} | }
             \hline                        
-            \textbf{Data} & \textbf{07/08/12} & \textbf{10/08/12} & \textbf{16/08/12} & \textbf{07/10/12} 
-             & \textbf{Versão atual} \\
+            \textbf{Data} & \textbf{07/ago} & \textbf{16/ago} & \textbf{07/out} 
+             & \textbf{25/out} \\
             \hline
-            \textbf{Tempo de duração médio das tarefas} & 5.3 & 5.8 & 4.4 & 5.0 & 3.0 \\
+            \textbf{Tempo de duração médio das tarefas em minutos} & 5.3 & 4.4 & 5.0 & 3.0 \\
             \hline
-            \textbf{Tempo médio das dez tarefas mais lentas} & 58.2 & 77.9 & 40.3 & 44.2 & 35.3 \\
+            \textbf{Tempo médio das dez tarefas mais lentas em minutos} & 58.2 & 40.3 & 44.2 & 35.3 \\
             \hline
-            \textbf{Tarefas com erros} & 0 & 3 & 0 & 12 & 0 \\
+            \textbf{Tarefas com erros} & 0 & 0 & 12 & 0 \\
             \hline
         \end{tabular}
-        \caption{Dez projetos com maior número de artefatos processados no MetricMiner \label{tab:artefatos}}
+        \caption{Evolução do desempenho do processamento dos projetos ao longo do desenvolvimento do MetricMiner \label{tab:evolucao}}
         \end{center}\end{table}
 
 
         Dentre essas otimizações podemos destacar as seguintes:
         \begin{itemize}
             \item \textbf{Utilização \codechunk{StatelessSession} do Hibernate:} A classe utilizada normalmente para se realizar consultas ao banco de dados com o Hibernate é a \codechunk{Session}. Por padrão, essa classe faz cache das entidades persistidas ou buscadas no banco de dados. Durante os testes, percebeu-se que esse comportamento padrão causava um consumo de memória muito alto. Para contornar esse problema, foi utilizada a classe \codechunk{StatelessSession}, que não realiza nenhum tipo de cache dos dados.
-            \item \textbf{Consulta para buscar códigos fonte no cálculo de métricas:} Inicialmente, para buscar os códigos fonte para calcular as métricas de código na tarefa \codechunk{CalculateAllMetricsTask}, era utilizada uma consulta que envolvia uma operação \codechunk{JOIN} de SQL trazendo o conteúdo dos arquivos do banco de dados. Como a quantidade de resultados era muito grande, foi necessário paginar os resultados dessa consulta, e portanto essa era executada diversas vezes para processar todas as versões dos arquivos dos projetos. Com o aumento do número de entradas armazenadas, esse processo se tornou  lento. Para otimizar essa tarefa, ao invés de realizar diversos \codechunk{JOIN}'s, foi utilizada apenas uma consulta para trazer todas os identificadores dos arquivos de código para calcular as métricas e só então o conteúdo de fato desses arquivos eram trazidos do banco de dados, diretamente pela sua chave primária. Assim, ao invés de executar diversas operações de \codechunk{JOIN} (que é uma operação custosa em bancos de dados relacionais), é feita apenas uma consulta envolvendo tal operação.
+            \item \textbf{Consulta para buscar códigos fonte no cálculo de métricas:} Inicialmente, para buscar os códigos fonte para calcular as métricas de código na tarefa \codechunk{CalculateAllMetricsTask}, era utilizada uma consulta que envolvia uma operação \codechunk{JOIN} de SQL trazendo o conteúdo dos arquivos do banco de dados. Como a quantidade de resultados era muito grande, foi necessário paginar os resultados dessa consulta, e portanto essa era executada diversas vezes para processar todas as versões dos arquivos dos projetos. Com o aumento do número de entradas armazenadas, esse processo se tornou  lento. Para otimizar essa tarefa, ao invés de realizar diversos \codechunk{JOIN}'s (que é uma operação custosa em bancos de dados relacionais), foi utilizada apenas uma consulta para trazer todos os identificadores dos arquivos de código e só então o conteúdo de fato desses arquivos eram trazidos do banco de dados para calcular as métricas, diretamente pela sua chave primária. Assim, ao invés de executar diversas operações de \codechunk{JOIN} , é feita apenas uma consulta envolvendo tal operação.
 
             \begin{comment}
 Query query = statelessSession.createQuery("select source from SourceCode source "
@@ -572,9 +572,8 @@ query.setParameter("project_id", project.getId())
             \item \textbf{Cache de segundo nível:} Além do cache de primeiro nível (descrito brevemente no primeiro item), o Hibernate possui um segundo cache, o cache de segundo nível. Diferentemente do cache de primeiro nível, que armazena apenas dados manipulados por uma única instância da classe Session, o cache de segundo nível armazena o resultado de consultas realizadas ao banco por todas as sessões abertas. Por padrão, o cache de segundo nível é desabilitado, no MetricMiner foi utilizada a implementação do EHCACHE\footnote{http://ehcache.org/}. A utilização de tal cache poupou o número de requisições ao banco de dados principalmente nos acessos às páginas web servidas pelo MetricMiner.
         \end{itemize}
 
-        
-
     \section{Estudo de caso} \label{sc:estudo-caso}
+        Para mostrar o valor da ferramenta no contexto de pesquisa em Mineração de Repositórios, foi feita a reprodução de um estudo publicado na área. O trabalho publicado em \cite{SoetensQUATIC2010} foi reproduzido e estendido utilizando os dados minerados no MetricMiner por meio de sua interface de consultas ao banco de dados.
 
 \chapter{Conclusão e trabalhos futuros} \label{ch:conclusao}
 
