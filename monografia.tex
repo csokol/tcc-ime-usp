@@ -274,8 +274,6 @@
 
     \section{Métricas de código-fonte} \label{sc:metricas}
 
-        Métricas de código-fonte são medidas 
-
     % Explique as principais que usamos no MetricMiner, ok? Complexidade ciclomática, Acoplamento aferente e eferente, LCOM, Linhas de código por método.
 
 \chapter{Trabalhos relacionados} \label{ch:trabalhos}
@@ -477,7 +475,7 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
         Além disso, os projetos variam bastante em relação ao tamanho de seu histórico, a tabela \ref{tab:commits} exibe os dez projetos com maior número de commits. Enquanto o projeto \textit{Subversion} possui mais de 40 mil commits, outros projetos menores como o \textit{Savan} possui menos de 20 commits em seu histórico de desenvolvimento. Em média, os projetos armazenados possuem 2660 commits. A tabela \ref{tab:artefatos} exibe os projetos com maior número de artefatos de código (qualquer arquivo não binário armazenado no repositório) processados no MetricMiner. Essas informações foram extraídas por meio da execução de consultas SQL pela interface do MetricMiner\footnote{As duas consultas utilizadas para extrair essas informações podem ser vizualizadas em \url{http://metricminer.org.br/query/3} e \url{http://metricminer.org.br/query/5}. Nessas páginas também é possível baixar os resultados completos das consultas.}.
 
         \begin{table}\begin{center}
-        \begin{tabular}{| p{5cm} | p{8.5cm} |}
+        \begin{tabular}{| p{6cm} | p{6cm} |}
             \hline                        
             \textbf{Projeto} & \textbf{Total de commits} \\
             \hline                        
@@ -506,35 +504,35 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
         \end{center}\end{table}
 
         \begin{table}\begin{center}
-        \begin{tabular}{| p{5cm} | p{8.5cm} |}
+        \begin{tabular}{| p{6cm} | p{6cm} |}
             \hline                        
             \textbf{Projeto} & \textbf{Total de artefatos de código processados} \\
             \hline
-            106363 & Apache James \\
+            Apache James & 106363 \\
             \hline
-            50469 & Apache Tuscany SCA 2.x \\
+            Apache Tuscany SCA 2.x & 50469 \\
             \hline
-            45957 & Apache Zeta Components \\
+            Apache Zeta Components & 45957\\
             \hline
-            40287 & Apache Web Services Commons XMLSchema \\
+            Apache Web Services Commons XMLSchema & 40287 \\
             \hline
-            32738 & Apache Tuscany SCA 1.x \\
+            Apache Tuscany SCA 1.x & 32738 \\
             \hline
-            32321 & Apache Wicket \\
+            Apache Wicket & 32321 \\
             \hline
-            31535 & Apache Cocoon \\
+            Apache Cocoon & 31535 \\
             \hline
-            29158 & Apache Geronimo \\
+            Apache Geronimo & 29158 \\
             \hline
-            28113 & Apache OpenEJB \\
+            Apache OpenEJB & 28113 \\
             \hline
-            26673 & Apache CXF \\
+            Apache CXF & 26673 \\
             \hline
         \end{tabular}
         \caption{Dez projetos com maior número de artefatos processados no MetricMiner \label{tab:artefatos}}
         \end{center}\end{table}
 
-        A mineração desses repositórios foi utilizada para dirigir a implementação do MetricMiner. Diversas pequenas otimizações foram realizadas ao longo do desenvolvimento e seus resultados foram medidos com a mineração desses repositórios. A tabela \ref{tab:evolucao} exibe a evolução do desempenho ao longo do densenvolvimento da ferramenta.
+        A mineração desses repositórios foi utilizada para dirigir o desenvolvimento do MetricMiner. Diversas pequenas otimizações foram realizadas ao longo do desenvolvimento e seus resultados foram medidos com a mineração desses repositórios. A tabela \ref{tab:evolucao} exibe a evolução do desempenho ao longo do densenvolvimento da ferramenta.
 
 
         \begin{table}\begin{center}
@@ -556,8 +554,8 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
         Dentre essas otimizações podemos destacar as seguintes:
         \begin{itemize}
-            \item \textbf{Utilização \codechunk{StatelessSession} do Hibernate:} A classe utilizada normalmente para se realizar consultas ao banco de dados com o Hibernate é a \codechunk{Session}. Por padrão, essa classe faz cache das entidades persistidas ou buscadas no banco de dados. Durante os testes, percebeu-se que esse comportamento padrão causava um consumo de memória muito alto. Para contornar esse problema, foi utilizada a classe \codechunk{StatelessSession}, que não realiza nenhum tipo de cache dos dados.
-            \item \textbf{Consulta para buscar códigos fonte no cálculo de métricas:} Inicialmente, para buscar os códigos fonte para calcular as métricas de código na tarefa \codechunk{CalculateAllMetricsTask}, era utilizada uma consulta que envolvia uma operação \codechunk{JOIN} de SQL trazendo o conteúdo dos arquivos do banco de dados. Como a quantidade de resultados era muito grande, foi necessário paginar os resultados dessa consulta, e portanto essa era executada diversas vezes para processar todas as versões dos arquivos dos projetos. Com o aumento do número de entradas armazenadas, esse processo se tornou  lento. Para otimizar essa tarefa, ao invés de realizar diversos \codechunk{JOIN}'s (que é uma operação custosa em bancos de dados relacionais), foi utilizada apenas uma consulta para trazer todos os identificadores dos arquivos de código e só então o conteúdo de fato desses arquivos eram trazidos do banco de dados para calcular as métricas, diretamente pela sua chave primária. Assim, ao invés de executar diversas operações de \codechunk{JOIN} , é feita apenas uma consulta envolvendo tal operação.
+            \item \textbf{Utilização \codechunk{StatelessSession} do Hibernate:} A classe utilizada normalmente para se realizar consultas ao banco de dados com o Hibernate é a \codechunk{Session}. Por padrão, uma instância dessa classe armazena em cache as entidades persistidas ou buscadas no banco de dados. Durante os testes, percebeu-se que esse comportamento padrão causava um consumo de memória muito alto. Para contornar esse problema, foi utilizada a classe \codechunk{StatelessSession}, que não realiza nenhum tipo de cache dos dados.
+            \item \textbf{Consulta para buscar códigos fonte no cálculo de métricas:} Inicialmente, para buscar os códigos fonte para calcular as métricas de código na tarefa \codechunk{CalculateAllMetricsTask}, era utilizada uma consulta que envolvia uma operação \codechunk{JOIN} de SQL trazendo o conteúdo dos arquivos do banco de dados. Como a quantidade de resultados era muito grande, foi necessário paginar os resultados dessa consulta, e portanto essa era executada diversas vezes para processar todas as versões dos arquivos dos projetos. Com o aumento do número de entradas armazenadas, esse processo se tornou  lento. Para otimizar essa tarefa, ao invés de realizar diversos \codechunk{JOIN}'s (que é uma operação custosa em bancos de dados relacionais), foi utilizada apenas uma consulta para trazer todos os identificadores dos arquivos de código e só então o conteúdo de fato desses arquivos eram trazidos do banco de dados para calcular as métricas, diretamente pela sua chave primária. Assim, ao invés de executar diversas operações \codechunk{JOIN}, é feita apenas uma consulta envolvendo tal operação.
 
             \begin{comment}
 Query query = statelessSession.createQuery("select source from SourceCode source "
@@ -572,8 +570,21 @@ query.setParameter("project_id", project.getId())
             \item \textbf{Cache de segundo nível:} Além do cache de primeiro nível (descrito brevemente no primeiro item), o Hibernate possui um segundo cache, o cache de segundo nível. Diferentemente do cache de primeiro nível, que armazena apenas dados manipulados por uma única instância da classe Session, o cache de segundo nível armazena o resultado de consultas realizadas ao banco por todas as sessões abertas. Por padrão, o cache de segundo nível é desabilitado, no MetricMiner foi utilizada a implementação do EHCACHE\footnote{http://ehcache.org/}. A utilização de tal cache poupou o número de requisições ao banco de dados principalmente nos acessos às páginas web servidas pelo MetricMiner.
         \end{itemize}
 
+        Ao final do processo de mineração dos repositórios da Apache, o MetricMiner processou e armazenou mais de 800 mil commits de mais 2 mil autores diferentes, mais 1.5 milhões de artefatos e 5 milhões de versões de arquivos de código. Todo esse volume de dados está armazenado em um banco de dados de mais de 180 GB e disponível para consultas por meio da interface web.
+
     \section{Estudo de caso} \label{sc:estudo-caso}
         Para mostrar o valor da ferramenta no contexto de pesquisa em Mineração de Repositórios, foi feita a reprodução de um estudo publicado na área. O trabalho publicado em \cite{SoetensQUATIC2010} foi reproduzido e estendido utilizando os dados minerados no MetricMiner por meio de sua interface de consultas ao banco de dados.
+
+        Neste trabalho, os autores estudam o efeito de refatorações sobre a complexidade do sistema. Uma refatoração é o processo de modificar o código para melhorar sua estrutura interna, mas sem modificar seu comportamento externo \cite{fowler-refactoring}. Assim, se aplicada corretamente, a refatoração de código deve aprimorar a manutenabilidade do sistema, sem acrescentar ou remover funcionalidades.
+
+        Para estudar o efeito das refatorações, os autores utilizam a métrica de complexidade ciclomática como medida da complexidade total de um sistema, ou seja, consideram que a complexidade do sistema é a soma da complexidade ciclomática de suas classes. O artigo apresenta uma breve análise matemática sobre o efeito de refatorações comuns sobre a complexidade ciclomática de uma classe. As refatorações analisadas foram: 
+        \begin{itemize}
+            \item Subir método (\textit{pull up method})
+            \item Extrair método (\textit{extract method})
+            \item Colocar método em linha (??) (\textit{inline method})
+        \end{itemize}
+
+        O tabalho analisa o histórico de desenvolvimento do projeto de código aberto PMD\footnote{\url{http://pmd.sourceforge.net/}}.
 
 \chapter{Conclusão e trabalhos futuros} \label{ch:conclusao}
 
