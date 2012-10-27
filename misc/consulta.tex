@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{SELECT} \PY{n}{cc}\PY{p}{.}\PY{n}{cc}\PY{p}{,} \PY{n}{a}\PY{p}{.}\PY{n}{name}\PY{p}{,} \PY{k}{c}\PY{p}{.}\PY{n+nb}{date}\PY{p}{,} \PY{n}{m}\PY{p}{.}\PY{n}{kind}\PY{p}{,} \PY{n}{cm}\PY{p}{.}\PY{n}{message}\PY{p}{,} \PY{n}{p}\PY{p}{.}\PY{n}{name} 
+	\PY{k}{AS} \PY{n}{project\PYZus{}name} \PY{k}{from} \PY{n}{CCResult} \PY{n}{cc}
+\PY{k}{JOIN} \PY{n}{SourceCode} \PY{n}{sc} \PY{k}{ON} \PY{n}{sc}\PY{p}{.}\PY{n}{id} \PY{o}{=} \PY{n}{cc}\PY{p}{.}\PY{n}{sourceCode\PYZus{}id} 
+\PY{k}{JOIN} \PY{n}{Modification} \PY{n}{m} \PY{k}{ON} \PY{n}{sc}\PY{p}{.}\PY{n}{modification\PYZus{}id} \PY{o}{=} \PY{n}{m}\PY{p}{.}\PY{n}{id}  
+\PY{k}{JOIN} \PY{k}{Commit} \PY{k}{c} \PY{k}{ON} \PY{k}{c}\PY{p}{.}\PY{n}{id} \PY{o}{=} \PY{n}{m}\PY{p}{.}\PY{n}{commit\PYZus{}id} 
+\PY{k}{JOIN} \PY{n}{Artifact} \PY{n}{a} \PY{k}{ON} \PY{n}{m}\PY{p}{.}\PY{n}{artifact\PYZus{}id} \PY{o}{=} \PY{n}{a}\PY{p}{.}\PY{n}{id}  
+\PY{k}{JOIN} \PY{n}{CommitMessage} \PY{n}{cm} \PY{k}{ON} \PY{n}{cm}\PY{p}{.}\PY{n}{id} \PY{o}{=} \PY{k}{c}\PY{p}{.}\PY{n}{message\PYZus{}id} 
+\PY{k}{JOIN} \PY{n}{Project} \PY{n}{p} \PY{k}{ON} \PY{n}{p}\PY{p}{.}\PY{n}{id} \PY{o}{=} \PY{k}{c}\PY{p}{.}\PY{n}{project\PYZus{}id}\PY{p}{;}
+\end{Verbatim}

@@ -14,6 +14,7 @@
 \usepackage{hyperref}
 \usepackage{verbatim}
 \usepackage[a4paper, top=46mm, left=29mm, right=29mm, bottom=32mm, includefoot]{geometry}
+\usepackage{array}
 
 \usepackage[pdftex]{graphicx}           % usamos arquivos pdf/png como figuras
 
@@ -24,6 +25,7 @@
 \newcommand{\codechunk}[1]{{\ttfamily {\small #1}}}
 
 
+\input{pygments.tex}
 
 \begin{document}
 
@@ -475,7 +477,7 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
         Além disso, os projetos variam bastante em relação ao tamanho de seu histórico, a tabela \ref{tab:commits} exibe os dez projetos com maior número de commits. Enquanto o projeto \textit{Subversion} possui mais de 40 mil commits, outros projetos menores como o \textit{Savan} possui menos de 20 commits em seu histórico de desenvolvimento. Em média, os projetos armazenados possuem 2660 commits. A tabela \ref{tab:artefatos} exibe os projetos com maior número de artefatos de código (qualquer arquivo não binário armazenado no repositório) processados no MetricMiner. Essas informações foram extraídas por meio da execução de consultas SQL pela interface do MetricMiner\footnote{As duas consultas utilizadas para extrair essas informações podem ser vizualizadas em \url{http://metricminer.org.br/query/3} e \url{http://metricminer.org.br/query/5}. Nessas páginas também é possível baixar os resultados completos das consultas.}.
 
         \begin{table}\begin{center}
-        \begin{tabular}{| p{6cm} | p{6cm} |}
+        \begin{tabular}{| p{6cm} | c |}
             \hline                        
             \textbf{Projeto} & \textbf{Total de commits} \\
             \hline                        
@@ -504,7 +506,7 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
         \end{center}\end{table}
 
         \begin{table}\begin{center}
-        \begin{tabular}{| p{6cm} | p{6cm} |}
+        \begin{tabular}{| p{6cm} | c |}
             \hline                        
             \textbf{Projeto} & \textbf{Total de artefatos de código processados} \\
             \hline
@@ -536,10 +538,9 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
 
         \begin{table}\begin{center}
-        \begin{tabular}{| p{5cm} | p{1.8cm} | p{1.8cm} | p{1.8cm} | p{1.8cm} | p{1.8cm} | }
+        \begin{tabular}{| p{5cm} | c | c | c | c | c | }
             \hline                        
-            \textbf{Data} & \textbf{07/ago} & \textbf{16/ago} & \textbf{07/out} 
-             & \textbf{25/out} \\
+             & \textbf{07/ago} & \textbf{16/ago} & \textbf{07/out} & \textbf{25/out} \\
             \hline
             \textbf{Tempo de duração médio das tarefas em minutos} & 5.3 & 4.4 & 5.0 & 3.0 \\
             \hline
@@ -575,6 +576,8 @@ query.setParameter("project_id", project.getId())
     \section{Estudo de caso} \label{sc:estudo-caso}
         Para mostrar o valor da ferramenta no contexto de pesquisa em Mineração de Repositórios, foi feita a reprodução de um estudo publicado na área. O trabalho publicado em \cite{SoetensQUATIC2010} foi reproduzido e estendido utilizando os dados minerados no MetricMiner por meio de sua interface de consultas ao banco de dados.
 
+        \subsection*{Artigo publicado}
+
         Neste trabalho, os autores estudam o efeito de refatorações sobre a complexidade do sistema. Uma refatoração é o processo de modificar o código para melhorar sua estrutura interna, mas sem modificar seu comportamento externo \cite{fowler-refactoring}. Assim, se aplicada corretamente, a refatoração de código deve aprimorar a manutenabilidade do sistema, sem acrescentar ou remover funcionalidades.
 
         Para estudar o efeito das refatorações, os autores utilizam a métrica de complexidade ciclomática como medida da complexidade total de um sistema, ou seja, consideram que a complexidade do sistema é a soma da complexidade ciclomática de suas classes. O artigo apresenta uma breve análise matemática sobre o efeito de refatorações comuns sobre a complexidade ciclomática de uma classe. As refatorações analisadas foram: 
@@ -584,7 +587,39 @@ query.setParameter("project_id", project.getId())
             \item Colocar método em linha (??) (\textit{inline method})
         \end{itemize}
 
-        O tabalho analisa o histórico de desenvolvimento do projeto de código aberto PMD\footnote{\url{http://pmd.sourceforge.net/}}.
+        O tabalho analisa 776 versões extraídas do sistema de controle de versão do projeto de código aberto PMD\footnote{\url{http://pmd.sourceforge.net/}}. Para fazer essa análise, os autores utilizaram dois puglins para a IDE Eclipse o SVNKit, para extrair o código do repositório e o Eclipse Metrics, para calcular a métrica de complexidade ciclomática. Com esses dois plugins instalados, eles desenvolveram um plugin próprio para realizar o processo de carregar a versão do código, calcular as métricas e armazenar os resultados em arquivos XML. Depois disso, os arquivos XML foram processados e as métricas calculadas foram associadas com as mensagens de cada commit.
+
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=1.0\textwidth]{img/cc-soetens.png}
+            \caption{Gráfico da complexidade ciclomática do projeto PMD ao longo do tempo publicado em \cite{SoetensQUATIC2010}}
+            \label{fig:evolucao-soetens}
+        \end{figure}
+
+        O artigo apresenta a evolução da complexidade ciclomática do projeto ao longo das versões analisadas. A Figura \ref{fig:evolucao-soetens} exibe um gráfico mostrando o aumento da complexidade ciclomática com o tempo, o que é uma evidência da segunda lei da evolução de software (complexidade crescente). Os autores classificam o efeito dos commits sobre a complexidade ciclomática em relação a commits que são ``refatorações documentadas'' e os que não são. Uma ``refatoração documentada'' é um commit que possui em sua mensagem palavras como \textit{``refactoring''}, \textit{``refactored''}, \textit{``refactor''}, entre outras. A tabela \ref{tab:resultados-soetens} exibe os resultados da classificação de cada commit.
+
+        \begin{table}\begin{center}
+        \begin{tabular}{| >{\centering\arraybackslash}m{3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} |}
+            \hline                        
+             & \textbf{Decrementaram CC} & \textbf{Não alteraram CC} & \textbf{Incrementaram CC} \\
+            \hline
+            \textbf{Refatorações documentadas} & 14 & 7 & 12 \\
+            \hline
+            \textbf{Sem refatoração documentada} & 27 & 580 & 136 \\
+            \hline
+        \end{tabular}
+        \caption{Resultados obtidos em \cite{SoetensQUATIC2010} \label{tab:resultados-soetens}}
+        \end{center}\end{table}
+
+        \subsection*{Reprodução do estudo}
+        Para reproduzir o trabalho descrito anteriormente, foi feita uma consulta ao banco de dados do MetricMiner após a mineração dos projetos da Apache. Com os resultados dessa consulta, foi desenvolvido um pequeno programa em Java que utiliza esses dados para contabilizar os efeitos das refatorações sobre a complexidade ciclomática dos projetos. Como o MetricMiner só calcula a complexidade ciclomática sobre classes na linguagem Java, só foram considerados commits que alteraram arquivos de código fonte Java.
+
+        A seguinte consulta SQL foi realizada no MetricMiner:
+
+        \input{misc/consulta.tex}
+
+        Essa consulta extrai a complexidade ciclomática calculada de todas as classes já alteradas no histórico de todos os projeto armazenados na base de dados.
+
 
 \chapter{Conclusão e trabalhos futuros} \label{ch:conclusao}
 
