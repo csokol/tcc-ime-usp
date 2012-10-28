@@ -611,6 +611,15 @@ query.setParameter("project_id", project.getId())
         \caption{Resultados obtidos em \cite{SoetensQUATIC2010} \label{tab:resultados-soetens}}
         \end{center}\end{table}
 
+        Com esses resultados, os autores concluem que as refatorações raramente afetam a complexidade ciclomática do sistema: ``\textit{we discovered that refactoring practices rarely affect the cyclomatic complexity of a programa}''. Os autores analisaram cada commit processado e justificaram essa conclusão contra intuitiva levantando três motivos principais:
+
+        \begin{itemize}
+            \item Poucas refatorações envolviam remoção de código duplicado.
+            \item Em muitos commits, os autores desenvolviam novas funcionalidade junto com a refatoração de certa parte do código, aumentando a complexidade do sistema independentemente da refatoração.
+            \item A maioria das refatorações descobertas realizavam apenas pequenas mudanças no código, como movimentação de métodos e variáveis entre as classes e não mudanças mais profundas como extração de classe, substituição de condicionais por polimorfismo, entre outros.
+        \end{itemize}
+
+
         \subsection*{Reprodução do estudo}
         Para reproduzir o trabalho descrito anteriormente, foi feita uma consulta ao banco de dados do MetricMiner após a mineração dos projetos da Apache. Como o MetricMiner só calcula a complexidade ciclomática sobre classes na linguagem Java, só foram considerados commits que alteraram arquivos de código fonte Java. A seguinte consulta SQL foi realizada no MetricMiner:
 
@@ -618,16 +627,9 @@ query.setParameter("project_id", project.getId())
 
         Essa consulta extrai a complexidade ciclomática calculada de todas as classes já alteradas no histórico de todos os projetos (que possuem classes Java) armazenados na base de dados. Junto com o complexidade ciclomática e o nome do arquivo, são extraídas também o nome do projeto, data e mensagem do commit. Os resultados de tal consulta se encontram em \url{http://metricminer.org.br/query/1}. Com esses resultados, foi desenvolvido um pequeno programa auxiliar em Java que utiliza esses dados para contabilizar os efeitos das refatorações sobre a complexidade ciclomática dos projetos. O código desse programa se encontra em \url{https://github.com/csokol/refactoring-cc}.
 
-        O programa auxiliar apenas agrupa os dados extraídos por projeto, agrupa arquivos modificados em um mesmo commit e percorre todos os commits contabilizando as alterações na complexidade total do projeto. Para verificar se um commit contém ``refatorações documentadas'', foi utilizado Apache Lucene\footnote{\url{http://lucene.apache.org}} para processar a mensagem do autor, separando o texto em \textit{tokens} e fazendo a normalização (processo de extrair caracteres de pontuação do texto) e \textit{stemming} (processo de extrair a raiz morfológica das palavras) dos \textit{tokens} (essas técnicas e conceitos pertencem a área de recuperação de informação e estão fora do escopo deste trabalho). Com esse processamento de texto feito, basta verificar se a mensagem de commit contém o  \textit{token} ``refactor'' para determinar se tal commit contém refatorações.
+        O programa auxiliar agrupa os dados extraídos por projeto, agrupa arquivos modificados em um mesmo commit e percorre todos os commits contabilizando as alterações na complexidade total do projeto. Para verificar se um commit contém ``refatorações documentadas'', foi utilizado Apache Lucene\footnote{\url{http://lucene.apache.org}} para processar a mensagem do autor, separando o texto em \textit{tokens} e fazendo a normalização (processo de extrair caracteres de pontuação do texto) e \textit{stemming} (processo de extrair a raiz morfológica das palavras) dos \textit{tokens} (essas técnicas e conceitos pertencem a área de recuperação de informação e estão fora do escopo deste trabalho). Com esse processamento de texto feito, basta verificar se a mensagem de commit contém o  \textit{token} ``refactor'' para determinar se tal commit contém refatorações.
 
-        Ao todo foram analisados commits de 256 projetos diferentes. A Figura \ref{fig:cc-ant}
-
-        \begin{figure}[ht]
-            \centering
-            \includegraphics[width=0.7\textwidth]{img/graficos/ant.png}
-            \caption{Evolução da complexidade do projeto Ant}
-            \label{fig:cc-ant}
-        \end{figure}
+        Ao todo foram analisados commits de 256 projetos diferentes. As Figuras \ref{fig:cc-camel}, \ref{fig:cc-ant} e \ref{fig:cc-tomcat} exibem a evolução da complexidade ciclomática dos projetos Camel, Ant e Tomcat, respectivamente. A evolução da complexidade do Apache Camel demonstra um padrão semelhante a evolução do PMD, publicado no trabalho original. A complexidade ciclomática parte de um valor baixo e vai crescendo desde o início do desenvolvimento, sem muitas variações em sua taxa de crescimento. O Ant e o Tomcat apresentam padrões diferentes. 
 
         \begin{figure}[ht]
             \centering
@@ -636,12 +638,40 @@ query.setParameter("project_id", project.getId())
             \label{fig:cc-camel}
         \end{figure}
 
+        O desenvolvimento do Ant também se inicia com a complexidade baixa, porém, ao longo de sua evolução existem ``saltos'' na complexidade que se devem a grandes adições ou remoções de código do repositório. Por exemplo, em \ref{fig:cc-ant}(\textbf{A}) há um grande aumento na complexidade total que se deve a importação de código de um repositório antigo ao novo repositório do Ant, o que está descrito na mensagem  do autor desse commit: ``\textit{Add in a clone of the main ant source tree so that it can undergo some heavy refactoring}''.
+
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.7\textwidth]{img/graficos/ant.png}
+            \caption{Evolução da complexidade do projeto Ant}
+            \label{fig:cc-ant}
+        \end{figure}
+
+        Já o histórico do Tomcat, ao contrário dos outros dois, já se inicia com uma grande complexidade logo em seu primeiro commit. Isso se deve ao fato do Tomcat ser um projeto de código legado, sendo assim, seu primeiro commit é a importação de código do repositório antigo, o que justifica alta complexidade ciclomática inicial.
+
         \begin{figure}[ht]
             \centering
             \includegraphics[width=0.7\textwidth]{img/graficos/tomcat.png}
             \caption{Evolução da complexidade do projeto Tomcat}
             \label{fig:cc-tomcat}
         \end{figure}
+
+        De maneira geral, os três projetos aumentam sua complexidade ao longo do histórico de desenvolvimento, confirmando a segunda lei de evolução de software como o estudo de \cite{SoetensQUATIC2010}.
+
+        \begin{table}\begin{center}
+        \begin{tabular}{| >{\centering\arraybackslash}m{3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} |}
+            \hline                        
+             & \textbf{Decrementaram CC} & \textbf{Não alteraram CC} & \textbf{Incrementaram CC} \\
+            \hline
+            \textbf{Refatorações documentadas} & 1504 & 1603 & 3230 \\
+            \hline
+            \textbf{Sem refatoração documentada} & 30145 & 99580 & 121239 \\
+            \hline
+        \end{tabular}
+        \caption{Resultados obtidos na reprodução do estudo \label{tab:resultados}}
+        \end{center}\end{table}
+
+
 
 
 \chapter{Conclusão e trabalhos futuros} \label{ch:conclusao}
