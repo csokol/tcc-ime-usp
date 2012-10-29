@@ -616,7 +616,7 @@ query.setParameter("project_id", project.getId())
         \begin{itemize}
             \item Poucas refatorações envolviam remoção de código duplicado.
             \item Em muitos commits, os autores desenvolviam novas funcionalidade junto com a refatoração de certa parte do código, aumentando a complexidade do sistema independentemente da refatoração.
-            \item A maioria das refatorações descobertas realizavam apenas pequenas mudanças no código, como movimentação de métodos e variáveis entre as classes e não mudanças mais profundas como extração de classe, substituição de condicionais por polimorfismo, entre outros.
+            \item A maioria das refatorações descobertas realizavam apenas pequenas mudanças no código, como movimentação de métodos e variáveis entre as classes e não mudanças mais complexas como extração de classe, substituição de condicionais por polimorfismo, entre outros.
         \end{itemize}
 
 
@@ -656,7 +656,9 @@ query.setParameter("project_id", project.getId())
             \label{fig:cc-tomcat}
         \end{figure}
 
-        De maneira geral, os três projetos aumentam sua complexidade ao longo do histórico de desenvolvimento, confirmando a segunda lei de evolução de software como o estudo de \cite{SoetensQUATIC2010}.
+        De maneira geral, os três projetos aumentam sua complexidade ao longo do histórico de desenvolvimento, confirmando a segunda lei de evolução de software como o estudo de \cite{SoetensQUATIC2010}. 
+
+        A tabela \ref{tab:resultados}, exibe os resultados das refatorações sobre a complexidade dos projetos. Assim como no estudo original, não há evidências de que refatorações diminuem a complexidade de um sistema, resultado semelhante ao obtido originalmente. Observa-se que a maioria das refatorações documentadas incrementaram a complexidade ciclomática. No entanto, a proporção dos commits que decrementaram a complexidade é maior entre o conjunto das refatorações documentadas: aproximadamente 23\% das refatorações documentadas reduziram a complexidade ciclomática enquanto apenas 12\% tiveram o mesmo efeito entre os commits normais.
 
         \begin{table}\begin{center}
         \begin{tabular}{| >{\centering\arraybackslash}m{3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} |}
@@ -670,9 +672,6 @@ query.setParameter("project_id", project.getId())
         \end{tabular}
         \caption{Resultados obtidos na reprodução do estudo \label{tab:resultados}}
         \end{center}\end{table}
-
-
-
 
 \chapter{Conclusão e trabalhos futuros} \label{ch:conclusao}
 
