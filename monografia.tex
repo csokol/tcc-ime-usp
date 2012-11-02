@@ -466,11 +466,11 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
     
 \chapter{Avaliação da ferramenta} \label{ch:avaliacao}
     
-    Nessa seção serão descritos os resultados obtidos com a ferramenta desenvolvida. Na subseção \ref{sc:apache} serão descritos a avaliação da ferramenta feita com a mineração dos repositórios de código aberto da \textit{Apache Software Foundation}. Na subseção \ref{sc:estudo-caso}, será demonstrada a reprodução de um estudo de mineração de software já publicado na academia, utilizando os dados processados pelo MetricMiner.
+    Nessa seção serão descritos os resultados obtidos com a ferramenta desenvolvida. Na subseção \ref{sc:apache} serão descritos a avaliação da ferramenta feita com a mineração dos repositórios de código aberto da \textit{Apache Software Foundation}. Na subseção \ref{sc:estudo-caso}, será exibida a reprodução de um estudo de mineração de software já publicado na academia, utilizando os dados processados pelo MetricMiner.
 
     \section{Resultados obtidos com a mineração de repositórios públicos} \label{sc:apache}
 
-        Para avaliar a capacidade da ferramenta desenvolvida, foram utilizados os projetos de código aberto disponibilizados pela Apache Software Foundation. O código desses projetos pode ser acessado por meio do sistema de controle de versão Git, a lista completa de projetos se encontra em \url{http://git.apache.org/}. No total, foram cadastrados e processados 307 projetos de código aberto.
+        Para avaliar a capacidade da ferramenta desenvolvida, os projetos de código aberto disponibilizados pela Apache Software Foundation foram minerados no MetricMiner. O código desses projetos pode ser acessado por meio do sistema de controle de versão Git, a lista completa de projetos se encontra em \url{http://git.apache.org/}. No total, foram cadastrados e processados 307 projetos de código aberto.
 
         Esse conjunto de projetos minerados possui grande variedade em relação ao domínio de aplicação: existem projetos de domínios complexos como o Harmony - uma implementação da máquina virtual java - assim como outros mais simples como Commons Exec - uma biblioteca java para a execução de comandos do sistema operacional. 
 
@@ -587,7 +587,7 @@ query.setParameter("project_id", project.getId())
             \item Colocar método em linha (??) (\textit{inline method})
         \end{itemize}
 
-        O tabalho analisa 776 versões extraídas do sistema de controle de versão do projeto de código aberto PMD\footnote{\url{http://pmd.sourceforge.net/}}. Para fazer essa análise, os autores utilizaram dois puglins para a IDE Eclipse o SVNKit, para extrair o código do repositório e o Eclipse Metrics, para calcular a métrica de complexidade ciclomática. Com esses dois plugins instalados, eles desenvolveram um plugin próprio para realizar o processo de carregar a versão do código, calcular as métricas e armazenar os resultados em arquivos XML. Depois disso, os arquivos XML foram processados e as métricas calculadas foram associadas com as mensagens de cada commit.
+        O tabalho analisa 776 versões extraídas do sistema de controle de versão do projeto de código aberto PMD\footnote{\url{http://pmd.sourceforge.net/}}. Para fazer essa análise, os autores utilizaram dois \textit{plugins} da IDE Eclipse: o SVNKit, para extrair o código do repositório e o Eclipse Metrics, para calcular a métrica de complexidade ciclomática. Com esses dois plugins instalados, eles desenvolveram um plugin próprio para realizar o processo de carregar a versão do código, calcular as métricas e armazenar os resultados em arquivos XML. Depois disso, os arquivos XML foram processados e as métricas calculadas foram associadas com as mensagens de cada commit.
 
         \begin{figure}[ht]
             \centering
@@ -596,7 +596,7 @@ query.setParameter("project_id", project.getId())
             \label{fig:evolucao-soetens}
         \end{figure}
 
-        O artigo apresenta a evolução da complexidade ciclomática do projeto ao longo das versões analisadas. A Figura \ref{fig:evolucao-soetens} exibe um gráfico mostrando o aumento da complexidade ciclomática com o tempo, o que é uma evidência da segunda lei da evolução de software (complexidade crescente). Os autores classificam o efeito dos commits sobre a complexidade ciclomática em relação a commits que contém ``refatorações documentadas'' e os que não contém. Uma ``refatoração documentada'' é um commit que possui em sua mensagem palavras como \textit{``refactoring''}, \textit{``refactored''}, \textit{``refactor''}, entre outras. A tabela \ref{tab:resultados-soetens} exibe os resultados da classificação de cada commit.
+        O artigo apresenta a evolução da complexidade ciclomática do projeto ao longo das versões analisadas. A Figura \ref{fig:evolucao-soetens} exibe um gráfico mostrando o aumento da complexidade ciclomática com o tempo, o que é uma evidência da segunda lei da evolução de software (complexidade crescente). Os autores classificam o efeito dos commits sobre a complexidade ciclomática em relação a commits que contém ``refatorações documentadas'' e os que não contém. Uma ``refatoração documentada'' é um commit que possui em sua mensagem palavras como \textit{``refactoring''}, \textit{``refactored''}, \textit{``refactor''}, entre outras. A tabela \ref{tab:resultados-soetens} exibe os resultados da classificação do conjunto de commits analisado.
 
         \begin{table}\begin{center}
         \begin{tabular}{| >{\centering\arraybackslash}m{3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} |}
@@ -611,7 +611,7 @@ query.setParameter("project_id", project.getId())
         \caption{Resultados obtidos em \cite{SoetensQUATIC2010} \label{tab:resultados-soetens}}
         \end{center}\end{table}
 
-        Com esses resultados, os autores concluem que as refatorações raramente afetam a complexidade ciclomática do sistema: ``\textit{we discovered that refactoring practices rarely affect the cyclomatic complexity of a programa}''. Os autores analisaram cada commit processado e justificaram essa conclusão contra intuitiva levantando três motivos principais:
+        Com esses resultados, os autores concluem que as refatorações raramente afetam a complexidade ciclomática do sistema: ``\textit{we discovered that refactoring practices rarely affect the cyclomatic complexity of a program}''. Os autores analisaram cada commit processado e justificaram essa conclusão contra intuitiva levantando três motivos possíveis:
 
         \begin{itemize}
             \item Poucas refatorações envolviam remoção de código duplicado.
@@ -658,7 +658,7 @@ query.setParameter("project_id", project.getId())
 
         De maneira geral, os três projetos aumentam sua complexidade ao longo do histórico de desenvolvimento, confirmando a segunda lei de evolução de software como o estudo de \cite{SoetensQUATIC2010}. 
 
-        A tabela \ref{tab:resultados}, exibe os resultados das refatorações sobre a complexidade dos projetos. Assim como no estudo original, não há evidências de que refatorações diminuem a complexidade de um sistema, resultado semelhante ao obtido originalmente. Observa-se que a maioria das refatorações documentadas incrementaram a complexidade ciclomática. No entanto, a proporção dos commits que decrementaram a complexidade é maior entre o conjunto das refatorações documentadas: aproximadamente 23\% das refatorações documentadas reduziram a complexidade ciclomática enquanto apenas 12\% tiveram o mesmo efeito entre os commits normais.
+        A tabela \ref{tab:resultados}, exibe os resultados das refatorações sobre a complexidade dos projetos. Observa-se que a maioria das refatorações documentadas incrementaram a complexidade ciclomática. No entanto, a proporção dos commits que decrementaram a complexidade é maior entre o conjunto das refatorações documentadas: aproximadamente 23\% das refatorações documentadas reduziram a complexidade ciclomática enquanto apenas 12\% tiveram o mesmo efeito entre os commits normais. Ainda assim, como no estudo reproduzido, não há evidências de que refatorações diminuem a complexidade de um sistema, resultado semelhante ao obtido originalmente.
 
         \begin{table}\begin{center}
         \begin{tabular}{| >{\centering\arraybackslash}m{3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} |}
