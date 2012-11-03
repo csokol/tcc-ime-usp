@@ -324,16 +324,11 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
         Portanto, após o cadastro do projeto, são registradas quatro tarefas relativas a esse 
         projeto: carregamento do repositório de código, processamento de todas as versões
-        dos arquivos do repositório de seus metadados e armazenamento dos dados,
+        dos arquivos do repositório e armazenamento dos dados,
         remoção dos arquivos carregados e cálculo das métricas de código sobre todos
         as versões do código fonte do projeto.
 
-        Ao final desse processo, todas as informações do projeto estão persistidas no banco de dados 
-        e disponíveis para serem extraídas pelo pesquisador. É importante ressaltar que após a 
-        extração dos dados do sistema de controle de versão, é possível implementar novas métricas 
-        para serem calculadas sobre o código, sem precisar executar todos os passos anteriores 
-        novamente. A Figura \ref{fig:diagrama} descreve as tarefas envolvidas no processo de 
-        mineração sobre um repositório de software cadastrado na ferramenta.
+        Ao final desse processo, todas as informações do repositório do projeto e métricas de código estão persistidas no banco de dados e disponíveis para serem extraídas pelo pesquisador. É importante ressaltar que após a extração dos dados do sistema de controle de versão, é possível implementar novas métricas para serem calculadas sobre o código, sem precisar executar todos os passos anteriores novamente. A Figura \ref{fig:diagrama} descreve as tarefas envolvidas no processo de mineração sobre um repositório de software cadastrado na ferramenta.
 
         \begin{figure}[ht]
             \centering
@@ -470,7 +465,7 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
     \section{Resultados obtidos com a mineração de repositórios públicos} \label{sc:apache}
 
-        Para avaliar a capacidade da ferramenta desenvolvida, os projetos de código aberto disponibilizados pela Apache Software Foundation foram minerados no MetricMiner. O código desses projetos pode ser acessado por meio do sistema de controle de versão Git, a lista completa de projetos se encontra em \url{http://git.apache.org/}. No total, foram cadastrados e processados 307 projetos de código aberto.
+        A capacidade da ferramenta desenvolvida foi avaliada por meio da mineração dos projetos de código aberto disponibilizados pela Apache Software Foundation. Os códigos desses projetos podem ser acessados por meio do sistema de controle de versão Git, a lista completa de projetos se encontra em \url{http://git.apache.org/}. No total, foram cadastrados e processados 307 projetos de código aberto.
 
         Esse conjunto de projetos minerados possui grande variedade em relação ao domínio de aplicação: existem projetos de domínios complexos como o Harmony - uma implementação da máquina virtual java - assim como outros mais simples como Commons Exec - uma biblioteca java para a execução de comandos do sistema operacional. 
 
@@ -571,7 +566,7 @@ query.setParameter("project_id", project.getId())
             \item \textbf{Cache de segundo nível:} Além do cache de primeiro nível (descrito brevemente no primeiro item), o Hibernate possui um segundo cache, o cache de segundo nível. Diferentemente do cache de primeiro nível, que armazena apenas dados manipulados por uma única instância da classe Session, o cache de segundo nível armazena o resultado de consultas realizadas ao banco por todas as sessões abertas. Por padrão, o cache de segundo nível é desabilitado, no MetricMiner foi utilizada a implementação do EHCACHE\footnote{http://ehcache.org/}. A utilização de tal cache poupou o número de requisições ao banco de dados principalmente nos acessos às páginas web servidas pelo MetricMiner.
         \end{itemize}
 
-        Ao final do processo de mineração dos repositórios da Apache, o MetricMiner processou e armazenou mais de 800 mil commits de mais 2 mil autores diferentes, mais 1.5 milhões de artefatos e 5 milhões de versões de arquivos de código. Todo esse volume de dados está armazenado em um banco de dados de mais de 180 GB e disponível para consultas por meio da interface web.
+        Ao final do processo de mineração dos repositórios da Apache, o MetricMiner processou e armazenou mais de 800 mil commits de mais 2 mil autores diferentes, mais 1.5 milhões de artefatos e 5 milhões de versões de arquivos de código. Todo esse volume de dados está armazenado em um banco de dados de mais de 180 GB e disponível para consultas por meio da interface web. O processo de mineração, desde o início do download do primeiro projeto até o cálculo das métricas do último, levou no total aproximadamente 90 horas de duração.
 
     \section{Estudo de caso} \label{sc:estudo-caso}
         Para mostrar o valor da ferramenta no contexto de pesquisa em Mineração de Repositórios, foi feita a reprodução de um estudo publicado na área. O trabalho publicado em \cite{SoetensQUATIC2010} foi reproduzido e estendido utilizando os dados minerados no MetricMiner por meio de sua interface de consultas ao banco de dados.
