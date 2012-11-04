@@ -591,7 +591,9 @@ query.setParameter("project_id", project.getId())
             \label{fig:evolucao-soetens}
         \end{figure}
 
-        O artigo apresenta a evolução da complexidade ciclomática do projeto ao longo das versões analisadas. A Figura \ref{fig:evolucao-soetens} exibe um gráfico mostrando o aumento da complexidade ciclomática com o tempo, o que é uma evidência da segunda lei da evolução de software (complexidade crescente). Os autores classificam o efeito dos commits sobre a complexidade ciclomática em relação a commits que contém ``refatorações documentadas'' e os que não contém. Uma ``refatoração documentada'' é um commit que possui em sua mensagem palavras como \textit{``refactoring''}, \textit{``refactored''}, \textit{``refactor''}, entre outras. A tabela \ref{tab:resultados-soetens} exibe os resultados da classificação do conjunto de commits analisado.
+        O artigo apresenta a evolução da complexidade ciclomática do projeto ao longo das versões analisadas. A Figura \ref{fig:evolucao-soetens} exibe um gráfico mostrando o aumento da complexidade ciclomática com o tempo, o que é uma evidência da segunda lei da evolução de software (complexidade crescente). 
+
+        Os autores classificam os commits em duas categorias, os que contém ``refatorações documentadas'' e os que não contém. Uma ``refatoração documentada'' é um commit que possui em sua mensagem palavras como \textit{``refactoring''}, \textit{``refactored''}, \textit{``refactor''}. Com essa classificação, os autores analisam o efeito sobre a métrica de complexidade ciclomática (CC) dos commits de cada categoria. A tabela \ref{tab:resultados-soetens} exibe os resultados da classificação do conjunto de commits analisado.
 
         \begin{table}\begin{center}
         \begin{tabular}{| >{\centering\arraybackslash}m{3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} |}
