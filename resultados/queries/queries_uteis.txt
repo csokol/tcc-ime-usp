@@ -59,3 +59,20 @@ AND endDate IS NOT NULL
 AND project_id <= 94
 ORDER BY tempo DESC
 LIMIT 10
+
+
+SELECT AVG(cc.cc) as avg_cc, p.name as project_name, COUNT(a.id) artifact_count FROM CCResult cc 
+JOIN SourceCode sc ON sc.id = cc.sourceCode_id 
+JOIN Modification m ON m.id = sc.modification_id
+JOIN Artifact a ON a.id = m.artifact_id
+JOIN Project p ON p.id = a.project_id
+GROUP BY p.id
+ORDER BY artifact_count DESC;
+
+
+SELECT sc.id, c.date, a.id FROM SourceCode sc 
+JOIN Modification m ON m.id=sc.modification_id 
+JOIN Commit c ON c.id=m.commit_id 
+JOIN Artifact a ON a.id=m.artifact_id
+WHERE c.project_id=1
+AND c.date = (SELECT MAX(date) FROM Commit c_aux WHERE c_aux.id = c.id);
