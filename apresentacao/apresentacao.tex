@@ -1,0 +1,282 @@
+\documentclass[brazil]{beamer}
+\usepackage[brazilian]{babel}
+\usepackage[utf8]{inputenc}
+
+\input{pygments.tex}
+
+\usetheme{Bergen}
+
+\def\insertauthorindicator{}% Default is "Who?"
+\def\insertinstituteindicator{}% Default is "From?"
+\def\insertdateindicator{}% Default is "When?"
+
+%\usecolortheme{beaver}
+
+\title%(optional, only for long titles)
+{MetricMiner}
+\subtitle{Uma ferramenta
+web de apoio à mineração de
+repositórios de software}
+\institute {
+Orientador: Marco Aurélio Gerosa\\ 
+Co-orientador: Mauricio Finavaro Aniche
+}
+\author
+{Francisco Sokol}
+\begin{document}
+
+\frame{\titlepage}
+
+	\section{Mineração de repositórios}
+
+	\begin{frame}
+		\frametitle{Mineração de repositórios}
+		\begin{itemize}
+			\item Estudo empírico da evolução de software 
+			\item Aplicação de técnicas de data mining aos dados do histórico de desenvolvimento de um software
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Mineração de repositórios}
+		\begin{itemize}
+			\item Quais são as classes mais modificadas no projeto?
+			\item Qual será a classe com mais bugs na próxima versão?
+			\item Quais desenvolvedores devem trabalhar juntos?
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Motivação}
+		Ferramentas atuais de mineração:
+		\begin{itemize}
+			\item Executam localmente
+			\item Configuração complexa
+			\item Recursos locais
+			\item Pouca escalabilidade
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{MetricMiner}
+		Baseado no rEvolution \footnote{\url{http://github.com/mauricioaniche/revolution}}\vspace{0.5cm}
+
+		Requisitos:
+		\begin{itemize}
+			\item Aplicação web
+			\item Armazenamento de informações do sistema de controle de versão
+			\item Cálculo de métricas de código
+			\item Interface para consulta
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{MetricMiner}
+		\framesubtitle{Tecnologias}
+
+		\begin{itemize}
+			\item Java
+			\begin{itemize}
+				\item VRaptor
+				\item Quartz Scheduler
+			\end{itemize}
+			\item MySQL
+			\begin{itemize}
+				\item Hibernate
+			\end{itemize}
+			\item Infraestrutura de cloud da Locaweb
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{MetricMiner}
+		\framesubtitle{Fila de execução}
+
+		Tarefas de mineração são executadas \emph{assíncronamente}
+
+		\begin{itemize}
+			\item Download do repositório (Git e SVN)
+			\item Processamento do sistema de controle de versão
+			\item Cálculo de métricas de código
+			\item Métricas de projeto
+			\item Consulta em SQL aos dados
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{MetricMiner}
+
+		Criação de novas tarefas de mineração:
+
+		\begin{scriptsize}
+			\input{pygments/runnabletask.tex}
+		\end{scriptsize}
+
+	\end{frame}
+
+
+	\begin{frame}
+		\frametitle{MetricMiner}
+
+		Criação de novas métricas de código:
+
+		\begin{scriptsize}
+			\input{pygments/metric.tex}
+		\end{scriptsize}
+
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{MetricMiner}
+		\framesubtitle{Métricas implementadas}
+
+		Implementação com a biblioteca javaparser\footnote{\url{http://code.google.com/p/javaparser/}}
+
+		\begin{itemize}
+			\item Complexidade Ciclomática
+			\item LCOM
+			\item Fan Out
+			\item Número de linhas
+			\item Número de métodos
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Avaliação da ferramenta}
+		\framesubtitle{Mineração da Apache Software Foundation}
+
+		Mineração de mais de 300 projetos da Apache\footnote{\url{http://git.apache.org/}}
+
+		\begin{itemize}
+			\item 90 horas de duração
+			\item 800 mil commits
+			\item 2 mil autores
+			\item 1.5 milhões de artefatos
+			\item 5 milhões de versões de código
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Avaliação da ferramenta}
+		\framesubtitle{Reprodução de estudo da literatura}
+
+		Expansão de estudo publicado na área \cite{SoetensQUATIC2010}
+
+		\vspace{0.5cm}
+
+		\emph{Qual o efeito de refatorações sobre a complexidade de um sistema?}
+
+	\end{frame}
+
+
+	\begin{frame}
+		\frametitle{Avaliação da ferramenta}
+		\framesubtitle{Estudo original}
+
+		\begin{itemize}
+			\item Complexidade Ciclomática
+			\item 700 versões do projeto PMD
+			\item SVNKit + Eclipse Metrics
+		\end{itemize}
+
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Avaliação da ferramenta}
+		\framesubtitle{Estudo original}
+		\includegraphics[width=1.00\textwidth]{img/cc-soetens.png}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Avaliação da ferramenta}
+		\framesubtitle{Estudo original}
+		\includegraphics[width=1.00\textwidth]{img/tabela-soetens.png}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Avaliação da ferramenta}
+		\framesubtitle{Análise dos autores}
+		\begin{itemize}
+			\item Poucas refatorações com remoção de código duplicado
+			\item Commits com refatoração + nova funcionalidade
+			\item Pequenas mudanças como movimentação de métodos e variáveis
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Avaliação da ferramenta}
+		\framesubtitle{Reprodução do estudo}
+		Consulta pela interface web\footnote{\url{http://metricminer.org.br/query/1}}
+		Programa auxiliar para processar csv
+		\begin{itemize}
+			\item 250 projetos java
+			\item 500 mil commits processados
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Avaliação da ferramenta}
+		\framesubtitle{Reprodução do estudo}
+		\begin{figure}[ht]
+		\centering
+		\includegraphics[width=0.7\textwidth]{img/camel.png}
+		\end{figure}
+	\end{frame}
+
+
+	\begin{frame}
+		\frametitle{Avaliação da ferramenta}
+		\framesubtitle{Reprodução do estudo}
+		\begin{figure}[ht]
+		\centering
+		\includegraphics[width=0.7\textwidth]{img/ant.png}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Avaliação da ferramenta}
+		\framesubtitle{Reprodução do estudo}
+		\begin{figure}[ht]
+		\centering
+		\includegraphics[width=0.7\textwidth]{img/tomcat.png}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Avaliação da ferramenta}
+		\framesubtitle{Reprodução do estudo}
+		\includegraphics[width=1.00\textwidth]{img/tabela-metricminer.png}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Avaliação da ferramenta}
+		\framesubtitle{Conclusão}
+		\begin{itemize}
+			\item Maior quantidade e variedade de projetos analisados
+			\item Resultados semelhantes ao do estudo original
+			\item Processo de mineração mais simples e eficiente
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{Trabalhos futuros}
+		\begin{itemize}
+			\item Paralelizar
+			\item Usabilidade da interface web
+			\item Outras métricas e linguagens
+			\item Sistemas de bug tracking, listas de email
+			\item API
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\centering \Huge \textbf Obrigado!\\ \vspace{0.5cm}
+		\centering \huge \textbf Perguntas?\\
+	\end{frame}
+
+
+% etc
+
+\bibliographystyle{sbc}
+\bibliography{apresentacao}
+\end{document}

@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kd}{public} \PY{k+kd}{interface} \PY{n+nc}{MetricFactory} \PY{o}{\PYZob{}}
+    \PY{k+kd}{public} \PY{n}{Metric} \PY{n+nf}{build}\PY{o}{(}\PY{o}{)}\PY{o}{;}
+\PY{o}{\PYZcb{}}
+
+\PY{k+kd}{public} \PY{k+kd}{interface} \PY{n+nc}{Metric} \PY{o}{\PYZob{}}
+    \PY{n}{Collection}\PY{o}{\PYZlt{}}\PY{n}{MetricResult}\PY{o}{\PYZgt{}} \PY{n}{results}\PY{o}{(}\PY{n}{SourceCode} \PY{n}{source}\PY{o}{)}\PY{o}{;}
+    \PY{k+kt}{void} \PY{n+nf}{calculate}\PY{o}{(}\PY{n}{InputStream} \PY{n}{is}\PY{o}{)}\PY{o}{;}
+    \PY{k+kt}{boolean} \PY{n+nf}{matches}\PY{o}{(}\PY{n}{String} \PY{n}{name}\PY{o}{)}\PY{o}{;}
+    \PY{n}{Class}\PY{o}{\PYZlt{}}\PY{o}{?}\PY{o}{\PYZgt{}} \PY{n}{getFactoryClass}\PY{o}{(}\PY{o}{)}\PY{o}{;}
+\PY{o}{\PYZcb{}}
+
+\PY{n+nd}{@MetricComponent}\PY{o}{(}\PY{n}{name}\PY{o}{=}\PY{l+s}{"Cyclomatic Complexity"}\PY{o}{)}
+\PY{k+kd}{public} \PY{k+kd}{class} \PY{n+nc}{CCMetricFactory} \PY{k+kd}{implements} \PY{n}{MetricFactory} \PY{o}{\PYZob{}}
+    \PY{k+kd}{public} \PY{n}{Metric} \PY{n+nf}{build}\PY{o}{(}\PY{o}{)} \PY{o}{\PYZob{}}
+        \PY{k}{return} \PY{k}{new} \PY{n+nf}{CCMetric}\PY{o}{(}\PY{o}{)}\PY{o}{;}
+    \PY{o}{\PYZcb{}}
+\PY{o}{\PYZcb{}}
+\end{Verbatim}
