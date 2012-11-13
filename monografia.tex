@@ -446,6 +446,15 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
                 \item \codechunk{Collection<MetricResult> results()}: devolve uma coleção de objetos que representam os resultados dessa métrica que serão armazenados no banco de dados.
             \end{itemize}
 
+            O diagrama UML da figura \ref{fig:uml_metric}, descreve as classes de duas métricas implementadas, a Complexidade Ciclomática e a LCOM.
+
+            \begin{figure}[ht]
+                \centering
+                \includegraphics[width=0.7\textwidth]{img/uml_metric.png}
+                \caption{Diagrama de duas métricas de código implementadas no MetricMiner}
+                \label{fig:uml_metric}
+            \end{figure}
+
             Para encontrar as classes que implementam as métricas no classpath do MetricMiner, foi utilizado o recurso de \textit{Annotations}\footnote{\url{http://docs.oracle.com/javase/tutorial/java/javaOO/annotations.html}} do Java. Todas as classes que implementam métricas são anotadas com a anotação \codechunk{@MetricComponent}. Na inicialização do sistema, a classe \codechunk{MetricMinerConfigs} encontra todas as classes anotadas e as adiciona a lista de métricas registradas.
 
             Para executar tais métricas, a classe \codechunk{CalculateAllMetricsTask} é executada na fila de execução. Essa tarefa recebe as métricas registradas, percorre todas as versões de código de um determinado projeto cadastrado calculando todas as métricas e persistindo os resultados. De forma semelhante, a tarefa \codechunk{CalculateMetricTask} cálcula uma métrica específica para todas as versões de um projeto. 
@@ -457,9 +466,9 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
     \section{Evolução do desempenho do MetricMiner}
 
-        A mineração dos repositórios da Apache (descrita na seção \ref{sec:apache}) foi utilizada para dirigir o desenvolvimento do MetricMiner. Diversas pequenas otimizações foram realizadas ao longo do desenvolvimento e seus resultados foram medidos com a mineração desses repositórios. 
+        A mineração dos repositórios da Apache (descrita na seção \ref{sc:apache}) foi utilizada para dirigir o desenvolvimento do MetricMiner. Diversas pequenas otimizações foram realizadas ao longo do desenvolvimento e seus resultados foram medidos com a mineração desses repositórios. 
 
-        A tabela \ref{tab:evolucao} exibe a evolução do desempenho ao longo do densenvolvimento da ferramenta. Para levantar os dados dessa tabela, foi considerada a mineração de 94 projetos em cada versão do MetricMiner, já que nas primeiras versões da ferramenta nem todos os projetos da Apache foram processados. Além disso, foram desconsideradas as tarefas de download de repositório pois seu desempenho depende quase exclusivamente de fatores externos a ferramenta como largura de banda e congestinamento da rede.
+        A tabela \ref{tab:evolucao} exibe a evolução do desempenho ao longo do densenvolvimento da ferramenta. Para levantar os dados dessa tabela, foi considerada a mineração de 94 projetos em cada versão do MetricMiner, já que nas primeiras versões da ferramenta nem todos os projetos da Apache foram processados. Além disso, foram desconsideradas as tarefas de download de repositório pois seu desempenho depende quase exclusivamente de fatores externos como a qualidade da conexão com o repositório remoto.
 
         \begin{table}\begin{center}
         \begin{tabular}{| p{5cm} | c | c | c | c | c | }
@@ -491,11 +500,11 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
     
 \chapter{Avaliação da ferramenta} \label{ch:avaliacao}
     
-    Nessa seção serão descritos os resultados obtidos com a ferramenta desenvolvida. Na subseção \ref{sc:apache} serão descritos a avaliação da ferramenta feita com a mineração dos repositórios de código aberto da \textit{Apache Software Foundation}. Na subseção \ref{sc:estudo-caso}, será exibida a reprodução de um estudo de mineração de software já publicado na academia, utilizando os dados processados pelo MetricMiner.
+    Nessa seção serão descritos os resultados obtidos em dois exemplos de uso do MetricMiner. Na subseção \ref{sc:apache} será exibida a avaliação da ferramenta feita com a mineração dos repositórios de código aberto da Apache Software Foundation. Na subseção \ref{sc:estudo-caso}, será descrita a reprodução de um estudo de mineração de software já publicado na literatura, utilizando os dados processados pelo MetricMiner.
 
-    \section{Resultados obtidos com a mineração de repositórios públicos} \label{sc:apache}
+    \section{Exemplo de uso 1: mineração da Apache} \label{sc:apache}
 
-        A capacidade da ferramenta desenvolvida foi avaliada por meio da mineração dos projetos de código aberto disponibilizados pela Apache Software Foundation. Os códigos desses projetos podem ser acessados por meio do sistema de controle de versão Git, a lista completa de projetos se encontra em \url{http://git.apache.org/}. No total, foram cadastrados e processados 307 projetos de código aberto.
+        A capacidade da ferramenta desenvolvida foi avaliada por meio da mineração dos projetos de código aberto disponibilizados pela Apache. Os códigos desses projetos podem ser acessados por meio do sistema de controle de versão Git, a lista completa de projetos se encontra em \url{http://git.apache.org/}. No total, foram cadastrados e processados 307 projetos de código aberto.
 
         Esse conjunto de projetos minerados possui grande variedade em relação ao domínio de aplicação: existem projetos de domínios complexos como o Harmony - uma implementação da máquina virtual java - assim como outros mais simples como Commons Exec - uma biblioteca java para a execução de comandos do sistema operacional. 
 
@@ -561,18 +570,19 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
         Ao final do processo de mineração dos repositórios da Apache, o MetricMiner processou e armazenou mais de 800 mil commits de mais 2 mil autores diferentes, mais 1.5 milhões de artefatos e 5 milhões de versões de arquivos de código. Todo esse volume de dados está armazenado em um banco de dados de mais de 180 GB e disponível para consultas por meio da interface web. O processo de mineração, desde o início do download do primeiro projeto até o cálculo das métricas do último, levou no total aproximadamente 90 horas de duração.
 
-    \section{Estudo de caso} \label{sc:estudo-caso}
+    \section{Exemplo de uso 2: expansão de um estudo da literatura} \label{sc:estudo-caso}
         Para mostrar o valor da ferramenta no contexto de pesquisa em Mineração de Repositórios, foi feita a reprodução de um estudo publicado na área. O trabalho publicado em \cite{SoetensQUATIC2010} foi reproduzido e estendido utilizando os dados minerados no MetricMiner por meio de sua interface de consultas ao banco de dados.
 
         \subsection*{Artigo publicado}
 
         Neste trabalho, os autores estudam o efeito de refatorações sobre a complexidade do sistema. Uma refatoração é o processo de modificar o código para melhorar sua estrutura interna, mas sem modificar seu comportamento externo \cite{fowler-refactoring}. Assim, se aplicada corretamente, a refatoração de código deve aprimorar a manutenabilidade do sistema, sem acrescentar ou remover funcionalidades.
 
-        Para estudar o efeito das refatorações, os autores utilizam a métrica de complexidade ciclomática como medida da complexidade total de um sistema, ou seja, consideram que a complexidade do sistema é a soma da complexidade ciclomática de suas classes. O artigo apresenta uma breve análise matemática sobre o efeito de refatorações comuns sobre a complexidade ciclomática de uma classe. As refatorações analisadas foram: 
+        Para estudar o efeito das refatorações, os autores utilizam a métrica de complexidade ciclomática como medida da complexidade total de um sistema, ou seja, consideram que a complexidade do sistema é a soma da complexidade ciclomática de suas classes. O artigo apresenta uma breve análise matemática sobre o efeito de refatorações comuns sobre a complexidade ciclomática de uma classe. As refatorações analisadas foram:
+
         \begin{itemize}
             \item Subir método (\textit{pull up method})
             \item Extrair método (\textit{extract method})
-            \item Colocar método em linha (??) (\textit{inline method})
+            \item Colocar método em linha (\textit{inline method})
         \end{itemize}
 
         O tabalho analisa 776 versões extraídas do sistema de controle de versão do projeto de código aberto PMD\footnote{\url{http://pmd.sourceforge.net/}}. Para fazer essa análise, os autores utilizaram dois \textit{plugins} da IDE Eclipse: o SVNKit, para extrair o código do repositório e o Eclipse Metrics, para calcular a métrica de complexidade ciclomática. Com esses dois plugins instalados, eles desenvolveram um plugin próprio para realizar o processo de carregar a versão do código, calcular as métricas e armazenar os resultados em arquivos XML. Depois disso, os arquivos XML foram processados e as métricas calculadas foram associadas com as mensagens de cada commit.
@@ -663,7 +673,11 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
         \caption{Resultados obtidos na reprodução do estudo \label{tab:resultados}}
         \end{center}\end{table}
 
+        \subsection*{Conclusão}
+        
+
 \chapter{Conclusão e trabalhos futuros} \label{ch:conclusao}
+
 
 \chapter{Parte subjetiva} \label{ch:subjetiva}
 
