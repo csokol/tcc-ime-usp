@@ -139,8 +139,7 @@
         principalmente porque os requisitos levantados apenas na fase inicial do projeto se 
         modificavam frequentemente, mesmo durante a fase de manutenção. Na tentativa de compreender
         a natureza dessas mudanças no processo de desenvolvimento, Manny Lehman realizou diversos 
-        estudos empíricos sobre o desenvolvimento de sistemas da IBM \textbf{colocar refs aqui} 
-        (ver nom\cite{DBLP:series/springer/Mens08})
+        estudos empíricos sobre o desenvolvimento de sistemas da IBM \cite{Lehman2,Lehman1980b,Lehman1985}.
         
         No trabalho publicado em \cite{Lehman1980b}, Lehman define três classes de programas.
         A classe S, contém programas cujas funcionalidades podem ser especificadas formalmente e possuem uma 
@@ -276,7 +275,15 @@
 
     \section{Métricas de código-fonte} \label{sc:metricas}
 
-    % Explique as principais que usamos no MetricMiner, ok? Complexidade ciclomática, Acoplamento aferente e eferente, LCOM, Linhas de código por método.
+    Métricas são medidas numéricas de propriedades do código de um programa. Por meio delas, é possível medir e comparar numericamente propriedades abstratas como por exemplo acoplamento e coesão das classes de um sistema. Tais métricas utilizadas no contexto da Mineração de Repositórios para compreender e evolução de propriedades de um sistema analisado. A seguir, as principais métricas implementadas no MetricMiner (os detalhes da implementação serão discutidos na subceção \ref{sc:arquitetura}):
+
+    \begin{itemize} 
+        \item \textbf{Complexidade Ciclomática:} mede a complexidade do código, quanto maior o número de instruções como \codechunk{if}, \codechunk{while}, \codechunk{case}, \codechunk{\&\&}, \codechunk{||}, ou o operador ternário \codechunk{?}, mais complexo é o código e, portanto, maior o valor da métrica \cite{maccabe:76}.
+        \item \textbf{Falta de Coesão dos Métodos (\textit{LCOM}):} mede a coesão, considerando que uma classe é coesa se todos os métodos acessam os mesmos atributos da classe em comum \cite{henderson:96}.
+        \item \textbf{Acoplamento eferente (\textit{Fan-out}):} mede o acoplamento de uma classe, contando o número de invocações de métodos de outras classes \cite{lorenz:94}.
+        \item \textbf{Quantidade de Linhas de Código (\textit{LOC}):} a contagem de linhas por método \cite{chidamber:94}.
+        \item \textbf{Quantidade de Invocações de Métodos:} a contagem de invocações por método \cite{li:93} em uma classe.
+    \end{itemize}
 
 \chapter{Trabalhos relacionados} \label{ch:trabalhos}
 
@@ -396,16 +403,12 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
 
     \section{Decisões arquiteturais} \label{sc:arquitetura}
-    (revisar)
-    %   eu colocaria aqui um paragrafo inicial descrevendo em alto nivel o sistema…
-    %   web java deployado em um tomcat, que usa mysql como base de dados, processamento assincrono para execucao 
-    %   de  jobs.. talvez ate um diagrama de componentes para exemplificar
+
+    O MetricMiner é um sistema em java, que pode ser implantado em qualquer container web java. Atualmente, a aplicação está em produção, implantada por meio do servidor web \textit{Apache Tomcat}\footnote{\url{http://tomcat.apache.org/}}. O MetricMiner utiliza o sistema gerenciador de banco de dados MySQL para armazenar os dados minerados. O sistema executa as tarefas assíncronamente por meio de um fila de execução representada no banco de dados. Nas subseções a seguir, serão descritos os detalhes dessa arquitetura.
 
         \subsection*{Modelo de dados}
             O diagrama da Figura \ref{fig:uml_modelo} exibe as principais classes do modelo de dados minerados pelo MetricMiner. Todas as classes e relacionamentos representados nesse diagrama são mapeados em tabelas no banco de dados por meio do Hibernate. 
 
-                % use estereotipos. tipo Project <<contém>> artefatos pra facilitar a leitura
-                % Kd a interface comum entre os Result? Se não existe, puxar uma nota ou coisa do tipo pra explicar
                 \begin{figure}[ht]
                     \centering
                     \includegraphics[width=1.00\textwidth]{img/uml-modelo.png}
@@ -433,12 +436,6 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
         \subsection*{Cálculo das métricas de código} %% Metric, MetricFactory, CalculateAllMetricsTask (template method), CalculateMetricTask
 
-            % diagrama uml aqui, mesmo que simples, cai bem :)
-            % comentar das metricas que sao executadas depois de todas as do repositorio. 
-            % Como vc chamou isso mesmo?
-            % comentar que usamos o japaparser aqui, que eh baseado no ANTLR (confirmar no site) para parsear 
-            % codigo java. isso facilita a vida. 
-            % mostrar como funciona isso, abre qquer visitor, e veja como eh, e detalha! 
             De forma semelhante à arquitetura das tarefas da fila execução, também foi utilizado o padrão \codechunk{Abstract Factory} no design das métricas de código implementadas no MetricMiner. Assim, para cada métrica, existem duas classes implementando duas interfaces: \codechunk{Metric} e \codechunk{MetricFactory}. A interface \codechunk{MetricFactory} define apenas um método, \codechunk{build}, que devolve uma instância da métrica. A interface \codechunk{Metric} define dois métodos principais: 
 
             \begin{itemize}
@@ -455,7 +452,9 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
                 \label{fig:uml_metric}
             \end{figure}
 
-            Para encontrar as classes que implementam as métricas no classpath do MetricMiner, foi utilizado o recurso de \textit{Annotations}\footnote{\url{http://docs.oracle.com/javase/tutorial/java/javaOO/annotations.html}} do Java. Todas as classes que implementam métricas são anotadas com a anotação \codechunk{@MetricComponent}. Na inicialização do sistema, a classe \codechunk{MetricMinerConfigs} encontra todas as classes anotadas e as adiciona a lista de métricas registradas.
+            As métricas presentes no MetricMiner já haviam sido implementadas pelo grupo de pesquisa (disponível em \url{https://github.com/mauricioaniche/msr-asserts}). A implementação dessas métricas de código utiliza a biblioteca javaparser\footnote{\url{http://code.google.com/p/javaparser/}}. Com essa biblioteca, a árvore sintática abstrata de uma classe java é construída e visitada contabilizando os resultados de cada métrica. Para fazer a análise sintática da classe java, o javaparser utiliza o javacc (java compiler compiler\footnote{\url{http://javacc.java.net/}}) que é uma ferramenta geradora de código que permite construir analisadores sintáticos a partir de uma gramática definida na sintaxe do javacc.
+
+            Para encontrar as classes que implementam as métricas no \textit{classpath} do MetricMiner, foi utilizado o recurso de \textit{Annotations}\footnote{\url{http://docs.oracle.com/javase/tutorial/java/javaOO/annotations.html}} do Java. Todas as classes que implementam métricas são anotadas com a anotação \codechunk{@MetricComponent}. Na inicialização do sistema, a classe \codechunk{MetricMinerConfigs} encontra todas as classes anotadas e as adiciona a lista de métricas registradas.
 
             Para executar tais métricas, a classe \codechunk{CalculateAllMetricsTask} é executada na fila de execução. Essa tarefa recebe as métricas registradas, percorre todas as versões de código de um determinado projeto cadastrado calculando todas as métricas e persistindo os resultados. De forma semelhante, a tarefa \codechunk{CalculateMetricTask} cálcula uma métrica específica para todas as versões de um projeto. 
 
@@ -672,12 +671,9 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
         \end{tabular}
         \caption{Resultados obtidos na reprodução do estudo \label{tab:resultados}}
         \end{center}\end{table}
-
-        \subsection*{Conclusão}
         
 
 \chapter{Conclusão e trabalhos futuros} \label{ch:conclusao}
-
 
 \chapter{Parte subjetiva} \label{ch:subjetiva}
 
