@@ -32,7 +32,7 @@
 \begin{titlepage}
 \vspace*{\fill}
 \vspace{-5cm}
-\center{\begin{spacing}{1.0}\huge \textbf{\textsc{MetricMiner: uma ferramenta web de apoio à mineração de repositórios de software}}\end{spacing}}
+\center{\begin{spacing}{1.0}\huge \textbf{MetricMiner: uma ferramenta web de apoio à mineração de repositórios de software}\end{spacing}}
 \vspace{2cm}
 \center\textsc{{\Large Francisco Sokol}}
 \vspace{1cm}
@@ -303,7 +303,16 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
     O Eclipse Metrics\footnote{http://metrics.sourceforge.net/} é um \textit{plugin} para o Eclipse que calcula uma variedade de métricas de código no ambiente do desenvolvedor. Dessa forma, para que se acompanhe a evolução do código do projeto é necessário executar manualmente o \textit{plugin} para os \textit{releases} que se deseja analisar. No MetricMiner, o cálculo das métricas é realizado sobre todo o histórico de versões do projeto analisado, sem que o usuário precise selecionar as versões manualmente. Além disso, não é necessário que o usuário configure nada em seu ambiente e nem que mantenha as versões que deseja analisar localmente.
     
 \section{Kalibro}
-    Desenvolvida no Brasil, o Kalibro\footnote{http://www.kalibro.org/} é uma ferramenta que calcula as principais métricas de código fonte. O foco do Kalibro é dar suporte ao desenvolvedor, sugerindo valores de referência para as métricas calculadas, apontando possíveis problemas no projeto analisado. A ferramenta permite que os valores de referência sejam configurados por projeto. Através de código JavaScript, é possível compor as métricas calculadas pelo Kalibro, permitindo que o usuário crie novas métricas. Assim como o Eclipse Metrics, o Kalibro não analisa todo o histório de versões, de forma que o usuário precisaria selecionar as versões e recalcular as métricas manualmente.
+    Desenvolvido no Brasil, o Kalibro\footnote{http://www.kalibro.org/} é uma ferramenta que calcula as principais métricas de código fonte. O foco do Kalibro é dar suporte ao desenvolvedor, sugerindo valores de referência para as métricas calculadas, apontando possíveis problemas no projeto analisado. A ferramenta permite que os valores de referência sejam configurados por projeto. Através de código JavaScript, é possível compor as métricas calculadas pelo Kalibro, permitindo que o usuário crie novas métricas. Assim como o Eclipse Metrics, o Kalibro não analisa todo o histório de versões, de forma que o usuário precisaria selecionar as versões e recalcular as métricas manualmente.
+
+\section{EvolTrack}
+    Desenvolvido Universidade Federal do Rio de Janeiro, o EvolTrack é uma ferramenta de vizualização da evolução de um software. Desenvolvido como um \textit{plugin} para o Eclipse, o EvolTrack processa o histórico do sistema de controle de versão de um projeto e permite que o usuário vizualize a evolução das classes do projeto ao longo do tempo. A ferramenta exibe o diagrama de classes da versão do projeto e o usuário avança no tempo vizualizando as classes novas e removidas. Atualmente, a ferramenta suporta apenas o sistema de controle de versão SVN. Utilizando a infraestrutura da platagorma Eclipse, o EvolTrack possui \textit{plugins} para diferentes vizualizações dos dados, como o EvolTrack-SocialNetwork \cite{vahia:11}, que permite vizualizar as relações entre os desenvolvedores na evolução de um software.
+
+\section{ArchView}
+    O ArchView \cite{pinzger:05} é uma ferramenta de vizualização para a análise da evolução de um software. A ferramenta extrai informações do sistema de controle de versão (CVS) e do sistema de rastreamento de \textit{bugs} (Bugzilla) e calcula diversas métricas para cada versão do software. Depois de processar os dados, o ArchView permite que o usuário vizualize diversas métricas de módulos ou arquivos, em diferentes versões do projeto, exibidas em diagramas de kiviat. Além disso, o software exibe o acoplamento dos diferentes módulos com base no histórico de alterações no repositório de código.
+
+\section{CodeCity}
+    O CodeCity \cite{wettel07} é uma ferramenta de vizualização que utiliza metáfora de uma cidade para representar o software analisado. A ferramenta constrói uma representação tri dimensional do projeto analisado, representando cada classe do sistema como um prédio na cidade exibida. As classes são agrupadas em distritos e subdistritos de acordo com a hierarquia de pacotes do sistema. O número de métodos e de atributos de cada classe são mapeadas na altura e largura, respectivamente, de cada prédio.
     
 \chapter{MetricMiner} \label{ch:arquitetura}
 
@@ -672,8 +681,26 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
         \caption{Resultados obtidos na reprodução do estudo \label{tab:resultados}}
         \end{center}\end{table}
         
+        \subsection*{Conslusão}
+        Utilizando o MetricMiner, foi possível reproduzir e estender o estudo original com sucesso. Como o esperado, os resultados obtidos foram semelhantes ao trabalho dos autores do artigo. O processo de análise dos dados com o MetricMiner se mostrou mais simples do que a abordagem utilizada por Soetens e Demeyer, uma vez que os dados dos commits e cálculo das métricas de código já haviam sido realizadas. Além disso, na abordagem original, o processo de mineração foi muito mais custoso, uma vez que o SVNKit necessita se conectar ao repositório remoto para baixar cada versão do projeto e o Eclipse Metrics calcula métricas com o código compilado (portanto, é necessário recompilar o código de cada versão).
+
+        Considerando que o volume de dados analisado com o MetricMiner foi muito maior que o trabalho original, ainda seria possível se aprofundar na investigação das refatorações documentadas dos desenvolvedores. Seria possível analisar os efeitos das refatorações por projeto, pelo tipo de projeto, pelo tamanho, pela experiência do desenvolvedor, entre outros. Ainda seria possível analisar o efeito sobre métricas de acoplamento e coesão (\textit{Fan out} e \textit{LCOM}), que também são propriedades de qualidade de código.
 
 \chapter{Conclusão e trabalhos futuros} \label{ch:conclusao}
+    
+        A ferramenta desenvolvida nesse trabalho tem valor na área de Mineração de Repositórios de Software. Como exibido na seção \ref{sc:estudo-caso}, o MetricMiner facilita o desenvolvimento de estudos nessa área de pesquisa com as funcionalidades implementadas até o momento e os dados minerados disponíveis. Além disso, como foi apresentado na seção \ref{sc:arquitetura}, a ferramenta possui uma arquitetura extensível, permitindo que novas métricas e tarefas de mineração sejam desenvolvidas no futuro.
+
+        Diversas melhorias ainda podem ser desenvolvidas no MetricMiner:
+        \begin{itemize}
+            \item {\bf Paralelizar a execução de tarefas}: as tarefas de mineração executadas são totalmente independentes entre projetos diferentes, portanto, podem ser executadas concorrentemente, seja no mesmo servidor (em múltiplas \textit{threads}) ou até mesmo de forma distribuída em várias máquinas.
+            \item {\bf Novas métricas}: outras métricas de código da literatura podem ser implementadas no MetricMiner. Além disso, métricas de código para outras linguagens de programação também podem ser desenvolvidas (no momento a única linguagem suportada nas métricas atuais é o Java).
+            \item {\bf Novas tarefas de mineração}: a mineração de outras fontes de dados como sistemas de \textit{bug tracking} e listas de email podem ser implementadas para enriquecer a base de dados do MetricMiner.
+            \item {\bf Usabilidade da interface web}.
+        \end{itemize}
+
+% do estudo reproduzido, resultados semelhantes, maior volume de dados, processo mais simples
+% possui uma base de dados grande aberta para consultas para a realização de novos estudos
+% 
 
 \chapter{Parte subjetiva} \label{ch:subjetiva}
 
