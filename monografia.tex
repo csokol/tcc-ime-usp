@@ -15,6 +15,8 @@
 \usepackage{verbatim}
 \usepackage[a4paper, top=46mm, left=29mm, right=29mm, bottom=32mm, includefoot]{geometry}
 \usepackage{array}
+\usepackage{rotating}
+
 
 \usepackage[pdftex]{graphicx}           % usamos arquivos pdf/png como figuras
 
@@ -275,11 +277,11 @@
 
     \section{Métricas de código-fonte} \label{sc:metricas}
 
-    Métricas são medidas numéricas de propriedades do código de um programa. Por meio delas, é possível medir e comparar numericamente propriedades abstratas como por exemplo acoplamento e coesão das classes de um sistema. Tais métricas utilizadas no contexto da Mineração de Repositórios para compreender e evolução de propriedades de um sistema analisado. A seguir, as principais métricas implementadas no MetricMiner (os detalhes da implementação serão discutidos na subceção \ref{sc:arquitetura}):
+    Métricas são medidas numéricas de propriedades do código de um programa. Por meio delas, é possível medir e comparar numericamente propriedades abstratas como por exemplo acoplamento e coesão das classes de um sistema. Tais métricas são utilizadas no contexto da Mineração de Repositórios para compreender e evolução de propriedades de um sistema analisado. A seguir, as principais métricas implementadas no MetricMiner (os detalhes da implementação serão discutidos na subseção \ref{sc:arquitetura}):
 
     \begin{itemize} 
         \item \textbf{Complexidade Ciclomática:} mede a complexidade do código, quanto maior o número de instruções como \codechunk{if}, \codechunk{while}, \codechunk{case}, \codechunk{\&\&}, \codechunk{||}, ou o operador ternário \codechunk{?}, mais complexo é o código e, portanto, maior o valor da métrica \cite{maccabe:76}.
-        \item \textbf{Falta de Coesão dos Métodos (\textit{LCOM}):} mede a coesão, considerando que uma classe é coesa se todos os métodos acessam os mesmos atributos da classe em comum \cite{henderson:96}.
+        \item \textbf{Falta de Coesão dos Métodos (\textit{LCOM}):} mede a coesão de uma classe, considerando o número de atributos da classe que cada método utiliza (considerando que uma classe é coesa se todos os métodos acessam todos os atributos) \cite{henderson:96}.
         \item \textbf{Acoplamento eferente (\textit{Fan-out}):} mede o acoplamento de uma classe, contando o número de invocações de métodos de outras classes \cite{lorenz:94}.
         \item \textbf{Quantidade de Linhas de Código (\textit{LOC}):} a contagem de linhas por método \cite{chidamber:94}.
         \item \textbf{Quantidade de Invocações de Métodos:} a contagem de invocações por método \cite{li:93} em uma classe.
@@ -287,32 +289,60 @@
 
 \chapter{Trabalhos relacionados} \label{ch:trabalhos}
 
-(revisar)
-% As ferramentas que vc citou ajudam a calcular métricas de código, mas não olham muito evolução de software, certo (tirando o sonar)?
-% Divida seus trabalhos relacionados em 2. Ferramentas de métrica de código, e ferramenta de MSR.
-% Comente da Evoltrack, Oceano (do pessoal da UFF), CodeCity. Googla tb pelo professor Harald Gall, acha o site do grupo de pesquisa dele, lá tem as ferramentas dele, e vale a pena comentar.
-% Faça também uma seção de "comparação". E mostre o que elas não tem e quais  são os principais problemas dela e pq fizemos o metricminer.
-
 Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
-\section{Sonar}
+
+\section*{Sonar}
     Não se conhece ferramentas web de suporte a mineração de repositórios de software. Uma ferramenta que se assemelha ao MetricMiner, é o Sonar \footnote{http://www.sonarsource.org/}, uma aplicação web que analisa o código fonte e extrai uma variedade de relatórios sobre o sistema, como resultados de métricas de código e dependências estruturais entre as classes. O foco desta ferramenta é apoiar a equipe de desenvolvimento e acompanhar a qualidade do código escrito. O Sonar não armazena metadados do sistema de controle versão e não permite que se extraia dados dos projetos armazenados, mas fornece uma interface de vizualização com muitos recursos. Por esses motivo, o Sonar é muito utilizado na indústria e pouco utilizado para fins acadêmicos.
     
     Diferentemente do Sonar, o MetricMiner tem o foco na área acadêmica, possibilitando que os usuários extraiam dados calculados pelo sistema para realizar a análise que desejar, sem focar tanto na vizualização dos dados armazenados.
 
-\section{Eclipse Metrics}
+\section*{Eclipse Metrics}
     O Eclipse Metrics\footnote{http://metrics.sourceforge.net/} é um \textit{plugin} para o Eclipse que calcula uma variedade de métricas de código no ambiente do desenvolvedor. Dessa forma, para que se acompanhe a evolução do código do projeto é necessário executar manualmente o \textit{plugin} para os \textit{releases} que se deseja analisar. No MetricMiner, o cálculo das métricas é realizado sobre todo o histórico de versões do projeto analisado, sem que o usuário precise selecionar as versões manualmente. Além disso, não é necessário que o usuário configure nada em seu ambiente e nem que mantenha as versões que deseja analisar localmente.
     
-\section{Kalibro}
-    Desenvolvido no Brasil, o Kalibro\footnote{http://www.kalibro.org/} é uma ferramenta que calcula as principais métricas de código fonte. O foco do Kalibro é dar suporte ao desenvolvedor, sugerindo valores de referência para as métricas calculadas, apontando possíveis problemas no projeto analisado. A ferramenta permite que os valores de referência sejam configurados por projeto. Através de código JavaScript, é possível compor as métricas calculadas pelo Kalibro, permitindo que o usuário crie novas métricas. Assim como o Eclipse Metrics, o Kalibro não analisa todo o histório de versões, de forma que o usuário precisaria selecionar as versões e recalcular as métricas manualmente.
+\section*{Kalibro e Analizo}
+    Desenvolvidos no Brasil, o Kalibro\footnote{\url{http://www.kalibro.org/}} e o Analizo\footnote{\url{http://www.analizo.org/}} são ferramentas que calculam as principais métricas de código fonte. Enquanto o Analizo calcula métricas de código de diversas linguagens, o foco do Kalibro é dar suporte ao desenvolvedor, sugerindo valores de referência para as métricas calculadas, apontando possíveis problemas no projeto analisado. A ferramenta permite que os valores de referência sejam configurados por projeto. Através de código JavaScript, é possível compor as métricas calculadas pelo Analizo, permitindo que o usuário crie novas métricas. Assim como o Eclipse Metrics, o Kalibro não analisa todo o histório de versões, de forma que o usuário precisaria selecionar as versões e recalcular as métricas manualmente.
 
-\section{EvolTrack}
-    Desenvolvido Universidade Federal do Rio de Janeiro, o EvolTrack é uma ferramenta de vizualização da evolução de um software. Desenvolvido como um \textit{plugin} para o Eclipse, o EvolTrack processa o histórico do sistema de controle de versão de um projeto e permite que o usuário vizualize a evolução das classes do projeto ao longo do tempo. A ferramenta exibe o diagrama de classes da versão do projeto e o usuário avança no tempo vizualizando as classes novas e removidas. Atualmente, a ferramenta suporta apenas o sistema de controle de versão SVN. Utilizando a infraestrutura da platagorma Eclipse, o EvolTrack possui \textit{plugins} para diferentes vizualizações dos dados, como o EvolTrack-SocialNetwork \cite{vahia:11}, que permite vizualizar as relações entre os desenvolvedores na evolução de um software.
+\section*{Mezuro}
+    O Mezuro\footnote{\url{http://mezuro.org/}} é uma aplicação web construída sobre o Kalibro e o Analizo. Por meio de sua interface, o usuário cadastra projetos de software e as métricas implementadas no Analizo são calculadas sobre o código. Valores de referência das métricas são exibidas ao usuário nos resultados calculados, sugerindo pontos positivos e negativos no código do projeto. Atualmente, a aplicação se encontra em fase de desenvolvimento em \url{http://mezuro.org/}
 
-\section{ArchView}
-    O ArchView \cite{pinzger:05} é uma ferramenta de vizualização para a análise da evolução de um software. A ferramenta extrai informações do sistema de controle de versão (CVS) e do sistema de rastreamento de \textit{bugs} (Bugzilla) e calcula diversas métricas para cada versão do software. Depois de processar os dados, o ArchView permite que o usuário vizualize diversas métricas de módulos ou arquivos, em diferentes versões do projeto, exibidas em diagramas de kiviat. Além disso, o software exibe o acoplamento dos diferentes módulos com base no histórico de alterações no repositório de código.
+\section*{EvolTrack}
+    Desenvolvido Universidade Federal do Rio de Janeiro, o EvolTrack é uma ferramenta de vizualização da evolução de um software. Desenvolvido como um \textit{plugin} para o Eclipse, o EvolTrack processa o histórico do sistema de controle de versão de um projeto e permite que o usuário vizualize a evolução das classes do projeto ao longo do tempo. A ferramenta exibe o diagrama de classes da versão do projeto e o usuário avança no tempo vizualizando as classes novas e removidas. Atualmente, a ferramenta suporta apenas o sistema de controle de versão SVN. Utilizando a infraestrutura da plataforma Eclipse, o EvolTrack possui \textit{plugins} para diferentes vizualizações dos dados, como o EvolTrack-SocialNetwork \cite{vahia:11}, que permite vizualizar as relações entre os desenvolvedores na evolução de um software.
 
-\section{CodeCity}
-    O CodeCity \cite{wettel07} é uma ferramenta de vizualização que utiliza metáfora de uma cidade para representar o software analisado. A ferramenta constrói uma representação tri dimensional do projeto analisado, representando cada classe do sistema como um prédio na cidade exibida. As classes são agrupadas em distritos e subdistritos de acordo com a hierarquia de pacotes do sistema. O número de métodos e de atributos de cada classe são mapeadas na altura e largura, respectivamente, de cada prédio.
+\section*{ArchView}
+    O ArchView \cite{pinzger:05} é uma ferramenta de vizualização para a análise da evolução de um software. A ferramenta extrai informações do sistema de controle de versão (CVS) e do sistema de rastreamento de \textit{bugs} (Bugzilla) e calcula diversas métricas para cada versão do software. Depois de processar os dados, o ArchView permite que o usuário vizualize diversas métricas de módulos ou arquivos, de diferentes versões do projeto, exibidas em diagramas de kiviat. Além disso, o software exibe o acoplamento dos diferentes módulos com base no histórico de alterações no repositório de código.
+
+\section*{CodeCity}
+    O CodeCity \cite{wettel07} é uma ferramenta de vizualização que utiliza a metáfora de uma cidade para representar o software analisado. A ferramenta constrói uma representação gráfica tri dimensional do projeto analisado, representando cada classe do sistema como um prédio na cidade exibida. As classes são agrupadas em distritos e subdistritos da cidade de acordo com a hierarquia de pacotes do sistema. O número de métodos e de atributos de cada classe são mapeadas na altura e largura, respectivamente, de cada prédio.
+
+    \section{Quadro comparativo}
+
+    A tabela \ref{tab:relacionados} exibe um quadro comparativo entre as ferramentas descritas a seguir e o MetricMiner.
+    \begin{table}\begin{center}
+        \begin{tabular}{| p{8cm} | c | c | c | c | c | c | c | c | c |}
+            \hline                        
+             &  \begin{sideways}\bf MetricMiner\end{sideways} & \begin{sideways}\bf Sonar\end{sideways} & \begin{sideways}\bf Eclipse Metrics\end{sideways} & \begin{sideways}\bf Kalibro e Analizo\end{sideways} & \begin{sideways}\bf Mezuro\end{sideways} & \begin{sideways}\bf Evoltrack\end{sideways} & \begin{sideways}\bf ArchView\end{sideways} & \begin{sideways}\bf CodeCity\end{sideways} \\
+            \hline
+            \textbf{Aplicação web} & X & X & - & - & X & - & - & - \\
+            \hline
+            \textbf{Interface de consulta aos dados minerados} & X & - & - & - & - & - & - & - \\
+            \hline
+            \textbf{Cálculo de métricas de código} & X & X & X & X & X & - & X & - \\
+            \hline
+            \textbf{Processamento de código em texto puro (não compilado)} & X & - & - & X & X & - & - & - \\
+            \hline
+            \textbf{Interface gráfica de vizualização dos dados} & - & - & - & - & - & X & X & X \\
+            \hline
+            \textbf{Processamento de repositórios Git} & X & - & - & - & X & - & - & - \\
+            \hline
+            \textbf{Processamento de repositórios SVN} & X & - & - & - & X & X & - & - \\
+            \hline
+            \textbf{Processamento de repositórios CVS} & - & - & - & - & X & - & X & - \\
+            \hline
+        \end{tabular}
+        \caption{Quadro comparativo entre as aplicações relacionadas ao MetricMiner \label{tab:relacionados}}
+    \end{center}\end{table}
+
+
     
 \chapter{MetricMiner} \label{ch:arquitetura}
 
@@ -502,10 +532,6 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
             \item \textbf{Cache de segundo nível:} Além do cache de primeiro nível (descrito brevemente no primeiro item), o Hibernate possui um segundo cache, o cache de segundo nível. Diferentemente do cache de primeiro nível, que armazena apenas dados manipulados por uma única instância da classe Session, o cache de segundo nível armazena o resultado de consultas realizadas ao banco por todas as sessões abertas. Por padrão, o cache de segundo nível é desabilitado, no MetricMiner foi utilizada a implementação do EHCACHE\footnote{http://ehcache.org/}. A utilização de tal cache poupou o número de requisições ao banco de dados principalmente nos acessos às páginas web servidas pelo MetricMiner.
         \end{itemize}
 
-    \section{Estendendo e contribuindo com o projeto}
-
-    %% nova métrica, nova métrica pós processamento, novos scv (svn já foi), novas tasks em geral (minerar listas de email, )
-    
 \chapter{Avaliação da ferramenta} \label{ch:avaliacao}
     
     Nessa seção serão descritos os resultados obtidos em dois exemplos de uso do MetricMiner. Na subseção \ref{sc:apache} será exibida a avaliação da ferramenta feita com a mineração dos repositórios de código aberto da Apache Software Foundation. Na subseção \ref{sc:estudo-caso}, será descrita a reprodução de um estudo de mineração de software já publicado na literatura, utilizando os dados processados pelo MetricMiner.
