@@ -11,7 +11,7 @@
 \usepackage{parskip} %fix paragraph spacing inside tubainabox
 \usepackage{setspace}
 \usepackage{monografia}
-\usepackage{hyperref}
+\usepackage[colorlinks=true]{hyperref}
 \usepackage{verbatim}
 \usepackage[a4paper, top=46mm, left=29mm, right=29mm, bottom=32mm, includefoot]{geometry}
 \usepackage{array}
@@ -58,30 +58,16 @@
 
 \chapter{Introdução}
 
-    Evolução de Software é uma área da Engenharia de Software que estuda as atividades de
-    desenvolvimento em um sistema de software após a sua concepção inicial e implantação em
-    produção. Esse termo foi usado pela primeira vez em um trabalho publicado por Manny 
-    Lehman \cite{DBLP:series/springer/Mens08}. Neste trabalho, o autor enuncia as 
-    ``leis da evolução de software'', defendendo que programas que representam alguma atividade
-    do mundo real evoluem continuamente, caso contrário, se tornam menos úteis e perdem seu 
-    valor \cite{Lehman1980b}. Além disso, Lehman afirma que este processo de mudança contínua
-    faz com que a complexidade do software cresça inevitavelmente, tornando sua estrutura
+    Evolução de Software é uma área da Engenharia de Software que estuda as atividades de desenvolvimento de um sistema de software após a sua concepção inicial e implantação em produção. De acordo com \cite{DBLP:series/springer/Mens08}, esse termo foi usado pela primeira vez em um trabalho publicado por Manny Lehman. Neste trabalho, o autor enuncia as ``leis da evolução de software'', defendendo que programas que representam alguma atividade do mundo real evoluem continuamente, caso contrário, se tornam menos úteis e perdem seu valor \cite{Lehman1980b}. Além disso, Lehman afirma que esse processo de mudança contínua faz com que a complexidade do software cresça inevitavelmente, tornando sua estrutura
     cada vez mais pobre e seu custo de manutenção maior.
     
     Considerando ainda diversos trabalhos indicando que o custo de manutenção de um software 
     ultrapassa 50\% do custo total de um projeto, observa-se que encontrar meios de se
-    manter a qualidade interna de um software é importante. Por meio do desenvolvimento 
+    manter a qualidade interna de um software é importante. Por meio do desenvolvimento de
     ferramentas e métodos, a evolução de software busca entender e controlar esse processo
     para o tornar mais eficiente.
     
-    Nesse contexto, a Mineração de Repositórios de Software estuda esse processo de evolução 
-    de forma empírica, por meio da análise dos artefatos envolvidos no seu desenvolvimento 
-    como código fonte, dados do sistema de controle de versão e sistemas de rastreamento 
-    de bugs \cite{Kagdi:2007}. Por meio da mineração desses dados, podem ser extraídas diversas
-    informações úteis ao desenvolvimento de um software, como por exemplo a indentificação de classes que são 
-    modificadas constantemente, classes mais propensas a falhas, entre outras. Com essas informações, 
-    equipes de desenvolvimento podem tomar ações para aprimorar o processo de desenvolvimento 
-    do sistema.
+    Nesse contexto, a Mineração de Repositórios de Software estuda o processo de evolução de forma empírica, por meio da análise dos artefatos envolvidos no seu desenvolvimento como código fonte, dados do sistema de controle de versão e sistemas de rastreamento de bugs \cite{Kagdi:2007}. Por meio da mineração desses dados, são extraídas diversas informações úteis ao desenvolvimento de um software, como, por exemplo, a indentificação de classes que são modificadas constantemente, classes mais propensas a falhas, entre outras. Com essas informações, equipes de desenvolvimento podem tomar ações para aprimorar o processo de desenvolvimento do sistema.
 
     \section{Motivação}
         Para desenvolver um trabalho em mineração de repositórios, o pesquisador é obrigado 
@@ -108,33 +94,32 @@
     \section{Estrutura da monografia}
         Este trabalho está estruturado da seguinte forma: 
         \begin{itemize}
-            \item Seção \ref{ch:conceitos}: nesta seção são abordados temas 
+            \item Capítulo \ref{ch:conceitos}: são abordados temas 
                 envolvidos no desenvolvimento desse trabalho, em um breve levantamento bibliográfico.
-            \item Seção \ref{ch:arquitetura}: apresenta a arquitetura e as tecnologias
+            \item Capítulo \ref{ch:arquitetura}: apresenta a arquitetura e as tecnologias
             envolvidas no desenvolvimento do MetricMiner.
-            \item Seção \ref{ch:avaliacao}: expõe os resultados obtidos com a ferramenta 
+            \item Capítulo \ref{ch:avaliacao}: expõe os resultados obtidos com a ferramenta 
                 na mineração de repositórios de projetos de código aberto.
-            \item Seção \ref{ch:conclusao}: análise dos resultados e levantamento 
-                de possíveis extensões futuras do projeto.
-            \item Seção \ref{ch:subjetiva}: apresenta as impressões do aluno na realização 
-                desse trabalho e a sua relação com o curso de Bacharelado em Ciência da Computação.
+            \item Capítulo \ref{ch:conclusao}: apresenta uma análise dos resultados e levantamento 
+                de possíveis extensões futuras do trabalho.
+            \item Capítulo \ref{ch:subjetiva}: apresenta as impressões do aluno na realização 
+                deste trabalho e a sua relação com o curso de Bacharelado em Ciência da Computação.
         \end{itemize}
     
 \chapter{Mineração de Repositórios de Software} \label{ch:conceitos}
     Esta seção é uma introdução aos principais temas de pesquisa envolvidos no desenvolvimento
-    deste trabalho. As subseções \ref{sc:evolucao} e \ref{sc:mineracao} contém, respectivamente, 
+    deste trabalho. As seção \ref{sc:evolucao} e \ref{sc:mineracao} contém, respectivamente, 
     uma introdução a Evolução de Software e Mineração de Repositórios de Software, as duas áreas 
-    da Engenharia de Software envolvidas no desenvolvimento desse trabalho. Na subceção 
+    da Engenharia de Software envolvidas no desenvolvimento deste trabalho. Na seção 
     \ref{sc:metricas}, são apresentadas algumas métricas de código fonte implementadas no 
-    MetricMiner. A subseção \ref{ch:trabalhos}, contém uma breve análise de outras ferramentas
-    relacionadas ao MetricMiner e à área de mineração de repositórios de software.
+    MetricMiner. 
 
     \section{Evolução de software} \label{sc:evolucao}
         No final da década de sessenta, o termo ``manutenção de software'' foi definido 
         como qualquer atividade de desenvolvimento realizada sobre o software após a sua
-        entrega e implantação inicial. Essa também era a visão estabelecida no modelo de
+        entrega e implantação inicial. Esta também era a visão estabelecida no modelo de
         desenvolvimento de software em cascata, proposto por Royce, em 1970 
-        \cite{DBLP:series/springer/Mens08}. Neste modelo, a manutenção do sistema era a fase final do 
+        \cite{DBLP:series/springer/Mens08}. Nesse modelo, a manutenção do sistema era a fase final do 
         desenvolvimento, em que eram feitos apenas pequenos ajustes e correção de erros.
         
         Com o passar do tempo, percebeu-se que esse processo era pouco eficiente, 
@@ -143,35 +128,35 @@
         a natureza dessas mudanças no processo de desenvolvimento, Manny Lehman realizou diversos 
         estudos empíricos sobre o desenvolvimento de sistemas da IBM \cite{Lehman2,Lehman1980b,Lehman1985}.
         
-        No trabalho publicado em \cite{Lehman1980b}, Lehman define três classes de programas.
-        A classe S, contém programas cujas funcionalidades podem ser especificadas formalmente e possuem uma 
+        No trabalho publicado em 1980 \cite{Lehman1980b}, Lehman define três classes de programas.
+        A classe S contém programas cujas funcionalidades podem ser especificadas formalmente e possuem uma 
         solução precisa. Problemas famosos como o do caixeiro viajante, n-rainhas, fluxo máximo, entre outros,
         são exemplos que podem servir de especificação para um programa da classe S. Esse 
-        tipo de programa é estático (a letra S vem de \textit{static}) pois, uma vez estabelecida a 
+        tipo de programa é estático (a letra S vem de \textit{static}), pois uma vez estabelecida a 
         solução para seu problema, esta satisfaz seus requisitos por completo.
         
-        A classe P, contém programas criados para solucionar algum problema do mundo real, que também  pode ser 
-        especificado formalmente, porém não pode ser solucionado com precisão absoluta (a letra P 
+        A classe P contém programas criados para solucionar algum problema do mundo real, que também   
+        é especificável formalmente, porém não pode ser solucionado com precisão absoluta (a letra P 
         vem de \textit{real world \textbf{p}roblem solution}). Exemplos
         dessa classe incluem programas para previsão do tempo, um jogador de xadrez, um 
         escalonador de vôos e linhas de trem, entre outros. Os resultados obtidos por programas dessa
-        classe não são soluções exatas do problema, devido a complexidade ou a própria natureza deste.
+        classe não são soluções exatas do problema, devido à complexidade ou à própria natureza deste.
         Programas da classe P, portanto, também possuem seus requisitos especificados com precisão e 
         as mudanças realizadas sobre eles acontecem apenas com o objetivo de aprimorar sua performance ou a qualidade dos resultados.
         
-        Os programas da classe E são aqueles cuja a especificação não pode ser definida completamente.
+        Os programas da classe E são aqueles cuja especificação não pode ser definida completamente.
         Tais programas são inseridos no mundo real para agilizar tarefas de seu domínio, modificando 
         a forma como as atividades são realizadas. Exemplos de programas da classe E são: sistemas 
         operacionais, sistemas de controle aéreo, de mercado financeiro, entre outros. Programas 
         dessa classe modificam o seu domínio de aplicação após sua implantação inicial, então é 
-        natural que com o passar do tempo novos requisitos sejam levantados para satisfazer 
+        natural que com o passar do tempo requisitos sejam levantados para satisfazer 
         novas necessidades da atividade que foi alterada. Programas dessa classe estão
-        sujeitos a sofrerem alterações constantes após a implantação inicial e, portanto estão
+        sujeitos a sofrerem alterações constantes após a implantação inicial e, portanto, estão
         em um processo de evolução constante (a letra E vem de \textit{evolution}).
         
         Assim, sistemas da classe E estão mais sujeitos a mudanças do que programas das classes S 
-        e P, por isso Lehman dirigiu seu trabalho sobre a análise da evolução de programas da 
-        classe E. Em uma tentativa de descrever esse processo de evolução em \cite{Lehman1980b}, o 
+        e P. Por isso, Lehman dirigiu seu trabalho sobre a análise da evolução de programas da 
+        classe E. Em uma tentativa de descrever esse processo de evolução \cite{Lehman1980b}, o 
         autor propõe as \textit{leis da evolução de software}:
         \begin{itemize}
             \item Mudança contínua: Um programa da classe E muda continuamente, caso contrário, se 
@@ -185,7 +170,7 @@
             \item Conservação de estabilidade organizacional: A taxa com que as modificações são 
                   feitas sobre o software ao longo de seu ciclo de vida é estatisticamente invariante.
             \item Conservação de familiaridade: A evolução de um programa é limitada pela 
-                  familiaridade com que seus desenvoldores tem com o sistema.
+                  familiaridade que seus desenvoldores tem com o sistema.
         \end{itemize}
 
         O trabalho de Lehman foi o primeiro a utilizar o termo ``evolução de software'' para
@@ -197,51 +182,51 @@
         Ainda não há um consenso da validade dessas leis para sistemas de software de código aberto. 
         Em  \cite{DBLP:series/springer/Fernandez-RamilLWC08}, os autores discutem a validade dessas
         leis analisando diversos estudos realizados sobre projetos de código aberto, concluindo que
-        algumas das leis se aplicam, enquanto ainda não há evidências concretas de validade da 
+        algumas das leis se aplicam, enquanto ainda não há evidências científicas de validade da 
         maioria delas.
         
     \section{Mineração de repositórios de software} \label{sc:mineracao}
         Compreender o processo de evolução de um software é uma tarefa complexa. Sistemas de software grandes possuem um longo histórico de desenvolvimento com diversos desenvolvedores trabalhando em diferentes partes do sistema. É comum que nenhum desenvolvedor conheça o código do sistema por completo por conta da sua complexidade ou mesmo porque os integrantes que iniciaram o desenvolvimento do projeto já não fazem mais parte da equipe. Portanto, analisar os dados históricos do desenvolvimento de um software grande manualmente é inviável. 
 
-        Assim, a Mineração de Repositórios de Software analisa a evolução de software de forma automatizada aplicando técnicas da Mineração de Dados sobre o histórico do desenvolvimento de sistemas de software \cite{workshop-gustavo-aniche}. Os estudos desenvolvidos nessa área podem revelar informações úteis ao desenvolvimento de um projeto em particular ou ainda encontrar padrões na evolução de software que podem ser generalizados para outros sistemas (mas sempre com as limitações de um estudo empírico).
+        Assim, a Mineração de Repositórios de Software analisa a evolução de software de forma automatizada aplicando técnicas da Mineração de Dados sobre o histórico do desenvolvimento de sistemas de software \cite{workshop-gustavo-aniche}. Os estudos desenvolvidos nessa área revelam informações úteis ao desenvolvimento de um projeto em particular ou ainda encontram padrões na evolução de software que podem ser generalizáveis para outros sistemas.
 
         O termo ``repositório de software'' abrange todos os artefatos produzidos durante o 
         desenvolvimento de um sistema de software, desde os arquivos com o código fonte do sistema que 
         podem estar armazenados em um sistema de controle de versão, até mensagens em listas de
-        emails trocadas entre os desenvolvedores. Tais repositórios contém informações valiosas, 
-        que podem ser exploradas para se compreender a evolução de software e contribuir com o 
+        emails trocadas entre os desenvolvedores. Tais repositórios contêm informações valiosas, 
+        que podem ser exploradas para compreender a evolução de software e contribuir com o 
         desenvolvimento do projeto.
 
         Em \cite{DBLP:series/springer/DAmbrosGLP08}, os autores destacam os seguintes tópicos 
         estudados na análise de repositórios de software:
         \begin{itemize}
             \item \textbf{Concentração do trabalho dos desenvolvedores e análise de redes sociais}. 
-            O objetivo nesse tópico é descobrir quanto e em quais pontos do software os desenvolvedores estão dedicando mais seus esforços e como eles se comunicam entre si, para buscar soluções em problemas no processo de desenvolvimento e na estrutura da equipe.
+            O objetivo nesse tópico é descobrir quanto e em quais pontos do software os desenvolvedores estão dedicando mais seus esforços e como eles se comunicam, para buscar soluções de problemas no processo de desenvolvimento e na estrutura da equipe.
             \item \textbf{Impacto e propagação de alterações}. 
             Busca ententer o efeito das mudanças feitas em
             certa parte do sistema sobre o resto do código do projeto. Compreendendo melhor o efeito
-            dessas alterações, a equipe pode estimar melhor os custos de certa tarefa. Além disso,
+            dessas alterações, a equipe estima melhor os custos das tarefas. Além disso,
             um desenvolvedor pode ser informado de quais arquivos ele precisará checar após ter feito
             uma certa alteração.
             \item \textbf{Análise de tendências e \textit{hotspots}}. 
             \textit{Hotspots} são pontos do software
-            que sofrem alterações frequentemente. Encontrar tais pontos do sistema, pode ajudar a 
+            que sofrem alterações frequentemente. Encontrar tais pontos do sistema, ajuda a 
             levantar deficiências na arquitetura do projeto e sugerir possíveis refotatorações para
             aprimorar sua manutenabilidade.
             \item \textbf{Previsão de falhas e defeitos}.
             Os dados disponíveis em repositórios de software
             podem ser usados como entrada para algoritmos de aprendizagem de máquina, para criar
-            modelos preditivos de possíveis falhas no sistema. Com esse modelo, a equipe pode
-            tomar ações preventivas para previnir tais falhas em versões futuras.
+            modelos preditivos de possíveis falhas no sistema. Com esse modelo, a equipe
+            toma ações preventivas para previnir falhas em versões futuras.
         \end{itemize}
 
-        Neste trabalho, os autores também descrevem um modelo de dados para armazenar informações do
+        Nesse trabalho, os autores também descrevem um modelo de dados para armazenar informações do
         sistema de controle de versão e de um sistema de rastreamento de bugs de um certo software.
-        Esse modelo guarda os dados de cada \textit{commit} do projeto, como arquivos modificados, linha adicionadas/removidas, mensagem do autor e associa essas informações com um bug extraído 
+        Esse modelo guarda os dados de cada \textit{commit} do projeto, como arquivos modificados, linha adicionadas/removidas, mensagem do autor e associa essas informações a bug extraído 
         do sistema de rastreamento de bugs. Para popular esse modelo, é utilizado arquivo de log
         do sistema de controle de versão \textit{CVS} e o sistema de rastreamento de bugs 
         \textit{Bugzilla}. Os autores denominaram esse modelo de dados \textit{Release History 
-        Database} (RHDB). Com os dados deste modelo, foram desenvolvidas três ferramentas para 
+        Database} (RHDB). Com os dados desse modelo, foram desenvolvidas três ferramentas para 
         vizualização das informações extraídas.
 
         Em \cite{Kagdi:2007}, é apresentada uma avaliação de diversos trabalhos de Mineração
@@ -253,7 +238,7 @@
 
         Em relação às fontes de informação, três categorias foram levantadas: as versões do software 
         e de seus artefatos, as diferenças entre esses artefatos e os metadados de cada mudança
-        feita sobre o software. As versões e alterações do software podem ser coletadas de Sistemas
+        feita sobre o software. As versões e alterações do software são coletadas de Sistemas
         de Controle de Versão (SCV). Os metadados dessas alterações, como autor, data e comentário do 
         autor também podem ser extraídas do SCV e complementadas com dados de um sistema de 
         rastreamento de bugs e mensagens trocadas pelos desenvolvedores em listas de email.
@@ -277,7 +262,7 @@
 
     \section{Métricas de código-fonte} \label{sc:metricas}
 
-    Métricas são medidas numéricas de propriedades do código de um programa. Por meio delas, é possível medir e comparar numericamente propriedades abstratas como por exemplo acoplamento e coesão das classes de um sistema. Tais métricas são utilizadas no contexto da Mineração de Repositórios para compreender e evolução de propriedades de um sistema analisado. A seguir, as principais métricas implementadas no MetricMiner (os detalhes da implementação serão discutidos na subseção \ref{sc:arquitetura}):
+    Métricas são medidas numéricas de propriedades do código de um programa. Por meio delas, é possível medir e comparar numericamente propriedades abstratas como, por exemplo, acoplamento e coesão das classes de um sistema. Tais métricas são utilizadas no contexto da Mineração de Repositórios para mensurar propriedades de um sistema analisado. A seguir, as principais métricas implementadas no MetricMiner (os detalhes da implementação são discutidos na seção \ref{sc:arquitetura}):
 
     \begin{itemize} 
         \item \textbf{Complexidade Ciclomática:} mede a complexidade do código, quanto maior o número de instruções como \codechunk{if}, \codechunk{while}, \codechunk{case}, \codechunk{\&\&}, \codechunk{||}, ou o operador ternário \codechunk{?}, mais complexo é o código e, portanto, maior o valor da métrica \cite{maccabe:76}.
@@ -292,7 +277,7 @@
 Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
 \section*{Sonar}
-    Não se conhece ferramentas web de suporte a mineração de repositórios de software. Uma ferramenta que se assemelha ao MetricMiner, é o Sonar \footnote{http://www.sonarsource.org/}, uma aplicação web que analisa o código fonte e extrai uma variedade de relatórios sobre o sistema, como resultados de métricas de código e dependências estruturais entre as classes. O foco desta ferramenta é apoiar a equipe de desenvolvimento e acompanhar a qualidade do código escrito. O Sonar não armazena metadados do sistema de controle versão e não permite que se extraia dados dos projetos armazenados, mas fornece uma interface de vizualização com muitos recursos. Por esses motivo, o Sonar é muito utilizado na indústria e pouco utilizado para fins acadêmicos.
+    Não se conhece ferramentas web de suporte a mineração de repositórios de software. Uma ferramenta que se assemelha ao MetricMiner é o Sonar \footnote{http://www.sonarsource.org/}, uma aplicação web que analisa o código fonte e extrai uma variedade de relatórios sobre o sistema, como resultados de métricas de código e dependências estruturais entre as classes. O foco dessa ferramenta é apoiar a equipe de desenvolvimento e acompanhar a qualidade do código escrito. O Sonar não armazena metadados do sistema de controle versão e não possibilita que se extraia dados dos projetos armazenados, mas fornece uma interface de vizualização com muitos recursos. Por esses motivo, o Sonar é muito utilizado na indústria e pouco utilizado para fins acadêmicos.
     
     Diferentemente do Sonar, o MetricMiner tem o foco na área acadêmica, possibilitando que os usuários extraiam dados calculados pelo sistema para realizar a análise que desejar, sem focar tanto na vizualização dos dados armazenados.
 
@@ -306,15 +291,17 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
     O Mezuro\footnote{\url{http://mezuro.org/}} é uma aplicação web construída sobre o Kalibro e o Analizo. Por meio de sua interface, o usuário cadastra projetos de software e as métricas implementadas no Analizo são calculadas sobre o código. Valores de referência das métricas são exibidas ao usuário nos resultados calculados, sugerindo pontos positivos e negativos no código do projeto. Atualmente, a aplicação se encontra em fase de desenvolvimento em \url{http://mezuro.org/}
 
 \section*{EvolTrack}
-    Desenvolvido Universidade Federal do Rio de Janeiro, o EvolTrack é uma ferramenta de vizualização da evolução de um software. Desenvolvido como um \textit{plugin} para o Eclipse, o EvolTrack processa o histórico do sistema de controle de versão de um projeto e permite que o usuário vizualize a evolução das classes do projeto ao longo do tempo. A ferramenta exibe o diagrama de classes da versão do projeto e o usuário avança no tempo vizualizando as classes novas e removidas. Atualmente, a ferramenta suporta apenas o sistema de controle de versão SVN. Utilizando a infraestrutura da plataforma Eclipse, o EvolTrack possui \textit{plugins} para diferentes vizualizações dos dados, como o EvolTrack-SocialNetwork \cite{vahia:11}, que permite vizualizar as relações entre os desenvolvedores na evolução de um software.
+    Desenvolvido Universidade Federal do Rio de Janeiro, o EvolTrack é uma ferramenta de vizualização da evolução de um software. Desenvolvido como um \textit{plugin} para o Eclipse, o EvolTrack processa o histórico do sistema de controle de versão de um projeto e possibilita que o usuário vizualize a evolução das classes do projeto ao longo do tempo. A ferramenta exibe o diagrama de classes da versão do projeto e o usuário avança no tempo vizualizando as classes novas e removidas. Atualmente, a ferramenta suporta apenas o sistema de controle de versão SVN. Utilizando a infraestrutura da plataforma Eclipse, o EvolTrack possui \textit{plugins} para diferentes vizualizações dos dados, como o EvolTrack-SocialNetwork \cite{vahia:11}, que possibilita vizualizar as relações entre os desenvolvedores na evolução de um software.
 
 \section*{ArchView}
-    O ArchView \cite{pinzger:05} é uma ferramenta de vizualização para a análise da evolução de um software. A ferramenta extrai informações do sistema de controle de versão (CVS) e do sistema de rastreamento de \textit{bugs} (Bugzilla) e calcula diversas métricas para cada versão do software. Depois de processar os dados, o ArchView permite que o usuário vizualize diversas métricas de módulos ou arquivos, de diferentes versões do projeto, exibidas em diagramas de kiviat. Além disso, o software exibe o acoplamento dos diferentes módulos com base no histórico de alterações no repositório de código.
+    O ArchView \cite{pinzger:05} é uma ferramenta de vizualização para a análise da evolução de um software. A ferramenta extrai informações do sistema de controle de versão (CVS) e do sistema de rastreamento de \textit{bugs} (Bugzilla) e calcula diversas métricas para cada versão do software. Depois de processar os dados, o ArchView possibilita que o usuário vizualize diversas métricas de módulos ou arquivos, de diferentes versões do projeto, exibidas em diagramas de kiviat. Além disso, o software exibe o acoplamento dos diferentes módulos com base no histórico de alterações no repositório de código.
 
 \section*{CodeCity}
     O CodeCity \cite{wettel07} é uma ferramenta de vizualização que utiliza a metáfora de uma cidade para representar o software analisado. A ferramenta constrói uma representação gráfica tri dimensional do projeto analisado, representando cada classe do sistema como um prédio na cidade exibida. As classes são agrupadas em distritos e subdistritos da cidade de acordo com a hierarquia de pacotes do sistema. O número de métodos e de atributos de cada classe são mapeadas na altura e largura, respectivamente, de cada prédio.
-
+% incluir oceano da uff
     \section{Quadro comparativo}
+
+% explicar o que é git, svn, cvs e as bantagens de processamento de código em texto puro
 
     A tabela \ref{tab:relacionados} exibe um quadro comparativo entre as ferramentas descritas a seguir e o MetricMiner.
     \begin{table}\begin{center}
@@ -346,25 +333,25 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
     
 \chapter{MetricMiner} \label{ch:arquitetura}
 
-    Todo o código e o histórico de desenvolvimento do MetricMiner se encontra hospedado no github: \url{http://github.com/metricminer/metricminer}. O MetricMiner surgiu a partir do rEvolution\footnote{http://github.com/mauricioaniche/rEvolution}, uma ferramenta de linha de comando que extrai dados de um repositório local e persiste em banco de dados  relacional. Boa parte do código do rEvolution pôde ser reutilizada no MetricMiner, como o componente que realiza a interface com o sistema de controle de versão, que será descrito com mais detalhes na seção \ref{sc:tecnologias}.
+    O MetricMiner surgiu a partir do rEvolution\footnote{http://github.com/mauricioaniche/rEvolution}, uma ferramenta de linha de comando que extrai dados de um repositório local e persiste em banco de dados  relacional. Boa parte do código do rEvolution pôde ser reutilizada no MetricMiner, como o componente que realiza a interface com o sistema de controle de versão, que é descrito com mais detalhes na seção \ref{sc:tecnologias}. Todo o código e o histórico de desenvolvimento do MetricMiner se encontra hospedado no github: \url{http://github.com/metricminer/metricminer}.
 
     As limitações do rEvolution serviram de motivação para o desenvolvimento do MetricMiner. Primeiramente, o rEvolution coleta dados de apenas único projeto, de forma que é necessário executar o programa manualmente para a mineração de sistemas diferentes. Além disso, a configuração para se executar o rEvolution é complexa. É necessário configurar a conexão com o banco de dados, instalar o sistema de controle de versão utilizado pelo projeto a ser minerado e carregar o projeto localmente (o que pode ser demorado dependendo do tamanho do projeto). 
 
-    Assim, se decidiu que o MetricMiner deveria ser uma aplicação web, poupando o pesquisador de instalar e configurar qualquer ferramenta localmente. Além disso, sendo uma aplicação web, a ferramenta pode aproveitar a escalabilidade da computação em nuvem. Atualmente o MetricMiner está implantando sobre a infraestrutura de computação em nuvem da locaweb. Durante a fase de testes da ferramenta, a capacidade de armazenamento do disco chegou ao seu limite e foi necessário aumentar tal capacidade. Esse aprimoramento foi feito sem que fosse necessário reinstalar o servidor e sem que houvesse qualquer perda dos dados armazenados. O mesmo não seria possível se o MetricMiner não fosse uma aplicação web.
+    Assim, decidiu-se que o MetricMiner deveria ser uma aplicação web, poupando o pesquisador de instalar e configurar qualquer ferramenta localmente. Além disso, sendo uma aplicação web, a ferramenta pode aproveitar a escalabilidade da computação em nuvem. Atualmente o MetricMiner está implantando sobre a infraestrutura de computação em nuvem da locaweb. Durante a fase de testes da ferramenta, a capacidade de armazenamento do disco chegou ao seu limite e foi necessário aumentar tal capacidade. Esse aprimoramento foi feito sem que fosse necessário reinstalar o servidor e sem que houvesse qualquer perda dos dados armazenados. O mesmo não seria possível se o MetricMiner não fosse uma aplicação web.
 
-    Nas subçeções seguintes, o MetricMiner será descrito com maiores detalhes. Na subseção \ref{sc:tecnologias}, as tecnologias utilizadas para o desenvolvimento do sistema serão descritos brevemente. Em \ref{sc:abordagem}, será apresentado o fluxo do processo de mineração realizado pelo MetricMiner e as principais funcionalidades implementadas. Em \ref{sc:arquitetura}, serão presentados os detalhes da arquitetura da ferramenta.
+    Nas subçeções seguintes, o MetricMiner é descrito com maiores detalhes. Em \ref{sc:abordagem}, é apresentado o fluxo do processo de mineração realizado pelo MetricMiner e as principais funcionalidades implementadas. Na seção \ref{sc:tecnologias}, as tecnologias utilizadas para o desenvolvimento do sistema serão descritas brevemente. Em \ref{sc:arquitetura}, são presentados os detalhes da arquitetura da ferramenta.
 
     
     \section{Principais funcionalidades} \label{sc:abordagem}
-        O MetricMiner possui uma interface web, pela qual os usuários podem cadastrar projetos de
+        O MetricMiner possui uma interface web, pela qual os usuários cadastram projetos de
         sofware para serem minerados. Para esse cadastro, devem ser fornecidos um nome e a url
-        pública para o repositóriode código do projeto. Até o momento, os sistemas de controle de versão 
-        suportados são o Git e o SVN.
+        pública para o repositório de código do projeto. Até o momento, os sistemas de controle de versão 
+        com suporte são o Git e o SVN.
 
         Como a maioria das etapas da mineração de dados são demoradas, como
         clonar repositórios, persistir suas informações no banco de dados e calcular métricas sobre o
         código fonte, essas tarefas são executadas de maneira assíncrona, por meio 
-        de uma fila de execução representada no banco de dados. Cada tarefa é armazenada no sistema e 
+        de uma fila de execução armazenada no banco de dados. Cada tarefa é registrada no sistema e 
         processada por um componente que constrói as dependências de cada tarefa e as executa na 
         ordem em que foram cadastradas.
 
@@ -387,8 +374,8 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
         tela de vizualização no MetricMiner do projeto Ant, software de código aberto da fundação     
         Apache com mais de doze mil \textit{commits}. Nessa tela, são exibidas informações básicas 
         sobre o projeto como número de \textit{commits}, número de \textit{commiters}, url do 
-        repositório, data do primeiro e último \textit{commit}. São exibidos também dois gráficos 
-        simples nos quais pode ser vizualizado o número de \textit{commits} nos últimos doze meses 
+        repositório e data do primeiro e último \textit{commit}. São exibidos também dois gráficos 
+        simples nos quais são vizualizados o número de \textit{commits} nos últimos doze meses 
         (agrupados por mês) e o número de arquivos modificados em cada \textit{commit} nos últimos 
         seis meses (agrupados por \textit{commit}). Também podem ser adicionadas \textit{tags},
         para permitir que projetos de domínios semelhantes sejam agrupados.
@@ -400,7 +387,7 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
             \label{fig:screen_projeto}
         \end{figure}
 
-        Após o fim do processamento do projeto, o usuário pode realizar consultas aos dados processados pela ferramenta. A Figura \ref{fig:screen_query} exibe a tela na qual é possível inserir uma consulta em SQL ao banco de dados do MetricMiner. Para preservarção da identidade, o nome e email dos autores são anonimizados, de forma que ao consultar o email de um desenvolvedor, por exemplo, é devolvido o resultado de uma função de hash do email desejado. Além disso, não é permitido realizar consultas sobre o código fonte dos projetos, dessa forma será possível minerar também sistemas de software da indústria, que não são distribuídos sob uma licença de código aberto.
+        Após o fim do processamento do projeto, o usuário pode realizar consultas aos dados processados pela ferramenta. A Figura \ref{fig:screen_query} exibe a tela na qual é possível inserir uma consulta em SQL ao banco de dados do MetricMiner. Para preservarção da identidade, o nome e email dos autores são anonimizados, de forma que ao consultar o email de um desenvolvedor, por exemplo, é devolvido o resultado de uma função de hash do email desejado. Além disso, não é permitido realizar consultas sobre o código fonte dos projetos. Dessa forma será possível minerar também sistemas de software da indústria, que não são distribuídos sob uma licença de código aberto.
 
         Depois de salvar a consulta, uma nova tarefa é adicionada à fila de execução e, ao final dessa tarefa, o usuário é informado por email do fim da execução da consulta e pode acessar a página da query para baixar os resultados em um arquivo no formato CSV (\textit{Comma Separated Values}). O usuário também pode acessar as queries criadas por outros usuários e reexecutar tais queries sobre a base de dados. Caso ocorra alguma falha na execução da query (um erro de sintaxe de SQL, por exemplo), a \textit{stacktrace} da falha é armazenada e o usuário pode visulizá-la na página de resultados.
 
@@ -417,36 +404,22 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
         Nessa seção serão descritas brevemente as tecnologias envolvidas no desenvolvimento do MetricMiner.
 
         \subsection*{VRaptor 3}
-            O VRaptor\footnote{\url{http://vraptor.caelum.com.br/}} é um \textit{framework} para desenvolvimento 
-            web em java. Este \textit{framework} foca na simplicidade e no padrão de convenção sobre 
-            configuração\footnote{\url{http://en.wikipedia.org/wiki/Convention_over_configuration}} para tornar o 
-            desenvolvimento mais simples e eficiente. O VRaptor também se baseia fortemente no conceito de injeção 
-            de dependências \cite{fowlerdi}. A ideia por trás deste padrão é que as dependências de uma classe 
-            são criadas pelo container e não pela aplicação que utiliza tais dependências. O MetricMiner utiliza a 
-            injeção de dependências em diversos componentes importantes da arquitetura que serão descritos com 
-            mais detalhes na seção \ref{sc:arquitetura}
+            O VRaptor\footnote{\url{http://vraptor.caelum.com.br/}} é um \textit{framework} para desenvolvimento web em java. Este \textit{framework} foca na simplicidade e no padrão de convenção sobre configuração\footnote{\url{http://en.wikipedia.org/wiki/Convention_over_configuration}} para tornar o desenvolvimento mais simples e eficiente. O VRaptor também se baseia fortemente no conceito de injeção de dependências \cite{fowlerdi}. A ideia por trás desse padrão é que as dependências de uma classe são criadas pelo container e não pela aplicação que utiliza tais dependências. O MetricMiner utiliza a injeção de dependências em diversos componentes importantes da arquitetura que são descritos com mais detalhes na seção \ref{sc:arquitetura}
 
         \subsection*{Hibernate}
-            O Hibernate é uma biblioteca de mapeamento objeto-relacional. Utilizando essa biblioteca, é possível 
-            mapear classes do sistema a tabelas de um banco de dados relacional de forma transparente para o 
-            desenvolvedor. Ou seja, é possível persistir e recuperar os dados sem que seja necessário escrever 
-            queries SQL explicitamente. Para minimizar a  quantidade de requisições ao banco de dados, o Hibernate 
-            faz cache em memória dos dados que serão persistidos. Em alguns pontos do MetricMiner esse 
-            comportamento padrão do Hibernate teve que ser modificado, já que diversas tarefas realizadas no 
-            sistema manipulam um volume grande de dados, o que acabou consumindo muita memória na máquina virtual 
-            do Java.
+            O Hibernate é uma biblioteca de mapeamento objeto-relacional. Utilizando essa biblioteca, é possível mapear classes do sistema a tabelas de um banco de dados relacional de forma transparente para o desenvolvedor. Ou seja, é possível persistir e recuperar os dados sem que seja necessário escrever queries SQL explicitamente. Para reduzir a  quantidade de requisições ao banco de dados, o Hibernate faz cache em memória dos dados que serão persistidos. Em alguns pontos do MetricMiner esse comportamento padrão do Hibernate teve que ser modificado, já que diversas tarefas realizadas no sistema manipulam um volume grande de dados, o que acabou consumindo muita memória na máquina virtual do Java.
 
         \subsection*{HTML, CSS e JavaScript}
-            O MetricMiner é uma aplicação web, portanto a interface com o usuário foi desenvolvida em HTML, CSS e Javascript, que são linguagens interpretadas por um navegador web. HTML (\textit{HyperText Markup Language}) é uma linguagem de marcação, utilizada para estruturar uma página renderizada pelo navegador. CSS (\textit{Cascading Style Sheets}) é uma linguagem declarativa utilizada especificar o layout dos elementos representados em HTML. JavaScript é uma linguagem de script executada pelo navegador após o carregamento da página, por meio dessa linguagem é possível criar efeitos na página renderizada pelo navegador, criando interfaces mais ricas. Como o foco deste trabalho não é no desenvolvimento da interface, foi utilizado um template de HTML e CSS com o layout básico das páginas do sistema. Para a exibição dos gráficos dos projetos foi utilizada a biblioteca em JavaScript \textit{Google Chart Tools}\footnote{https://developers.google.com/chart/}.
+            O MetricMiner é uma aplicação web, portanto a interface com o usuário foi desenvolvida em HTML, CSS e Javascript, que são linguagens interpretadas por um navegador web. HTML (\textit{HyperText Markup Language}) é uma linguagem de marcação, utilizada para estruturar uma página renderizada pelo navegador. CSS (\textit{Cascading Style Sheets}) é uma linguagem declarativa utilizada especificar o layout dos elementos representados em HTML. JavaScript é uma linguagem de script executada pelo navegador após o carregamento da página. Por meio dessa linguagem é possível criar efeitos na página renderizada pelo navegador, criando interfaces mais ricas. Como o foco deste trabalho não é no desenvolvimento da interface, foi utilizado um template de HTML e CSS com o layout básico das páginas do sistema. Para a exibição dos gráficos dos projetos foi utilizada a biblioteca em JavaScript \textit{Google Chart Tools}\footnote{https://developers.google.com/chart/}.
 
 
 
     \section{Decisões arquiteturais} \label{sc:arquitetura}
 
-    O MetricMiner é um sistema em java, que pode ser implantado em qualquer container web java. Atualmente, a aplicação está em produção, implantada por meio do servidor web \textit{Apache Tomcat}\footnote{\url{http://tomcat.apache.org/}}. O MetricMiner utiliza o sistema gerenciador de banco de dados MySQL para armazenar os dados minerados. O sistema executa as tarefas assíncronamente por meio de um fila de execução representada no banco de dados. Nas subseções a seguir, serão descritos os detalhes dessa arquitetura.
+    O MetricMiner é um sistema em Java, que pode ser implantado em qualquer container web Java. Atualmente, a aplicação está em produção, implantada em um servidor web \textit{Apache Tomcat}\footnote{\url{http://tomcat.apache.org/}}. O MetricMiner utiliza o sistema gerenciador de banco de dados MySQL para armazenar os dados minerados. O sistema executa as tarefas assíncronamente por meio de um fila de execução representada no banco de dados. Nas seções a seguir, são descritos os detalhes dessa arquitetura.
 
         \subsection*{Modelo de dados}
-            O diagrama da Figura \ref{fig:uml_modelo} exibe as principais classes do modelo de dados minerados pelo MetricMiner. Todas as classes e relacionamentos representados nesse diagrama são mapeados em tabelas no banco de dados por meio do Hibernate. 
+            O diagrama da Figura \ref{fig:uml_modelo} exibe as principais classes do modelo de dados minerados pelo MetricMiner. As classes e relacionamentos representados nesse diagrama são mapeados em tabelas no banco de dados por meio do Hibernate. 
 
                 \begin{figure}[ht]
                     \centering
@@ -455,11 +428,10 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
                     \label{fig:uml_modelo}
                 \end{figure}
 
-            Com esse modelo, todo o histórico do sistema de controle de versão de um projeto fica armazenado no sistema. Cada \textit{commit} está relacionado ao conjunto de modificações realizadas nesse \textit{commit}. Uma modificação pode ser de três tipos: modificação comum, adição ou remoção. Adição ou remoção representam que o artefato foi adicionado ou removido do versionamento. Se o artefato não for binário, a modificação fica associada ao texto deste artefato (armazenado na classe \codechunk{SourceCode}). Dessa forma, todos as versões de cada arquivo de código do projeto ficam armazenados na base de dados. Cada versão dos arquivos de código fica associada ao resultado da execução de diferentes métricas. Para simplificar o diagrama, foram representadas apenas as classes \codechunk{CCResult}, \codechunk{LCOMResult} e \codechunk{LinesOfCodeResult} que armazenam os resultados das métricas de código complexidade ciclomática, LCOM e número de linhas de código, respectivamente. Existem outras quatro classes que armazenam resultados de outras métricas.
+            Com esse modelo, todo o histórico do sistema de controle de versão de um projeto fica armazenado no sistema. Cada \textit{commit} está relacionado ao conjunto de modificações realizadas nesse \textit{commit}. Uma modificação pode ser de três tipos: modificação comum, adição ou remoção. Adição ou remoção representam que o artefato foi adicionado ou removido do versionamento. Se o artefato não for binário, a modificação fica associada ao texto desse artefato (armazenado na classe \codechunk{SourceCode}). Dessa forma, todos as versões de cada arquivo de código do projeto ficam armazenados na base de dados. Cada versão dos arquivos de código fica associada ao resultado da execução de diferentes métricas. Para simplificar o diagrama, foram representadas apenas as classes \codechunk{CCResult}, \codechunk{LCOMResult} e \codechunk{LinesOfCodeResult} que armazenam os resultados das métricas de código complexidade ciclomática, LCOM e número de linhas de código, respectivamente. Existem outras quatro classes que armazenam resultados de outras métricas.
 
         \subsection*{Fila de execução} %% TaskRunner, RunnableTask, RunnableTaskFactory,
-            Existem diferentes tipos de tarefas que são executadas no MetricMiner, por exemplo clonar um repositório de código, processar informações do sistema de controle de versão, entre outras. Para cada tipo de tarefa, existem duas classes associadas que implementam duas interfaces. A primeira é a 
-            \codechunk{RunnableTask}, essa interface define apenas um método, \codechunk{run}, que deve executar o trabalho dessa tarefa. A segunda é a \codechunk{RunnableTaskFactory} onde está definido o método \codechunk{build}, que devolve uma instância de uma \codechunk{RunnableTask} para ser executada sobre um projeto específico. Essa é uma aplicação do padrão de projeto \codechunk{Abstract Factory} \cite{gof} e permitiu desacoplar os objetos que executam o trabalho da tarefa da construção desses objetos. O diagrama na Figura \ref{fig:uml_runner} exibe as classes que representam as principais tarefas executadas no MetricMiner.
+            Existem diferentes tipos de tarefas que são executadas no MetricMiner, por exemplo, clonar um repositório de código, processar informações do sistema de controle de versão, entre outras. Para cada tipo de tarefa, existem duas classes associadas que implementam duas interfaces. A primeira é a \codechunk{RunnableTask}, essa interface define apenas um método, \codechunk{run}, que deve executar o trabalho dessa tarefa. A segunda é a \codechunk{RunnableTaskFactory} onde está definido o método \codechunk{build}, que devolve uma instância de uma \codechunk{RunnableTask} para ser executada sobre um projeto específico. Essa é uma aplicação do padrão de projeto \codechunk{Abstract Factory} \cite{gof} e permitiu desacoplar os objetos que executam o trabalho da tarefa da construção desses objetos. O diagrama na Figura \ref{fig:uml_runner} exibe as classes que representam as principais tarefas executadas no MetricMiner.
 
             \begin{figure}[ht]
                 \centering
@@ -468,17 +440,17 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
                 \label{fig:uml_runner}
             \end{figure}
 
-            Para inserir uma tarefa na fila, as informações dessa são inseridas no banco de dados, incluindo o nome completo (\textit{Fully qualified name}) da classe que implementa \codechunk{RunnableTaskFactory} dessa tarefa em particular. Depois, o método \codechunk{execute} da classe \codechunk{TaskRunner} extrai essas informações e constrói uma instância da factory dessa tarefa por meio da 
-            \textit{Reflection API}\footnote{\url{http://docs.oracle.com/javase/tutorial/reflect/index.html}} do Java. Finalmente, uma intância de \codechunk{RunnableTask} é construída e executada. Esse método é executado a cada dez segundos e caso nenhuma tarefa esteja sendo executada, ela realiza o processo descrito anteriormente. Para a implementação da classe \codechunk{TaskRunner}, foi utilizado o plugin vraptor-tasks\footnote{\url{https://github.com/wpivotto/vraptor-tasks}}, que utiliza o  quartz, um famoso \textit{framework} para escalonamento de tarefas no mundo java.
+            Para inserir uma tarefa na fila, suas informações são inseridas no banco de dados, incluindo o nome completo (\textit{Fully qualified name}) da classe que implementa \codechunk{RunnableTaskFactory} dessa tarefa em particular. Depois, o método \codechunk{execute} da classe \codechunk{TaskRunner} extrai essas informações e constrói uma instância da factory dessa tarefa por meio da 
+            \textit{Reflection API}\footnote{\url{http://docs.oracle.com/javase/tutorial/reflect/index.html}} do Java. Finalmente, uma intância de \codechunk{RunnableTask} é construída e executada. Esse método é executado a cada dez segundos e caso nenhuma tarefa esteja sendo executada, ela realiza o processo descrito anteriormente. Para a implementação da classe \codechunk{TaskRunner}, foi utilizado o plugin vraptor-tasks\footnote{\url{https://github.com/wpivotto/vraptor-tasks}}, que utiliza o Quarts, um famoso \textit{framework} para escalonamento de tarefas.
 
-            Dessa forma, desenvolver novas tarefas é simples, basta criar duas classes implementando as interfaces descritas anteriormente e tal tarefa já poderá ser inserida a fila de execução do MetricMiner por meio do banco de dados.
+            Dessa forma, desenvolver novas tarefas é simples, basta criar duas classes implementando as interfaces descritas anteriormente e tal tarefa já poderá ser inserida na fila de execução do MetricMiner por meio do banco de dados.
 
         \subsection*{Cálculo das métricas de código} %% Metric, MetricFactory, CalculateAllMetricsTask (template method), CalculateMetricTask
 
             De forma semelhante à arquitetura das tarefas da fila execução, também foi utilizado o padrão \codechunk{Abstract Factory} no design das métricas de código implementadas no MetricMiner. Assim, para cada métrica, existem duas classes implementando duas interfaces: \codechunk{Metric} e \codechunk{MetricFactory}. A interface \codechunk{MetricFactory} define apenas um método, \codechunk{build}, que devolve uma instância da métrica. A interface \codechunk{Metric} define dois métodos principais: 
 
             \begin{itemize}
-                \item \codechunk{void calculate(InputStream input)}: calcula a métrica para o código forncecido no \codechunk{InputStream}.
+                \item \codechunk{void calculate(InputStream input)}: calcula a métrica para o código forncecido lido por meio da classe \codechunk{InputStream}.
                 \item \codechunk{Collection<MetricResult> results()}: devolve uma coleção de objetos que representam os resultados dessa métrica que serão armazenados no banco de dados.
             \end{itemize}
 
@@ -504,9 +476,19 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
     \section{Evolução do desempenho do MetricMiner}
 
-        A mineração dos repositórios da Apache (descrita na seção \ref{sc:apache}) foi utilizada para dirigir o desenvolvimento do MetricMiner. Diversas pequenas otimizações foram realizadas ao longo do desenvolvimento e seus resultados foram medidos com a mineração desses repositórios. 
+        A mineração dos repositórios da Apache Software Foundation (descrita com detalhes na seção \ref{sc:apache}) foi utilizada para dirigir o desenvolvimento do MetricMiner. Diversas pequenas otimizações foram realizadas ao longo do desenvolvimento e seus resultados foram medidos com a mineração desses repositórios. 
 
-        A tabela \ref{tab:evolucao} exibe a evolução do desempenho ao longo do densenvolvimento da ferramenta. Para levantar os dados dessa tabela, foi considerada a mineração de 94 projetos em cada versão do MetricMiner, já que nas primeiras versões da ferramenta nem todos os projetos da Apache foram processados. Além disso, foram desconsideradas as tarefas de download de repositório pois seu desempenho depende quase exclusivamente de fatores externos como a qualidade da conexão com o repositório remoto.
+        A tabela \ref{tab:evolucao} exibe a evolução do desempenho ao longo do densenvolvimento da ferramenta. Para levantar os dados dessa tabela, foi considerada a mineração de 94 projetos em cada versão do MetricMiner, já que nas primeiras versões da ferramenta nem todos os projetos da Apache foram processados. Além disso, foram desconsideradas as tarefas de download de repositório, pois seu desempenho depende quase exclusivamente de fatores externos como a qualidade da conexão com o repositório remoto.
+
+
+
+        Dentre essas otimizações podemos destacar as seguintes:
+        \begin{itemize}
+            \item \textbf{Utilização de \codechunk{StatelessSession} do Hibernate:} A classe utilizada normalmente para se realizar consultas ao banco de dados com o Hibernate é a \codechunk{Session}. Por padrão, uma instância dessa classe armazena em cache as entidades persistidas ou buscadas no banco de dados. Durante os testes, percebeu-se que esse comportamento padrão causava um consumo de memória excessivo. Para contornar esse problema, foi utilizada a classe \codechunk{StatelessSession}, que não realiza cache dos dados.
+            \item \textbf{Consulta para buscar códigos fonte no cálculo de métricas:} Inicialmente, para buscar os códigos fonte para calcular as métricas de código na tarefa \codechunk{CalculateAllMetricsTask}, era utilizada uma consulta que envolvia uma operação \codechunk{JOIN} de SQL trazendo o conteúdo dos arquivos do banco de dados. Como a quantidade de resultados era muito grande, foi necessário paginar os resultados dessa consulta, e portanto essa era executada diversas vezes para processar todas as versões dos arquivos dos projetos. Com o aumento do número de entradas armazenadas, esse processo se tornou  lento. Para otimizar essa tarefa, ao invés de realizar diversos \codechunk{JOIN}'s (que é uma operação custosa em bancos de dados relacionais), foi utilizada apenas uma consulta para trazer todos os identificadores dos arquivos de código e só então o conteúdo de fato desses arquivos eram trazidos do banco de dados para calcular as métricas, diretamente pela sua chave primária. Assim, em vez de executar diversas operações \codechunk{JOIN}, é feita apenas uma consulta envolvendo tal operação.
+
+            \item \textbf{Cache de segundo nível:} Além do cache de primeiro nível (descrito brevemente no primeiro item desta lista), o Hibernate possui um segundo cache, o cache de segundo nível. Diferentemente do cache de primeiro nível, que armazena apenas dados manipulados por uma única instância da classe Session, o cache de segundo nível armazena o resultado de consultas realizadas ao banco por todas as sessões abertas. Por padrão, o cache de segundo nível é desabilitado, no MetricMiner foi utilizada a implementação do EHCACHE\footnote{http://ehcache.org/}. A utilização de tal cache poupou o número de requisições ao banco de dados principalmente nos acessos às páginas web servidas pelo MetricMiner.
+        \end{itemize}
 
         \begin{table}\begin{center}
         \begin{tabular}{| p{5cm} | c | c | c | c | c | }
@@ -523,26 +505,17 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
         \caption{Evolução do desempenho do processamento dos projetos ao longo do desenvolvimento do MetricMiner \label{tab:evolucao}}
         \end{center}\end{table}
 
-
-        Dentre essas otimizações podemos destacar as seguintes:
-        \begin{itemize}
-            \item \textbf{Utilização \codechunk{StatelessSession} do Hibernate:} A classe utilizada normalmente para se realizar consultas ao banco de dados com o Hibernate é a \codechunk{Session}. Por padrão, uma instância dessa classe armazena em cache as entidades persistidas ou buscadas no banco de dados. Durante os testes, percebeu-se que esse comportamento padrão causava um consumo de memória excessivo. Para contornar esse problema, foi utilizada a classe \codechunk{StatelessSession}, que não realiza nenhum tipo de cache dos dados.
-            \item \textbf{Consulta para buscar códigos fonte no cálculo de métricas:} Inicialmente, para buscar os códigos fonte para calcular as métricas de código na tarefa \codechunk{CalculateAllMetricsTask}, era utilizada uma consulta que envolvia uma operação \codechunk{JOIN} de SQL trazendo o conteúdo dos arquivos do banco de dados. Como a quantidade de resultados era muito grande, foi necessário paginar os resultados dessa consulta, e portanto essa era executada diversas vezes para processar todas as versões dos arquivos dos projetos. Com o aumento do número de entradas armazenadas, esse processo se tornou  lento. Para otimizar essa tarefa, ao invés de realizar diversos \codechunk{JOIN}'s (que é uma operação custosa em bancos de dados relacionais), foi utilizada apenas uma consulta para trazer todos os identificadores dos arquivos de código e só então o conteúdo de fato desses arquivos eram trazidos do banco de dados para calcular as métricas, diretamente pela sua chave primária. Assim, ao invés de executar diversas operações \codechunk{JOIN}, é feita apenas uma consulta envolvendo tal operação.
-
-            \item \textbf{Cache de segundo nível:} Além do cache de primeiro nível (descrito brevemente no primeiro item), o Hibernate possui um segundo cache, o cache de segundo nível. Diferentemente do cache de primeiro nível, que armazena apenas dados manipulados por uma única instância da classe Session, o cache de segundo nível armazena o resultado de consultas realizadas ao banco por todas as sessões abertas. Por padrão, o cache de segundo nível é desabilitado, no MetricMiner foi utilizada a implementação do EHCACHE\footnote{http://ehcache.org/}. A utilização de tal cache poupou o número de requisições ao banco de dados principalmente nos acessos às páginas web servidas pelo MetricMiner.
-        \end{itemize}
-
 \chapter{Avaliação da ferramenta} \label{ch:avaliacao}
     
-    Nessa seção serão descritos os resultados obtidos em dois exemplos de uso do MetricMiner. Na subseção \ref{sc:apache} será exibida a avaliação da ferramenta feita com a mineração dos repositórios de código aberto da Apache Software Foundation. Na subseção \ref{sc:estudo-caso}, será descrita a reprodução de um estudo de mineração de software já publicado na literatura, utilizando os dados processados pelo MetricMiner.
+    Nesta seção são descritos os resultados obtidos em dois exemplos de uso do MetricMiner. Na Seção \ref{sc:apache} é exibida a avaliação da ferramenta feita com a mineração dos repositórios de código aberto da Apache Software Foundation. Na Seção \ref{sc:estudo-caso}, é descrita a reprodução de um estudo de mineração de software já publicado na literatura, utilizando os dados processados pelo MetricMiner.
 
-    \section{Exemplo de uso 1: mineração da Apache} \label{sc:apache}
+    \section{Exemplo de uso 1: mineração do repositório de código da Apache Software Foundation} \label{sc:apache}
 
-        A capacidade da ferramenta desenvolvida foi avaliada por meio da mineração dos projetos de código aberto disponibilizados pela Apache. Os códigos desses projetos podem ser acessados por meio do sistema de controle de versão Git, a lista completa de projetos se encontra em \url{http://git.apache.org/}. No total, foram cadastrados e processados 307 projetos de código aberto.
+        A capacidade da ferramenta desenvolvida foi avaliada por meio da mineração dos projetos de código aberto disponibilizados pela Apache Software Foundation. Os códigos desses projetos podem ser acessados por meio do sistema de controle de versão Git. A lista completa de projetos se encontra em \url{http://git.apache.org/}. No total, foram cadastrados e processados 307 projetos de código aberto.
 
-        Esse conjunto de projetos minerados possui grande variedade em relação ao domínio de aplicação: existem projetos de domínios complexos como o Harmony - uma implementação da máquina virtual java - assim como outros mais simples como Commons Exec - uma biblioteca java para a execução de comandos do sistema operacional. 
+        Esse conjunto de projetos minerados representa grande variedade em relação ao domínio de aplicação: existem projetos de domínios complexos como o Harmony - uma implementação da máquina virtual java - assim como outros mais simples como Commons Exec - uma biblioteca java para a execução de comandos do sistema operacional. 
 
-        Além disso, os projetos variam bastante em relação ao tamanho de seu histórico, a tabela \ref{tab:commits} exibe os dez projetos com maior número de commits. Enquanto o projeto Subversion possui mais de 40 mil commits, outros projetos menores como o Savan possui menos de 20 commits em seu histórico de desenvolvimento. Em média, os projetos armazenados possuem 2660 commits. A tabela \ref{tab:artefatos} exibe os projetos com maior número de artefatos de código (qualquer arquivo não binário armazenado no repositório) processados no MetricMiner. Essas informações foram extraídas por meio da execução de consultas SQL pela interface do MetricMiner\footnote{As duas consultas utilizadas para extrair essas informações podem ser vizualizadas em \url{http://metricminer.org.br/query/3} e \url{http://metricminer.org.br/query/5}. Nessas páginas também é possível baixar os resultados completos das consultas.}.
+        Além disso, os projetos variam bastante em relação ao tamanho de seu histórico, a Tabela \ref{tab:commits} exibe os dez projetos com maior número de commits. Enquanto o projeto Subversion possui mais de 40 mil commits, outros projetos menores como o Savan possui menos de 20 commits em seu histórico de desenvolvimento. Em média, os projetos armazenados possuem 2660 commits. A tabela \ref{tab:artefatos} exibe os projetos com maior número de artefatos de código (qualquer arquivo não binário armazenado no repositório) processados no MetricMiner. Essas informações foram extraídas por meio da execução de consultas SQL pela interface do MetricMiner\footnote{As duas consultas utilizadas para extrair essas informações podem ser vizualizadas em \url{http://metricminer.org.br/query/3} e \url{http://metricminer.org.br/query/5}. Nessas páginas também é possível baixar os resultados completos das consultas.}.
 
         \begin{table}\begin{center}
         \begin{tabular}{| p{6cm} | c |}
@@ -570,7 +543,7 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
             Apache Ant & 12782 \\
             \hline
         \end{tabular}
-        \caption{Dez projetos com maior número de commits processados no MetricMiner \label{tab:commits}}
+        \caption{Dez projetos com maior número de commits processados pelo MetricMiner \label{tab:commits}}
         \end{center}\end{table}
 
         \begin{table}\begin{center}
@@ -599,7 +572,7 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
             Apache CXF & 26673 \\
             \hline
         \end{tabular}
-        \caption{Dez projetos com maior número de artefatos processados no MetricMiner \label{tab:artefatos}}
+        \caption{Dez projetos com maior número de artefatos processados pelo MetricMiner \label{tab:artefatos}}
         \end{center}\end{table}
 
         Ao final do processo de mineração dos repositórios da Apache, o MetricMiner processou e armazenou mais de 800 mil commits de mais 2 mil autores diferentes, mais 1.5 milhões de artefatos e 5 milhões de versões de arquivos de código. Todo esse volume de dados está armazenado em um banco de dados de mais de 180 GB e disponível para consultas por meio da interface web. O processo de mineração, desde o início do download do primeiro projeto até o cálculo das métricas do último, levou no total aproximadamente 90 horas de duração.
@@ -609,7 +582,7 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
         \subsection*{Artigo publicado}
 
-        Neste trabalho, os autores estudam o efeito de refatorações sobre a complexidade do sistema. Uma refatoração é o processo de modificar o código para melhorar sua estrutura interna, mas sem modificar seu comportamento externo \cite{fowler-refactoring}. Assim, se aplicada corretamente, a refatoração de código deve aprimorar a manutenabilidade do sistema, sem acrescentar ou remover funcionalidades.
+        Neste trabalho, os autores estudaram o efeito de refatorações sobre a complexidade do sistema. Uma refatoração é o processo de modificar o código para melhorar sua estrutura interna, mas sem modificar seu comportamento externo \cite{fowler-refactoring}. Assim, se aplicada corretamente, a refatoração de código aprimora a manutenabilidade do sistema, sem acrescentar ou remover funcionalidades.
 
         Para estudar o efeito das refatorações, os autores utilizam a métrica de complexidade ciclomática como medida da complexidade total de um sistema, ou seja, consideram que a complexidade do sistema é a soma da complexidade ciclomática de suas classes. O artigo apresenta uma breve análise matemática sobre o efeito de refatorações comuns sobre a complexidade ciclomática de uma classe. As refatorações analisadas foram:
 
@@ -630,7 +603,7 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
         O artigo apresenta a evolução da complexidade ciclomática do projeto ao longo das versões analisadas. A Figura \ref{fig:evolucao-soetens} exibe um gráfico mostrando o aumento da complexidade ciclomática com o tempo, o que é uma evidência da segunda lei da evolução de software (complexidade crescente). 
 
-        Os autores classificam os commits em duas categorias, os que contém ``refatorações documentadas'' e os que não contém. Uma ``refatoração documentada'' é um commit que possui em sua mensagem palavras como \textit{``refactoring''}, \textit{``refactored''}, \textit{``refactor''}. Com essa classificação, os autores analisam o efeito sobre a métrica de complexidade ciclomática (CC) dos commits de cada categoria. A tabela \ref{tab:resultados-soetens} exibe os resultados da classificação do conjunto de commits analisado.
+        Os autores classificam os commits em duas categorias, os que contêm ``refatorações documentadas'' e os que não contêm. Uma ``refatoração documentada'' é um commit que possui em sua mensagem palavras como \textit{``refactoring''}, \textit{``refactored''}, \textit{``refactor''}. Com essa classificação, os autores analisam o efeito sobre a métrica de complexidade ciclomática (CC) dos commits de cada categoria. A Tabela \ref{tab:resultados-soetens} exibe os resultados da classificação do conjunto de commits analisado.
 
         \begin{table}\begin{center}
         \begin{tabular}{| >{\centering\arraybackslash}m{3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} |}
@@ -645,7 +618,7 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
         \caption{Resultados obtidos em \cite{SoetensQUATIC2010} \label{tab:resultados-soetens}}
         \end{center}\end{table}
 
-        Com esses resultados, os autores concluem que as refatorações raramente afetam a complexidade ciclomática do sistema: ``\textit{we discovered that refactoring practices rarely affect the cyclomatic complexity of a program}''. Os autores analisaram cada commit processado e justificaram essa conclusão contra intuitiva levantando três motivos possíveis:
+        Com esses resultados, os autores concluem que as refatorações raramente afetam a complexidade ciclomática do sistema: ``\textit{we discovered that refactoring practices rarely affect the cyclomatic complexity of a program}''. Os autores analisaram cada commit processado e justificaram essa conclusão contra-intuitiva levantando três motivos possíveis:
 
         \begin{itemize}
             \item Poucas refatorações envolviam remoção de código duplicado.
@@ -659,9 +632,9 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
         \input{misc/consulta.tex}
 
-        Essa consulta extrai a complexidade ciclomática calculada de todas as classes já alteradas no histórico de todos os projetos (que possuem classes Java) armazenados na base de dados. Junto com o complexidade ciclomática e o nome do arquivo, são extraídas também o nome do projeto, data e mensagem do commit. Os resultados de tal consulta se encontram em \url{http://metricminer.org.br/query/1}. Com esses resultados, foi desenvolvido um pequeno programa auxiliar em Java que utiliza esses dados para contabilizar os efeitos das refatorações sobre a complexidade ciclomática dos projetos. O código desse programa se encontra em \url{https://github.com/csokol/refactoring-cc}.
+        Essa consulta extrai a complexidade ciclomática calculada de todas as classes já alteradas no histórico de todos os projetos (que possuem classes Java) armazenados na base de dados. Junto com a complexidade ciclomática e o nome do arquivo, são extraídas também o nome do projeto, data e mensagem do commit. Os resultados de tal consulta se encontram em \url{http://metricminer.org.br/query/1}. Com esses resultados, foi desenvolvido um pequeno programa auxiliar em Java que utiliza esses dados para contabilizar os efeitos das refatorações sobre a complexidade ciclomática dos projetos. O código desse programa encontra-se em \url{https://github.com/csokol/refactoring-cc}.
 
-        O programa auxiliar agrupa os dados extraídos por projeto, agrupa arquivos modificados em um mesmo commit e percorre todos os commits contabilizando as alterações na complexidade total do projeto. Para verificar se um commit contém ``refatorações documentadas'', foi utilizado Apache Lucene\footnote{\url{http://lucene.apache.org}} para processar a mensagem do autor, separando o texto em \textit{tokens} e fazendo a normalização (processo de extrair caracteres de pontuação do texto) e \textit{stemming} (processo de extrair a raiz morfológica das palavras) dos \textit{tokens} (essas técnicas e conceitos pertencem a área de recuperação de informação e estão fora do escopo deste trabalho). Com esse processamento de texto feito, basta verificar se a mensagem de commit contém o  \textit{token} ``refactor'' para determinar se tal commit contém refatorações.
+        O programa auxiliar agrupa os dados extraídos por projeto, agrupa arquivos modificados em um mesmo commit e percorre todos os commits contabilizando as alterações na complexidade total do projeto. Para verificar se um commit contém ``refatorações documentadas'', foi utilizado Apache Lucene\footnote{\url{http://lucene.apache.org}} para processar a mensagem do autor, separando o texto em \textit{tokens} e fazendo a normalização (processo de extrair caracteres de pontuação do texto) e \textit{stemming} (processo de extrair a raiz morfológica das palavras) dos \textit{tokens} (essas técnicas e conceitos pertencem a área de recuperação de informação e estão fora do escopo deste trabalho). Com esse processamento de texto feito, bastou verificar se a mensagem de commit contém o  \textit{token} ``refactor'' para determinar se tal commit contém refatorações.
 
         Ao todo foram analisados commits de 256 projetos diferentes. As Figuras \ref{fig:cc-camel}, \ref{fig:cc-ant} e \ref{fig:cc-tomcat} exibem a evolução da complexidade ciclomática dos projetos Camel, Ant e Tomcat, respectivamente. A evolução da complexidade do Apache Camel demonstra um padrão semelhante a evolução do PMD, publicado no trabalho original. A complexidade ciclomática parte de um valor baixo e vai crescendo desde o início do desenvolvimento, sem muitas variações em sua taxa de crescimento. O Ant e o Tomcat apresentam padrões diferentes. 
 
@@ -672,7 +645,7 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
             \label{fig:cc-camel}
         \end{figure}
 
-        O desenvolvimento do Ant também se inicia com a complexidade baixa, porém, ao longo de sua evolução existem ``saltos'' na complexidade que se devem a grandes adições ou remoções de código do repositório. Por exemplo, em \ref{fig:cc-ant}(\textbf{A}) há um grande aumento na complexidade total que se deve a importação de código de um repositório antigo ao novo repositório do Ant, o que está descrito na mensagem  do autor desse commit: ``\textit{Add in a clone of the main ant source tree so that it can undergo some heavy refactoring}''.
+        O desenvolvimento do Ant também se inicia com a complexidade baixa, porém, ao longo de sua evolução há ``saltos'' na complexidade que se devem a grandes adições ou remoções de código do repositório. Por exemplo, em \ref{fig:cc-ant}(\textbf{A}) há um grande aumento na complexidade total que se deve à importação de código de um repositório antigo ao novo repositório do Ant, o que está descrito na mensagem  do autor desse commit: ``\textit{Add in a clone of the main ant source tree so that it can undergo some heavy refactoring}''.
 
         \begin{figure}[ht]
             \centering
@@ -690,9 +663,9 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
             \label{fig:cc-tomcat}
         \end{figure}
 
-        De maneira geral, os três projetos aumentam sua complexidade ao longo do histórico de desenvolvimento, confirmando a segunda lei de evolução de software como o estudo de \cite{SoetensQUATIC2010}. 
+        De maneira geral, os três projetos aumentam sua complexidade ao longo do histórico de desenvolvimento, confirmando a segunda lei de evolução de software, corroborando com o estudo de \cite{SoetensQUATIC2010}. 
 
-        A tabela \ref{tab:resultados}, exibe os resultados das refatorações sobre a complexidade dos projetos. Observa-se que a maioria das refatorações documentadas incrementaram a complexidade ciclomática. No entanto, a proporção dos commits que decrementaram a complexidade é maior entre o conjunto das refatorações documentadas: aproximadamente 23\% das refatorações documentadas reduziram a complexidade ciclomática enquanto apenas 12\% tiveram o mesmo efeito entre os commits normais. Ainda assim, como no estudo reproduzido, não há evidências de que refatorações diminuem a complexidade de um sistema, resultado semelhante ao obtido originalmente.
+        A Tabela \ref{tab:resultados} exibe os resultados das refatorações sobre a complexidade dos projetos. Observa-se que a maioria das refatorações documentadas incrementaram a complexidade ciclomática. No entanto, a proporção dos commits que decrementaram a complexidade é maior entre o conjunto das refatorações documentadas: aproximadamente 23\% das refatorações documentadas reduziram a complexidade ciclomática enquanto apenas 12\% tiveram o mesmo efeito entre os commits normais. Ainda assim, como no estudo reproduzido, não há evidências de que refatorações diminuem a complexidade de um sistema.
 
         \begin{table}\begin{center}
         \begin{tabular}{| >{\centering\arraybackslash}m{3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} |}
@@ -714,19 +687,21 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
 \chapter{Conclusão e trabalhos futuros} \label{ch:conclusao}
     
-        A ferramenta desenvolvida nesse trabalho tem valor na área de Mineração de Repositórios de Software. Como exibido na seção \ref{sc:estudo-caso}, o MetricMiner facilita o desenvolvimento de estudos nessa área de pesquisa com as funcionalidades implementadas até o momento e os dados minerados disponíveis. Além disso, como foi apresentado na seção \ref{sc:arquitetura}, a ferramenta possui uma arquitetura extensível, permitindo que novas métricas e tarefas de mineração sejam desenvolvidas no futuro.
+        A ferramenta desenvolvida nete trabalho tem valor na área de Mineração de Repositórios de Software. Como exibido na seção \ref{sc:estudo-caso}, o MetricMiner facilita o desenvolvimento de estudos nessa área de pesquisa com as funcionalidades implementadas até o momento e os dados minerados disponíveis.
 
-        Diversas melhorias ainda podem ser desenvolvidas no MetricMiner:
+        Utilizando a ferramenta desenvolvida, foi possível reproduzir um estudo da literatura com informações de diversos repositórios minerados. Com os dados do MetricMiner, não foi necessário carregar os projetos e executar as tarefas custosas de mineração localmente, como seria preciso utilizando as ferramentas atuais. Dessa forma, a reprodução do estudo foi realizada de forma mais eficiente, poupando recursos computacionais. Com esse processo mais eficiente, foi possível analisar um volume de dados maior, valorizando os resultados obtidos.
+
+        Assim, a ferramenta desenvolvida atinge os objetivos da proposta apresentada no início do trabalho. O MetricMiner oferece uma solução para o desenvolvimento de estudos em mineração de repositórios mais eficiente do que as propostas das ferramentas apresentadas no capítulo \ref{ch:trabalhos} e da solução desenvolvida em \cite{SoetensQUATIC2010}. Além disso, como foi apresentado na seção \ref{sc:arquitetura}, a ferramenta possui uma arquitetura extensível, possibilitando que novas métricas e tarefas de mineração sejam desenvolvidas no futuro.
+
+        Ainda assim, diversas melhorias ainda podem ser desenvolvidas no MetricMiner no futuro:
         \begin{itemize}
             \item {\bf Paralelizar a execução de tarefas}: as tarefas de mineração executadas são totalmente independentes entre projetos diferentes, portanto, podem ser executadas concorrentemente, seja no mesmo servidor (em múltiplas \textit{threads}) ou até mesmo de forma distribuída em várias máquinas.
-            \item {\bf Novas métricas}: outras métricas de código da literatura podem ser implementadas no MetricMiner. Além disso, métricas de código para outras linguagens de programação também podem ser desenvolvidas (no momento a única linguagem suportada nas métricas atuais é o Java).
+            \item {\bf Novas métricas}: outras métricas de código da literatura podem ser implementadas no MetricMiner. Além disso, métricas de código para outras linguagens de programação também podem ser desenvolvidas (no momento a única linguagem com suporte nas métricas atuais é o Java).
             \item {\bf Novas tarefas de mineração}: a mineração de outras fontes de dados como sistemas de \textit{bug tracking} e listas de email podem ser implementadas para enriquecer a base de dados do MetricMiner.
             \item {\bf Usabilidade da interface web}.
         \end{itemize}
 
-% do estudo reproduzido, resultados semelhantes, maior volume de dados, processo mais simples
-% possui uma base de dados grande aberta para consultas para a realização de novos estudos
-% 
+% retomar problema inicial e dizer que o metric miner resolve
 
 \chapter{Parte subjetiva} \label{ch:subjetiva}
 
