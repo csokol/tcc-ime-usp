@@ -108,9 +108,9 @@
     
 \chapter{Mineração de Repositórios de Software} \label{ch:conceitos}
     Esta seção é uma introdução aos principais temas de pesquisa envolvidos no desenvolvimento
-    deste trabalho. As seção \ref{sc:evolucao} e \ref{sc:mineracao} contém, respectivamente, 
+    deste trabalho. As Seções \ref{sc:evolucao} e \ref{sc:mineracao} contém, respectivamente, 
     uma introdução a Evolução de Software e Mineração de Repositórios de Software, as duas áreas 
-    da Engenharia de Software envolvidas no desenvolvimento deste trabalho. Na seção 
+    da Engenharia de Software envolvidas no desenvolvimento deste trabalho. Na Seção 
     \ref{sc:metricas}, são apresentadas algumas métricas de código fonte implementadas no 
     MetricMiner. 
 
@@ -262,7 +262,7 @@
 
     \section{Métricas de código-fonte} \label{sc:metricas}
 
-    Métricas são medidas numéricas de propriedades do código de um programa. Por meio delas, é possível medir e comparar numericamente propriedades abstratas como, por exemplo, acoplamento e coesão das classes de um sistema. Tais métricas são utilizadas no contexto da Mineração de Repositórios para mensurar propriedades de um sistema analisado. A seguir, as principais métricas implementadas no MetricMiner (os detalhes da implementação são discutidos na seção \ref{sc:arquitetura}):
+    Métricas são medidas numéricas de propriedades do código de um programa. Por meio delas, é possível medir e comparar numericamente propriedades abstratas como, por exemplo, acoplamento e coesão das classes de um sistema. Tais métricas são utilizadas no contexto da Mineração de Repositórios para mensurar propriedades de um sistema analisado. A seguir, as principais métricas implementadas no MetricMiner (os detalhes da implementação são discutidos na Seção \ref{sc:arquitetura}):
 
     \begin{itemize} 
         \item \textbf{Complexidade Ciclomática:} mede a complexidade do código, quanto maior o número de instruções como \codechunk{if}, \codechunk{while}, \codechunk{case}, \codechunk{\&\&}, \codechunk{||}, ou o operador ternário \codechunk{?}, mais complexo é o código e, portanto, maior o valor da métrica \cite{maccabe:76}.
@@ -274,7 +274,7 @@
 
 \chapter{Trabalhos relacionados} \label{ch:trabalhos}
 
-Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
+Nesta Seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
 \section*{Sonar}
     Não se conhece ferramentas web de suporte a mineração de repositórios de software. Uma ferramenta que se assemelha ao MetricMiner é o Sonar \footnote{http://www.sonarsource.org/}, uma aplicação web que analisa o código fonte e extrai uma variedade de relatórios sobre o sistema, como resultados de métricas de código e dependências estruturais entre as classes. O foco dessa ferramenta é apoiar a equipe de desenvolvimento e acompanhar a qualidade do código escrito. O Sonar não armazena metadados do sistema de controle versão e não possibilita que se extraia dados dos projetos armazenados, mas fornece uma interface de vizualização com muitos recursos. Por esses motivo, o Sonar é muito utilizado na indústria e pouco utilizado para fins acadêmicos.
@@ -298,32 +298,35 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
 \section*{CodeCity}
     O CodeCity \cite{wettel07} é uma ferramenta de vizualização que utiliza a metáfora de uma cidade para representar o software analisado. A ferramenta constrói uma representação gráfica tri dimensional do projeto analisado, representando cada classe do sistema como um prédio na cidade exibida. As classes são agrupadas em distritos e subdistritos da cidade de acordo com a hierarquia de pacotes do sistema. O número de métodos e de atributos de cada classe são mapeadas na altura e largura, respectivamente, de cada prédio.
-% incluir oceano da uff
+
+\section*{Ostra}
+    O Ostra \cite{oceano} é uma aplicação desenvolvida na Universidade Federal Fluminense. Esssa ferramenta utiliza a infraestrutura do Oceano, aplicação desenvolvida em outro projeto do grupo. O Ostra processa todo o histórico de desenvolvimento de um projeto de software a partir do sistema de controle de versão (SVN) e do sistema de controle de construção (Maven). Para cada versão do projeto minerado, o Ostra calcula métricas de código a partir do código compilado pelo sistema de controle de construção e armazena os resultados. Após essa etapa, a ferramenta aplica técnicas de mineração de dados para extrair regras de associação dos dados minerados. Além disso, a ferramenta possui uma interface web pela qual o usuário cadastra os projetos e vizualiza gráficos e tabelas com o resultados das métricas mineradas.
     \section{Quadro comparativo}
 
 % explicar o que é git, svn, cvs e as bantagens de processamento de código em texto puro
 
-    A tabela \ref{tab:relacionados} exibe um quadro comparativo entre as ferramentas descritas a seguir e o MetricMiner.
-    \begin{table}\begin{center}
+    A Tabela \ref{tab:relacionados} exibe um quadro comparativo entre as ferramentas descritas anteriormente e o MetricMiner. É importante destacar que o procesamento de código em texto puro (4ª linha da Tabela) é um aspecto de valor das ferramentas analisadas, já que a compilação de projetos grandes pode ser complexa e atrasar o processo de mineração. Para esclarecimento das três últimas linhas da Tabela: Git, SVN e CVS são sistemas de controle de versão muito utilizados no desenvolvimento de sistemas de software.
+
+    \begin{table}[H]\begin{center}
         \begin{tabular}{| p{8cm} | c | c | c | c | c | c | c | c | c |}
             \hline                        
-             &  \begin{sideways}\bf MetricMiner\end{sideways} & \begin{sideways}\bf Sonar\end{sideways} & \begin{sideways}\bf Eclipse Metrics\end{sideways} & \begin{sideways}\bf Kalibro e Analizo\end{sideways} & \begin{sideways}\bf Mezuro\end{sideways} & \begin{sideways}\bf Evoltrack\end{sideways} & \begin{sideways}\bf ArchView\end{sideways} & \begin{sideways}\bf CodeCity\end{sideways} \\
+             &  \begin{sideways}\bf MetricMiner\end{sideways} & \begin{sideways}\bf Sonar\end{sideways} & \begin{sideways}\bf Eclipse Metrics\end{sideways} & \begin{sideways}\bf Kalibro e Analizo\end{sideways} & \begin{sideways}\bf Mezuro\end{sideways} & \begin{sideways}\bf Evoltrack\end{sideways} & \begin{sideways}\bf ArchView\end{sideways} & \begin{sideways}\bf CodeCity\end{sideways} & \begin{sideways}\bf Oceano\end{sideways}\\
             \hline
-            \textbf{Aplicação web} & X & X & - & - & X & - & - & - \\
+            \textbf{Aplicação web} & X & X & - & - & X & - & - & - & X\\
             \hline
-            \textbf{Interface de consulta aos dados minerados} & X & - & - & - & - & - & - & - \\
+            \textbf{Interface de consulta aos dados minerados} & X & - & - & - & - & - & - & - & -\\
             \hline
-            \textbf{Cálculo de métricas de código} & X & X & X & X & X & - & X & - \\
+            \textbf{Cálculo de métricas de código} & X & X & X & X & X & - & X & - & X\\
             \hline
-            \textbf{Processamento de código em texto puro (não compilado)} & X & - & - & X & X & - & - & - \\
+            \textbf{Processamento de código em texto puro (não compilado)} & X & - & - & X & X & - & - & - & -\\
             \hline
-            \textbf{Interface gráfica de vizualização dos dados} & - & - & - & - & - & X & X & X \\
+            \textbf{Interface gráfica de vizualização dos dados} & - & - & - & - & - & X & X & X & X\\
             \hline
-            \textbf{Processamento de repositórios Git} & X & - & - & - & X & - & - & - \\
+            \textbf{Processamento de repositórios Git} & X & - & - & - & X & - & - & - & -\\
             \hline
-            \textbf{Processamento de repositórios SVN} & X & - & - & - & X & X & - & - \\
+            \textbf{Processamento de repositórios SVN} & X & - & - & - & X & X & - & - & X\\
             \hline
-            \textbf{Processamento de repositórios CVS} & - & - & - & - & X & - & X & - \\
+            \textbf{Processamento de repositórios CVS} & - & - & - & - & X & - & X & - & -\\
             \hline
         \end{tabular}
         \caption{Quadro comparativo entre as aplicações relacionadas ao MetricMiner \label{tab:relacionados}}
@@ -333,13 +336,13 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
     
 \chapter{MetricMiner} \label{ch:arquitetura}
 
-    O MetricMiner surgiu a partir do rEvolution\footnote{http://github.com/mauricioaniche/rEvolution}, uma ferramenta de linha de comando que extrai dados de um repositório local e persiste em banco de dados  relacional. Boa parte do código do rEvolution pôde ser reutilizada no MetricMiner, como o componente que realiza a interface com o sistema de controle de versão, que é descrito com mais detalhes na seção \ref{sc:tecnologias}. Todo o código e o histórico de desenvolvimento do MetricMiner se encontra hospedado no github: \url{http://github.com/metricminer/metricminer}.
+    O MetricMiner surgiu a partir do rEvolution\footnote{http://github.com/mauricioaniche/rEvolution}, uma ferramenta de linha de comando que extrai dados de um repositório local e persiste em banco de dados  relacional. Boa parte do código do rEvolution pôde ser reutilizada no MetricMiner, como o componente que realiza a interface com o sistema de controle de versão, que é descrito com mais detalhes na Seção \ref{sc:tecnologias}. Todo o código e o histórico de desenvolvimento do MetricMiner se encontra hospedado no github: \url{http://github.com/metricminer/metricminer}.
 
     As limitações do rEvolution serviram de motivação para o desenvolvimento do MetricMiner. Primeiramente, o rEvolution coleta dados de apenas único projeto, de forma que é necessário executar o programa manualmente para a mineração de sistemas diferentes. Além disso, a configuração para se executar o rEvolution é complexa. É necessário configurar a conexão com o banco de dados, instalar o sistema de controle de versão utilizado pelo projeto a ser minerado e carregar o projeto localmente (o que pode ser demorado dependendo do tamanho do projeto). 
 
     Assim, decidiu-se que o MetricMiner deveria ser uma aplicação web, poupando o pesquisador de instalar e configurar qualquer ferramenta localmente. Além disso, sendo uma aplicação web, a ferramenta pode aproveitar a escalabilidade da computação em nuvem. Atualmente o MetricMiner está implantando sobre a infraestrutura de computação em nuvem da locaweb. Durante a fase de testes da ferramenta, a capacidade de armazenamento do disco chegou ao seu limite e foi necessário aumentar tal capacidade. Esse aprimoramento foi feito sem que fosse necessário reinstalar o servidor e sem que houvesse qualquer perda dos dados armazenados. O mesmo não seria possível se o MetricMiner não fosse uma aplicação web.
 
-    Nas subçeções seguintes, o MetricMiner é descrito com maiores detalhes. Em \ref{sc:abordagem}, é apresentado o fluxo do processo de mineração realizado pelo MetricMiner e as principais funcionalidades implementadas. Na seção \ref{sc:tecnologias}, as tecnologias utilizadas para o desenvolvimento do sistema serão descritas brevemente. Em \ref{sc:arquitetura}, são presentados os detalhes da arquitetura da ferramenta.
+    Nas subçeções seguintes, o MetricMiner é descrito com maiores detalhes. Em \ref{sc:abordagem}, é apresentado o fluxo do processo de mineração realizado pelo MetricMiner e as principais funcionalidades implementadas. Na Seção \ref{sc:tecnologias}, as tecnologias utilizadas para o desenvolvimento do sistema serão descritas brevemente. Em \ref{sc:arquitetura}, são presentados os detalhes da arquitetura da ferramenta.
 
     
     \section{Principais funcionalidades} \label{sc:abordagem}
@@ -401,7 +404,7 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
     \section{Tecnologias envolvidas} \label{sc:tecnologias}
 
-        Nessa seção serão descritas brevemente as tecnologias envolvidas no desenvolvimento do MetricMiner.
+        Nessa Seção serão descritas brevemente as tecnologias envolvidas no desenvolvimento do MetricMiner.
 
         \subsection*{VRaptor 3}
             O VRaptor\footnote{\url{http://vraptor.caelum.com.br/}} é um \textit{framework} para desenvolvimento web em java. Este \textit{framework} foca na simplicidade e no padrão de convenção sobre configuração\footnote{\url{http://en.wikipedia.org/wiki/Convention_over_configuration}} para tornar o desenvolvimento mais simples e eficiente. O VRaptor também se baseia fortemente no conceito de injeção de dependências \cite{fowlerdi}. A ideia por trás desse padrão é que as dependências de uma classe são criadas pelo container e não pela aplicação que utiliza tais dependências. O MetricMiner utiliza a injeção de dependências em diversos componentes importantes da arquitetura que são descritos com mais detalhes na seção \ref{sc:arquitetura}
@@ -476,9 +479,9 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
     \section{Evolução do desempenho do MetricMiner}
 
-        A mineração dos repositórios da Apache Software Foundation (descrita com detalhes na seção \ref{sc:apache}) foi utilizada para dirigir o desenvolvimento do MetricMiner. Diversas pequenas otimizações foram realizadas ao longo do desenvolvimento e seus resultados foram medidos com a mineração desses repositórios. 
+        A mineração dos repositórios da Apache Software Foundation (descrita com detalhes na Seção \ref{sc:apache}) foi utilizada para dirigir o desenvolvimento do MetricMiner. Diversas pequenas otimizações foram realizadas ao longo do desenvolvimento e seus resultados foram medidos com a mineração desses repositórios. 
 
-        A tabela \ref{tab:evolucao} exibe a evolução do desempenho ao longo do densenvolvimento da ferramenta. Para levantar os dados dessa tabela, foi considerada a mineração de 94 projetos em cada versão do MetricMiner, já que nas primeiras versões da ferramenta nem todos os projetos da Apache foram processados. Além disso, foram desconsideradas as tarefas de download de repositório, pois seu desempenho depende quase exclusivamente de fatores externos como a qualidade da conexão com o repositório remoto.
+        A Tabela \ref{tab:evolucao} exibe a evolução do desempenho ao longo do densenvolvimento da ferramenta. Para levantar os dados dessa tabela, foi considerada a mineração de 94 projetos em cada versão do MetricMiner, já que nas primeiras versões da ferramenta nem todos os projetos da Apache foram processados. Além disso, foram desconsideradas as tarefas de download de repositório, pois seu desempenho depende quase exclusivamente de fatores externos como a qualidade da conexão com o repositório remoto.
 
 
 
@@ -515,7 +518,7 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
         Esse conjunto de projetos minerados representa grande variedade em relação ao domínio de aplicação: existem projetos de domínios complexos como o Harmony - uma implementação da máquina virtual java - assim como outros mais simples como Commons Exec - uma biblioteca java para a execução de comandos do sistema operacional. 
 
-        Além disso, os projetos variam bastante em relação ao tamanho de seu histórico, a Tabela \ref{tab:commits} exibe os dez projetos com maior número de commits. Enquanto o projeto Subversion possui mais de 40 mil commits, outros projetos menores como o Savan possui menos de 20 commits em seu histórico de desenvolvimento. Em média, os projetos armazenados possuem 2660 commits. A tabela \ref{tab:artefatos} exibe os projetos com maior número de artefatos de código (qualquer arquivo não binário armazenado no repositório) processados no MetricMiner. Essas informações foram extraídas por meio da execução de consultas SQL pela interface do MetricMiner\footnote{As duas consultas utilizadas para extrair essas informações podem ser vizualizadas em \url{http://metricminer.org.br/query/3} e \url{http://metricminer.org.br/query/5}. Nessas páginas também é possível baixar os resultados completos das consultas.}.
+        Além disso, os projetos variam bastante em relação ao tamanho de seu histórico, a Tabela \ref{tab:commits} exibe os dez projetos com maior número de commits. Enquanto o projeto Subversion possui mais de 40 mil commits, outros projetos menores como o Savan possui menos de 20 commits em seu histórico de desenvolvimento. Em média, os projetos armazenados possuem 2660 commits. A Tabela \ref{tab:artefatos} exibe os projetos com maior número de artefatos de código (qualquer arquivo não binário armazenado no repositório) processados no MetricMiner. Essas informações foram extraídas por meio da execução de consultas SQL pela interface do MetricMiner\footnote{As duas consultas utilizadas para extrair essas informações podem ser vizualizadas em \url{http://metricminer.org.br/query/3} e \url{http://metricminer.org.br/query/5}. Nessas páginas também é possível baixar os resultados completos das consultas.}.
 
         \begin{table}\begin{center}
         \begin{tabular}{| p{6cm} | c |}
@@ -687,11 +690,11 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
 \chapter{Conclusão e trabalhos futuros} \label{ch:conclusao}
     
-        A ferramenta desenvolvida nete trabalho tem valor na área de Mineração de Repositórios de Software. Como exibido na seção \ref{sc:estudo-caso}, o MetricMiner facilita o desenvolvimento de estudos nessa área de pesquisa com as funcionalidades implementadas até o momento e os dados minerados disponíveis.
+        A ferramenta desenvolvida nete trabalho tem valor na área de Mineração de Repositórios de Software. Como exibido na Seção \ref{sc:estudo-caso}, o MetricMiner facilita o desenvolvimento de estudos nessa área de pesquisa com as funcionalidades implementadas até o momento e os dados minerados disponíveis.
 
         Utilizando a ferramenta desenvolvida, foi possível reproduzir um estudo da literatura com informações de diversos repositórios minerados. Com os dados do MetricMiner, não foi necessário carregar os projetos e executar as tarefas custosas de mineração localmente, como seria preciso utilizando as ferramentas atuais. Dessa forma, a reprodução do estudo foi realizada de forma mais eficiente, poupando recursos computacionais. Com esse processo mais eficiente, foi possível analisar um volume de dados maior, valorizando os resultados obtidos.
 
-        Assim, a ferramenta desenvolvida atinge os objetivos da proposta apresentada no início do trabalho. O MetricMiner oferece uma solução para o desenvolvimento de estudos em mineração de repositórios mais eficiente do que as propostas das ferramentas apresentadas no capítulo \ref{ch:trabalhos} e da solução desenvolvida em \cite{SoetensQUATIC2010}. Além disso, como foi apresentado na seção \ref{sc:arquitetura}, a ferramenta possui uma arquitetura extensível, possibilitando que novas métricas e tarefas de mineração sejam desenvolvidas no futuro.
+        Assim, a ferramenta desenvolvida atinge os objetivos da proposta apresentada no início do trabalho. O MetricMiner oferece uma solução para o desenvolvimento de estudos em mineração de repositórios mais eficiente do que as propostas das ferramentas apresentadas no Capítulo \ref{ch:trabalhos} e da solução desenvolvida em \cite{SoetensQUATIC2010}. Além disso, como foi apresentado na Seção \ref{sc:arquitetura}, a ferramenta possui uma arquitetura extensível, possibilitando que novas métricas e tarefas de mineração sejam desenvolvidas no futuro.
 
         Ainda assim, diversas melhorias ainda podem ser desenvolvidas no MetricMiner no futuro:
         \begin{itemize}
@@ -705,7 +708,7 @@ Nesta seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
 \chapter{Parte subjetiva} \label{ch:subjetiva}
 
-Nesta seção, a experiência obtida na realização do trabalho é relacionada ao curso de graduação no Bacharelado em Ciência da Computação.
+Neste parte, a experiência obtida na realização do trabalho é relacionada ao curso de graduação no Bacharelado em Ciência da Computação.
 
     \section{Desafios e frustrações}
     O principal desafio na encontrado foi conciliar o desenvolvimento deste trabalho, disciplinas da graduação e o estágio na Caelum. Foi desgastante estudar e fazer os trabalhos para as matérias do curso,  e ao mesmo manter as atividades do trabalho de conclusão em dia. Nesse sentido, ter começado a trabalhar cedo na implementação do MetricMiner fez com que fosse possível desenvolver uma ferramenta útil e escrever uma monografia interessante. Além disso, a própria escrita da monografia foi desafiante, uma vez que em nenhum momento do curso foi preciso escrever um trabalho neste formato e desta proporção.
@@ -725,7 +728,7 @@ Nesta seção, a experiência obtida na realização do trabalho é relacionada 
     \end{itemize}
 
     \section{Futuro deste trabalho}
-    Na sequência da entrega da versão final deste trabalho, pretendemos aprimorar a reprodução do estudo apresentado na seção \ref{sc:estudo-caso} e submeter um trabalho ao ESELAW (\textit{Experimental Software Engineering Latin American Workshop}) 2013 apresentado a ferramenta e o trabalho desenvolvido.
+    Na sequência da entrega da versão final deste trabalho, pretendemos aprimorar a reprodução do estudo apresentado na Seção \ref{sc:estudo-caso} e submeter um trabalho ao ESELAW (\textit{Experimental Software Engineering Latin American Workshop}) 2013 apresentado a ferramenta e o trabalho desenvolvido.
 
     Para seguir trabalhando na área de mineração de repositórios, o próximo passo seria entrar em contato com outros estudos desenvolvidos na área. O desenvolvimento da seção de trabalhos relacionados nesta monografia foi um início, porém, esta é uma área de pesquisa relativamente nova então o primeiro passo seria tomar conhecimento dos trabalhos recentes publicados em conferências dessa área de pesquisa.
 
