@@ -61,11 +61,7 @@
     Evolução de Software é uma área da Engenharia de Software que estuda as atividades de desenvolvimento de um sistema de software após a sua concepção inicial e implantação em produção. De acordo com \cite{DBLP:series/springer/Mens08}, esse termo foi usado pela primeira vez em um trabalho publicado por Manny Lehman. Neste trabalho, o autor enuncia as ``leis da evolução de software'', defendendo que programas que representam alguma atividade do mundo real evoluem continuamente, caso contrário, se tornam menos úteis e perdem seu valor \cite{Lehman1980b}. Além disso, Lehman afirma que esse processo de mudança contínua faz com que a complexidade do software cresça inevitavelmente, tornando sua estrutura
     cada vez mais pobre e seu custo de manutenção maior.
     
-    Considerando ainda diversos trabalhos indicando que o custo de manutenção de um software 
-    ultrapassa 50\% do custo total de um projeto, observa-se que encontrar meios de se
-    manter a qualidade interna de um software é importante. Por meio do desenvolvimento de
-    ferramentas e métodos, a evolução de software busca entender e controlar esse processo
-    para o tornar mais eficiente.
+    Considerando ainda diversos trabalhos indicando que o custo de manutenção de um software ultrapassa 50\%  do custo total de um projeto \cite{DBLP:series/springer/Mens08}, observa-se que encontrar meios de se manter a qualidade interna de um software é importante. Por meio do desenvolvimento de ferramentas e métodos, a evolução de software busca entender e controlar esse processo para o tornar mais eficiente.
     
     Nesse contexto, a Mineração de Repositórios de Software estuda o processo de evolução de forma empírica, por meio da análise dos artefatos envolvidos no seu desenvolvimento como código fonte, dados do sistema de controle de versão e sistemas de rastreamento de bugs \cite{Kagdi:2007}. Por meio da mineração desses dados, são extraídas diversas informações úteis ao desenvolvimento de um software, como, por exemplo, a indentificação de classes que são modificadas constantemente, classes mais propensas a falhas, entre outras. Com essas informações, equipes de desenvolvimento podem tomar ações para aprimorar o processo de desenvolvimento do sistema.
 
@@ -188,7 +184,7 @@
     \section{Mineração de repositórios de software} \label{sc:mineracao}
         Compreender o processo de evolução de um software é uma tarefa complexa. Sistemas de software grandes possuem um longo histórico de desenvolvimento com diversos desenvolvedores trabalhando em diferentes partes do sistema. É comum que nenhum desenvolvedor conheça o código do sistema por completo por conta da sua complexidade ou mesmo porque os integrantes que iniciaram o desenvolvimento do projeto já não fazem mais parte da equipe. Portanto, analisar os dados históricos do desenvolvimento de um software grande manualmente é inviável. 
 
-        Assim, a Mineração de Repositórios de Software analisa a evolução de software de forma automatizada aplicando técnicas da Mineração de Dados sobre o histórico do desenvolvimento de sistemas de software \cite{workshop-gustavo-aniche}. Os estudos desenvolvidos nessa área revelam informações úteis ao desenvolvimento de um projeto em particular ou ainda encontram padrões na evolução de software que podem ser generalizáveis para outros sistemas.
+        Assim, a Mineração de Repositórios de Software analisa a evolução de software de forma automatizada aplicando técnicas da Mineração de Dados sobre o histórico do desenvolvimento de sistemas de software.Os estudos desenvolvidos nessa área revelam informações úteis ao desenvolvimento de um projeto em particular ou ainda encontram padrões na evolução de software que podem ser generalizáveis para outros sistemas.
 
         O termo ``repositório de software'' abrange todos os artefatos produzidos durante o 
         desenvolvimento de um sistema de software, desde os arquivos com o código fonte do sistema que 
@@ -196,6 +192,8 @@
         emails trocadas entre os desenvolvedores. Tais repositórios contêm informações valiosas, 
         que podem ser exploradas para compreender a evolução de software e contribuir com o 
         desenvolvimento do projeto.
+
+        Um sistema de controle de versão é uma ferramenta utilizada no cotidiano de desenvolvimento de software. Por meio dessa ferramenta, um desenvolvedor controla as alterações sobre código que está modificando. Durante o trabalho, o desenvolvedor agrupa as mudanças feitas no código em \textit{commits} e o sistema de controle de versão armazena esses grupos de alterações. Essa é uma fonte de dados importante no contexto de Mineração de Repositórios.
 
         Em \cite{DBLP:series/springer/DAmbrosGLP08}, os autores destacam os seguintes tópicos 
         estudados na análise de repositórios de software:
@@ -305,7 +303,7 @@ Nesta Seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
 % explicar o que é git, svn, cvs e as bantagens de processamento de código em texto puro
 
-    A Tabela \ref{tab:relacionados} exibe um quadro comparativo entre as ferramentas descritas anteriormente e o MetricMiner. É importante destacar que o procesamento de código em texto puro (4ª linha da Tabela) é um aspecto de valor das ferramentas analisadas, já que a compilação de projetos grandes pode ser complexa e atrasar o processo de mineração. Para esclarecimento das três últimas linhas da Tabela: Git, SVN e CVS são sistemas de controle de versão muito utilizados no desenvolvimento de sistemas de software.
+    A Tabela \ref{tab:relacionados} exibe um quadro comparativo entre as ferramentas descritas anteriormente e o MetricMiner. É importante destacar que o procesamento de código em texto puro (4ª linha da Tabela) é um aspecto de valor das ferramentas analisadas, já que a compilação de projetos grandes pode ser complexa e atrasar o processo de mineração. Para esclarecimento das três últimas linhas da Tabela: Git, SVN e CVS são sistemas de controle de versão muito utilizados no desenvolvimento de sistemas de software. 
 
     \begin{table}[H]\begin{center}
         \begin{tabular}{| p{8cm} | c | c | c | c | c | c | c | c | c |}
@@ -431,7 +429,7 @@ Nesta Seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
                     \label{fig:uml_modelo}
                 \end{figure}
 
-            Com esse modelo, todo o histórico do sistema de controle de versão de um projeto fica armazenado no sistema. Cada \textit{commit} está relacionado ao conjunto de modificações realizadas nesse \textit{commit}. Uma modificação pode ser de três tipos: modificação comum, adição ou remoção. Adição ou remoção representam que o artefato foi adicionado ou removido do versionamento. Se o artefato não for binário, a modificação fica associada ao texto desse artefato (armazenado na classe \codechunk{SourceCode}). Dessa forma, todos as versões de cada arquivo de código do projeto ficam armazenados na base de dados. Cada versão dos arquivos de código fica associada ao resultado da execução de diferentes métricas. Para simplificar o diagrama, foram representadas apenas as classes \codechunk{CCResult}, \codechunk{LCOMResult} e \codechunk{LinesOfCodeResult} que armazenam os resultados das métricas de código complexidade ciclomática, LCOM e número de linhas de código, respectivamente. Existem outras quatro classes que armazenam resultados de outras métricas.
+            Com esse modelo, todo o histórico do sistema de controle de versão de um projeto fica armazenado no sistema. Cada \textit{commit} está relacionado ao conjunto de modificações realizadas nele. Uma modificação pode ser de três tipos: modificação comum, adição ou remoção. Adição ou remoção representam que o artefato foi adicionado ou removido do versionamento. Se o artefato não for binário, a modificação fica associada ao texto desse artefato (armazenado na classe \codechunk{SourceCode}). Dessa forma, todos as versões de cada arquivo de código do projeto ficam armazenados na base de dados. Cada versão dos arquivos de código fica associada ao resultado da execução de diferentes métricas. Para simplificar o diagrama, foram representadas apenas as classes \codechunk{CCResult}, \codechunk{LCOMResult} e \codechunk{LinesOfCodeResult} que armazenam os resultados das métricas de código complexidade ciclomática, LCOM e número de linhas de código, respectivamente. Existem outras quatro classes que armazenam resultados de outras métricas.
 
         \subsection*{Fila de execução} %% TaskRunner, RunnableTask, RunnableTaskFactory,
             Existem diferentes tipos de tarefas que são executadas no MetricMiner, por exemplo, clonar um repositório de código, processar informações do sistema de controle de versão, entre outras. Para cada tipo de tarefa, existem duas classes associadas que implementam duas interfaces. A primeira é a \codechunk{RunnableTask}, essa interface define apenas um método, \codechunk{run}, que deve executar o trabalho dessa tarefa. A segunda é a \codechunk{RunnableTaskFactory} onde está definido o método \codechunk{build}, que devolve uma instância de uma \codechunk{RunnableTask} para ser executada sobre um projeto específico. Essa é uma aplicação do padrão de projeto \codechunk{Abstract Factory} \cite{gof} e permitiu desacoplar os objetos que executam o trabalho da tarefa da construção desses objetos. O diagrama na Figura \ref{fig:uml_runner} exibe as classes que representam as principais tarefas executadas no MetricMiner.
@@ -483,8 +481,6 @@ Nesta Seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
         A Tabela \ref{tab:evolucao} exibe a evolução do desempenho ao longo do densenvolvimento da ferramenta. Para levantar os dados dessa tabela, foi considerada a mineração de 94 projetos em cada versão do MetricMiner, já que nas primeiras versões da ferramenta nem todos os projetos da Apache foram processados. Além disso, foram desconsideradas as tarefas de download de repositório, pois seu desempenho depende quase exclusivamente de fatores externos como a qualidade da conexão com o repositório remoto.
 
-
-
         Dentre essas otimizações podemos destacar as seguintes:
         \begin{itemize}
             \item \textbf{Utilização de \codechunk{StatelessSession} do Hibernate:} A classe utilizada normalmente para se realizar consultas ao banco de dados com o Hibernate é a \codechunk{Session}. Por padrão, uma instância dessa classe armazena em cache as entidades persistidas ou buscadas no banco de dados. Durante os testes, percebeu-se que esse comportamento padrão causava um consumo de memória excessivo. Para contornar esse problema, foi utilizada a classe \codechunk{StatelessSession}, que não realiza cache dos dados.
@@ -518,7 +514,7 @@ Nesta Seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
         Esse conjunto de projetos minerados representa grande variedade em relação ao domínio de aplicação: existem projetos de domínios complexos como o Harmony - uma implementação da máquina virtual java - assim como outros mais simples como Commons Exec - uma biblioteca java para a execução de comandos do sistema operacional. 
 
-        Além disso, os projetos variam bastante em relação ao tamanho de seu histórico, a Tabela \ref{tab:commits} exibe os dez projetos com maior número de commits. Enquanto o projeto Subversion possui mais de 40 mil commits, outros projetos menores como o Savan possui menos de 20 commits em seu histórico de desenvolvimento. Em média, os projetos armazenados possuem 2660 commits. A Tabela \ref{tab:artefatos} exibe os projetos com maior número de artefatos de código (qualquer arquivo não binário armazenado no repositório) processados no MetricMiner. Essas informações foram extraídas por meio da execução de consultas SQL pela interface do MetricMiner\footnote{As duas consultas utilizadas para extrair essas informações podem ser vizualizadas em \url{http://metricminer.org.br/query/3} e \url{http://metricminer.org.br/query/5}. Nessas páginas também é possível baixar os resultados completos das consultas.}.
+        Além disso, os projetos variam bastante em relação ao tamanho de seu histórico, a Tabela \ref{tab:commits} exibe os dez projetos com maior número de \textit{commits}. Enquanto o projeto Subversion possui mais de 40 mil \textit{commits}, outros projetos menores como o Savan possui menos de 20 \textit{commits} em seu histórico de desenvolvimento. Em média, os projetos armazenados possuem 2660 \textit{commits}. A Tabela \ref{tab:artefatos} exibe os projetos com maior número de artefatos de código (qualquer arquivo não binário armazenado no repositório) processados no MetricMiner. Essas informações foram extraídas por meio da execução de consultas SQL pela interface do MetricMiner\footnote{As duas consultas utilizadas para extrair essas informações podem ser vizualizadas em \url{http://metricminer.org.br/query/3} e \url{http://metricminer.org.br/query/5}. Nessas páginas também é possível baixar os resultados completos das consultas.}.
 
         \begin{table}\begin{center}
         \begin{tabular}{| p{6cm} | c |}
@@ -546,7 +542,7 @@ Nesta Seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
             Apache Ant & 12782 \\
             \hline
         \end{tabular}
-        \caption{Dez projetos com maior número de commits processados pelo MetricMiner \label{tab:commits}}
+        \caption{Dez projetos com maior número de \textit{commits} processados pelo MetricMiner \label{tab:commits}}
         \end{center}\end{table}
 
         \begin{table}\begin{center}
@@ -578,7 +574,7 @@ Nesta Seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
         \caption{Dez projetos com maior número de artefatos processados pelo MetricMiner \label{tab:artefatos}}
         \end{center}\end{table}
 
-        Ao final do processo de mineração dos repositórios da Apache, o MetricMiner processou e armazenou mais de 800 mil commits de mais 2 mil autores diferentes, mais 1.5 milhões de artefatos e 5 milhões de versões de arquivos de código. Todo esse volume de dados está armazenado em um banco de dados de mais de 180 GB e disponível para consultas por meio da interface web. O processo de mineração, desde o início do download do primeiro projeto até o cálculo das métricas do último, levou no total aproximadamente 90 horas de duração.
+        Ao final do processo de mineração dos repositórios da Apache, o MetricMiner processou e armazenou mais de 800 mil \textit{commits} de mais 2 mil autores diferentes, mais 1.5 milhões de artefatos e 5 milhões de versões de arquivos de código. Todo esse volume de dados está armazenado em um banco de dados de mais de 180 GB e disponível para consultas por meio da interface web. O processo de mineração, desde o início do download do primeiro projeto até o cálculo das métricas do último, levou no total aproximadamente 90 horas de duração.
 
     \section{Exemplo de uso 2: expansão de um estudo da literatura} \label{sc:estudo-caso}
         Para mostrar o valor da ferramenta no contexto de pesquisa em Mineração de Repositórios, foi feita a reprodução de um estudo publicado na área. O trabalho publicado em \cite{SoetensQUATIC2010} foi reproduzido e estendido utilizando os dados minerados no MetricMiner por meio de sua interface de consultas ao banco de dados.
@@ -595,7 +591,7 @@ Nesta Seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
             \item Colocar método em linha (\textit{inline method})
         \end{itemize}
 
-        O tabalho analisa 776 versões extraídas do sistema de controle de versão do projeto de código aberto PMD\footnote{\url{http://pmd.sourceforge.net/}}. Para fazer essa análise, os autores utilizaram dois \textit{plugins} da IDE Eclipse: o SVNKit, para extrair o código do repositório e o Eclipse Metrics, para calcular a métrica de complexidade ciclomática. Com esses dois plugins instalados, eles desenvolveram um plugin próprio para realizar o processo de carregar a versão do código, calcular as métricas e armazenar os resultados em arquivos XML. Depois disso, os arquivos XML foram processados e as métricas calculadas foram associadas com as mensagens de cada commit.
+        O tabalho analisa 776 versões extraídas do sistema de controle de versão do projeto de código aberto PMD\footnote{\url{http://pmd.sourceforge.net/}}. Para fazer essa análise, os autores utilizaram dois \textit{plugins} da IDE Eclipse: o SVNKit, para extrair o código do repositório e o Eclipse Metrics, para calcular a métrica de complexidade ciclomática. Com esses dois plugins instalados, eles desenvolveram um plugin próprio para realizar o processo de carregar a versão do código, calcular as métricas e armazenar os resultados em arquivos XML. Depois disso, os arquivos XML foram processados e as métricas calculadas foram associadas com as mensagens de cada \textit{commit}.
 
         \begin{figure}[ht]
             \centering
@@ -606,7 +602,7 @@ Nesta Seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
         O artigo apresenta a evolução da complexidade ciclomática do projeto ao longo das versões analisadas. A Figura \ref{fig:evolucao-soetens} exibe um gráfico mostrando o aumento da complexidade ciclomática com o tempo, o que é uma evidência da segunda lei da evolução de software (complexidade crescente). 
 
-        Os autores classificam os commits em duas categorias, os que contêm ``refatorações documentadas'' e os que não contêm. Uma ``refatoração documentada'' é um commit que possui em sua mensagem palavras como \textit{``refactoring''}, \textit{``refactored''}, \textit{``refactor''}. Com essa classificação, os autores analisam o efeito sobre a métrica de complexidade ciclomática (CC) dos commits de cada categoria. A Tabela \ref{tab:resultados-soetens} exibe os resultados da classificação do conjunto de commits analisado.
+        Os autores classificam os \textit{commits} em duas categorias, os que contêm ``refatorações documentadas'' e os que não contêm. Uma ``refatoração documentada'' é um \textit{commit} que possui em sua mensagem palavras como \textit{``refactoring''}, \textit{``refactored''}, \textit{``refactor''}. Com essa classificação, os autores analisam o efeito sobre a métrica de complexidade ciclomática (CC) dos \textit{commits} de cada categoria. A Tabela \ref{tab:resultados-soetens} exibe os resultados da classificação do conjunto de \textit{commits} analisado.
 
         \begin{table}\begin{center}
         \begin{tabular}{| >{\centering\arraybackslash}m{3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} |}
@@ -621,54 +617,54 @@ Nesta Seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
         \caption{Resultados obtidos em \cite{SoetensQUATIC2010} \label{tab:resultados-soetens}}
         \end{center}\end{table}
 
-        Com esses resultados, os autores concluem que as refatorações raramente afetam a complexidade ciclomática do sistema: ``\textit{we discovered that refactoring practices rarely affect the cyclomatic complexity of a program}''. Os autores analisaram cada commit processado e justificaram essa conclusão contra-intuitiva levantando três motivos possíveis:
+        Com esses resultados, os autores concluem que as refatorações raramente afetam a complexidade ciclomática do sistema: ``\textit{we discovered that refactoring practices rarely affect the cyclomatic complexity of a program}''. Os autores analisaram cada \textit{commit} processado e justificaram essa conclusão contra-intuitiva levantando três motivos possíveis:
 
         \begin{itemize}
             \item Poucas refatorações envolviam remoção de código duplicado.
-            \item Em muitos commits, os autores desenvolviam novas funcionalidade junto com a refatoração de certa parte do código, aumentando a complexidade do sistema independentemente da refatoração.
+            \item Em muitos \textit{commits}, os autores desenvolviam novas funcionalidade junto com a refatoração de certa parte do código, aumentando a complexidade do sistema independentemente da refatoração.
             \item A maioria das refatorações descobertas realizavam apenas pequenas mudanças no código, como movimentação de métodos e variáveis entre as classes e não mudanças mais complexas como extração de classe, substituição de condicionais por polimorfismo, entre outros.
         \end{itemize}
 
 
         \subsection*{Reprodução do estudo}
-        Para reproduzir o trabalho descrito anteriormente, foi feita uma consulta ao banco de dados do MetricMiner após a mineração dos projetos da Apache. Como o MetricMiner só calcula a complexidade ciclomática sobre classes na linguagem Java, só foram considerados commits que alteraram arquivos de código fonte Java. A seguinte consulta SQL foi realizada no MetricMiner:
+        Para reproduzir o trabalho descrito anteriormente, foi feita uma consulta ao banco de dados do MetricMiner após a mineração dos projetos da Apache. Como o MetricMiner só calcula a complexidade ciclomática sobre classes na linguagem Java, só foram considerados \textit{commits} que alteraram arquivos de código fonte Java. A seguinte consulta SQL foi realizada no MetricMiner:
 
         \input{misc/consulta.tex}
 
-        Essa consulta extrai a complexidade ciclomática calculada de todas as classes já alteradas no histórico de todos os projetos (que possuem classes Java) armazenados na base de dados. Junto com a complexidade ciclomática e o nome do arquivo, são extraídas também o nome do projeto, data e mensagem do commit. Os resultados de tal consulta se encontram em \url{http://metricminer.org.br/query/1}. Com esses resultados, foi desenvolvido um pequeno programa auxiliar em Java que utiliza esses dados para contabilizar os efeitos das refatorações sobre a complexidade ciclomática dos projetos. O código desse programa encontra-se em \url{https://github.com/csokol/refactoring-cc}.
+        Essa consulta extrai a complexidade ciclomática calculada de todas as classes já alteradas no histórico de todos os projetos (que possuem classes Java) armazenados na base de dados. Junto com a complexidade ciclomática e o nome do arquivo, são extraídas também o nome do projeto, data e mensagem do \textit{commit}. Os resultados de tal consulta se encontram em \url{http://metricminer.org.br/query/1}. Com esses resultados, foi desenvolvido um pequeno programa auxiliar em Java que utiliza esses dados para contabilizar os efeitos das refatorações sobre a complexidade ciclomática dos projetos. O código desse programa encontra-se em \url{https://github.com/csokol/refactoring-cc}.
 
-        O programa auxiliar agrupa os dados extraídos por projeto, agrupa arquivos modificados em um mesmo commit e percorre todos os commits contabilizando as alterações na complexidade total do projeto. Para verificar se um commit contém ``refatorações documentadas'', foi utilizado Apache Lucene\footnote{\url{http://lucene.apache.org}} para processar a mensagem do autor, separando o texto em \textit{tokens} e fazendo a normalização (processo de extrair caracteres de pontuação do texto) e \textit{stemming} (processo de extrair a raiz morfológica das palavras) dos \textit{tokens} (essas técnicas e conceitos pertencem a área de recuperação de informação e estão fora do escopo deste trabalho). Com esse processamento de texto feito, bastou verificar se a mensagem de commit contém o  \textit{token} ``refactor'' para determinar se tal commit contém refatorações.
+        O programa auxiliar agrupa os dados extraídos por projeto, agrupa arquivos modificados em um mesmo \textit{commit} e percorre todos os \textit{commits} contabilizando as alterações na complexidade total do projeto. Para verificar se um \textit{commit} contém ``refatorações documentadas'', foi utilizado Apache Lucene\footnote{\url{http://lucene.apache.org}} para processar a mensagem do autor, separando o texto em \textit{tokens} e fazendo a normalização (processo de extrair caracteres de pontuação do texto) e \textit{stemming} (processo de extrair a raiz morfológica das palavras) dos \textit{tokens} (essas técnicas e conceitos pertencem a área de recuperação de informação e estão fora do escopo deste trabalho). Com esse processamento de texto feito, bastou verificar se a mensagem de \textit{commit} contém o  \textit{token} ``refactor'' para determinar se tal \textit{commit} contém refatorações.
 
-        Ao todo foram analisados commits de 256 projetos diferentes. As Figuras \ref{fig:cc-camel}, \ref{fig:cc-ant} e \ref{fig:cc-tomcat} exibem a evolução da complexidade ciclomática dos projetos Camel, Ant e Tomcat, respectivamente. A evolução da complexidade do Apache Camel demonstra um padrão semelhante a evolução do PMD, publicado no trabalho original. A complexidade ciclomática parte de um valor baixo e vai crescendo desde o início do desenvolvimento, sem muitas variações em sua taxa de crescimento. O Ant e o Tomcat apresentam padrões diferentes. 
+        Ao todo foram analisados \textit{commits} de 256 projetos diferentes. As Figuras \ref{fig:cc-camel}, \ref{fig:cc-ant} e \ref{fig:cc-tomcat} exibem a evolução da complexidade ciclomática dos projetos Camel, Ant e Tomcat, respectivamente. A evolução da complexidade do Apache Camel demonstra um padrão semelhante a evolução do PMD, publicado no trabalho original. A complexidade ciclomática parte de um valor baixo e vai crescendo desde o início do desenvolvimento, sem muitas variações em sua taxa de crescimento. O Ant e o Tomcat apresentam padrões diferentes. 
 
         \begin{figure}[ht]
             \centering
-            \includegraphics[width=20cm, angle=90]{img/graficos/camel.png}
+            \includegraphics[width=16cm]{img/graficos/camel.png}
             \caption{Evolução da complexidade do projeto Camel}
             \label{fig:cc-camel}
         \end{figure}
 
-        O desenvolvimento do Ant também se inicia com a complexidade baixa, porém, ao longo de sua evolução há ``saltos'' na complexidade que se devem a grandes adições ou remoções de código do repositório. Por exemplo, em \ref{fig:cc-ant}(\textbf{A}) há um grande aumento na complexidade total que se deve à importação de código de um repositório antigo ao novo repositório do Ant, o que está descrito na mensagem  do autor desse commit: ``\textit{Add in a clone of the main ant source tree so that it can undergo some heavy refactoring}''.
+        O desenvolvimento do Ant também se inicia com a complexidade baixa, porém, ao longo de sua evolução há ``saltos'' na complexidade que se devem a grandes adições ou remoções de código do repositório. Por exemplo, em \ref{fig:cc-ant}(\textbf{A}) há um grande aumento na complexidade total que se deve à importação de código de um repositório antigo ao novo repositório do Ant, o que está descrito na mensagem  do autor desse \textit{commit}: ``\textit{Add in a clone of the main ant source tree so that it can undergo some heavy refactoring}''.
 
         \begin{figure}[ht]
             \centering
-            \includegraphics[width=20cm, angle=90]{img/graficos/ant.png}
+            \includegraphics[width=16cm]{img/graficos/ant.png}
             \caption{Evolução da complexidade do projeto Ant}
             \label{fig:cc-ant}
         \end{figure}
 
-        Já o histórico do Tomcat, ao contrário dos outros dois, já se inicia com uma grande complexidade logo em seu primeiro commit. Isso se deve ao fato do Tomcat ser um projeto de código legado, sendo assim, seu primeiro commit é a importação de código do repositório antigo, o que justifica alta complexidade ciclomática inicial.
+        Já o histórico do Tomcat, ao contrário dos outros dois, já se inicia com uma grande complexidade logo em seu primeiro \textit{commit}. Isso se deve ao fato do Tomcat ser um projeto de código legado, sendo assim, seu primeiro \textit{commit} é a importação de código do repositório antigo, o que justifica alta complexidade ciclomática inicial.
 
         \begin{figure}[ht]
             \centering
-            \includegraphics[width=20cm, angle=90]{img/graficos/tomcat.png}
+            \includegraphics[width=16cm]{img/graficos/tomcat.png}
             \caption{Evolução da complexidade do projeto Tomcat}
             \label{fig:cc-tomcat}
         \end{figure}
 
         De maneira geral, os três projetos aumentam sua complexidade ao longo do histórico de desenvolvimento, confirmando a segunda lei de evolução de software, corroborando com o estudo de \cite{SoetensQUATIC2010}. 
 
-        A Tabela \ref{tab:resultados} exibe os resultados das refatorações sobre a complexidade dos projetos. Observa-se que a maioria das refatorações documentadas incrementaram a complexidade ciclomática. No entanto, a proporção dos commits que decrementaram a complexidade é maior entre o conjunto das refatorações documentadas: aproximadamente 23\% das refatorações documentadas reduziram a complexidade ciclomática enquanto apenas 12\% tiveram o mesmo efeito entre os commits normais. Ainda assim, como no estudo reproduzido, não há evidências de que refatorações diminuem a complexidade de um sistema.
+        A Tabela \ref{tab:resultados} exibe os resultados das refatorações sobre a complexidade dos projetos. Observa-se que a maioria das refatorações documentadas incrementaram a complexidade ciclomática. No entanto, a proporção dos \textit{commits} que decrementaram a complexidade é maior entre o conjunto das refatorações documentadas: aproximadamente 23\% das refatorações documentadas reduziram a complexidade ciclomática enquanto apenas 12\% tiveram o mesmo efeito entre os \textit{commits} normais. Ainda assim, como no estudo reproduzido, não há evidências de que refatorações diminuem a complexidade de um sistema.
 
         \begin{table}\begin{center}
         \begin{tabular}{| >{\centering\arraybackslash}m{3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} | >{\centering\arraybackslash}m{3.3cm} |}
@@ -683,8 +679,8 @@ Nesta Seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
         \caption{Resultados obtidos na reprodução do estudo \label{tab:resultados}}
         \end{center}\end{table}
         
-        \subsection*{Conslusão}
-        Utilizando o MetricMiner, foi possível reproduzir e estender o estudo original com sucesso. Como o esperado, os resultados obtidos foram semelhantes ao trabalho dos autores do artigo. O processo de análise dos dados com o MetricMiner se mostrou mais simples do que a abordagem utilizada por Soetens e Demeyer, uma vez que os dados dos commits e cálculo das métricas de código já haviam sido realizadas. Além disso, na abordagem original, o processo de mineração foi muito mais custoso, uma vez que o SVNKit necessita se conectar ao repositório remoto para baixar cada versão do projeto e o Eclipse Metrics calcula métricas com o código compilado (portanto, é necessário recompilar o código de cada versão).
+        \subsection*{Conclusão}
+        Utilizando o MetricMiner, foi possível reproduzir e estender o estudo original com sucesso. Como o esperado, os resultados obtidos foram semelhantes ao trabalho dos autores do artigo. O processo de análise dos dados com o MetricMiner se mostrou mais simples do que a abordagem utilizada por Soetens e Demeyer, uma vez que os dados dos \textit{commits} e cálculo das métricas de código já haviam sido realizadas. Além disso, na abordagem original, o processo de mineração foi muito mais custoso, uma vez que o SVNKit necessita se conectar ao repositório remoto para baixar cada versão do projeto e o Eclipse Metrics calcula métricas com o código compilado (portanto, é necessário recompilar o código de cada versão).
 
         Considerando que o volume de dados analisado com o MetricMiner foi muito maior que o trabalho original, ainda seria possível se aprofundar na investigação das refatorações documentadas dos desenvolvedores. Seria possível analisar os efeitos das refatorações por projeto, pelo tipo de projeto, pelo tamanho, pela experiência do desenvolvedor, entre outros. Ainda seria possível analisar o efeito sobre métricas de acoplamento e coesão (\textit{Fan out} e \textit{LCOM}), que também são propriedades de qualidade de código.
 
@@ -701,7 +697,7 @@ Nesta Seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
             \item {\bf Paralelizar a execução de tarefas}: as tarefas de mineração executadas são totalmente independentes entre projetos diferentes, portanto, podem ser executadas concorrentemente, seja no mesmo servidor (em múltiplas \textit{threads}) ou até mesmo de forma distribuída em várias máquinas.
             \item {\bf Novas métricas}: outras métricas de código da literatura podem ser implementadas no MetricMiner. Além disso, métricas de código para outras linguagens de programação também podem ser desenvolvidas (no momento a única linguagem com suporte nas métricas atuais é o Java).
             \item {\bf Novas tarefas de mineração}: a mineração de outras fontes de dados como sistemas de \textit{bug tracking} e listas de email podem ser implementadas para enriquecer a base de dados do MetricMiner.
-            \item {\bf Usabilidade da interface web}.
+            \item {\bf Usabilidade da interface web}: é preciso tornar a interface mais informativa ao usuário. Não é claro, por exemplo, que as tarefas pesadas de mineração são executadas assíncronamente.
         \end{itemize}
 
 % retomar problema inicial e dizer que o metric miner resolve
@@ -733,14 +729,6 @@ Neste parte, a experiência obtida na realização do trabalho é relacionada ao
     Para seguir trabalhando na área de mineração de repositórios, o próximo passo seria entrar em contato com outros estudos desenvolvidos na área. O desenvolvimento da seção de trabalhos relacionados nesta monografia foi um início, porém, esta é uma área de pesquisa relativamente nova então o primeiro passo seria tomar conhecimento de outros trabalhos recentes publicados em conferências dessa área.
 
     Além disso, pretendo implementar novas funcionalidades no MetricMiner e usá-lo para extrair informações úteis para o desenvolvimento de software na prática. Pretendo utilizá-lo para minerar dados dos sistemas em que trabalho na Caelum e tentar colocar os conceitos estudados nesse trabalho em prática.
-
-
-%Na segunda parte da monografia espera-se que você relacione a experiência obtida no trabalho com o BCC. Alguns dos itens que você deve cobrir são os seguintes:
-
-%desafios e frustrações encontrados;
-%lista das disciplinas cursadas no BCC mais relevantes para o trabalho;
-%observações sobre a aplicação de conceitos estudados nas disciplinas do curso;
-%se o aluno fosse continuar atuando na área em que realizou o trabalho, que passos tomaria para aprimorar os conhecimentos relevantes para esta atividade?
 
 \bibliographystyle{sbc}
 \bibliography{monografia}
