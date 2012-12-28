@@ -92,6 +92,7 @@
         \begin{itemize}
             \item Capítulo \ref{ch:conceitos}: são abordados temas 
                 envolvidos no desenvolvimento desse trabalho, em um breve levantamento bibliográfico.
+            \item Capítulo \ref{ch:trabalhos}: apresenta algumas ferramentas relacionadas ao MetricMiner. 
             \item Capítulo \ref{ch:arquitetura}: apresenta a arquitetura e as tecnologias
             envolvidas no desenvolvimento do MetricMiner.
             \item Capítulo \ref{ch:avaliacao}: expõe os resultados obtidos com a ferramenta 
@@ -298,7 +299,7 @@ Nesta Seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
     O CodeCity \cite{wettel07} é uma ferramenta de vizualização que utiliza a metáfora de uma cidade para representar o software analisado. A ferramenta constrói uma representação gráfica tri dimensional do projeto analisado, representando cada classe do sistema como um prédio na cidade exibida. As classes são agrupadas em distritos e subdistritos da cidade de acordo com a hierarquia de pacotes do sistema. O número de métodos e de atributos de cada classe são mapeadas na altura e largura, respectivamente, de cada prédio.
 
 \section*{Ostra}
-    O Ostra \cite{oceano} é uma aplicação desenvolvida na Universidade Federal Fluminense. Esssa ferramenta utiliza a infraestrutura do Oceano, aplicação desenvolvida em outro projeto do grupo. O Ostra processa todo o histórico de desenvolvimento de um projeto de software a partir do sistema de controle de versão (SVN) e do sistema de controle de construção (Maven). Para cada versão do projeto minerado, o Ostra calcula métricas de código a partir das classes compiladas pelo sistema de controle de construção e armazena os resultados. Após essa etapa, a ferramenta aplica técnicas de mineração de dados para extrair regras de associação dos dados minerados. Além disso, a ferramenta possui uma interface web pela qual o usuário cadastra os projetos e vizualiza gráficos e tabelas com o resultados das métricas mineradas.
+    O Ostra \cite{oceano} é uma aplicação desenvolvida na Universidade Federal Fluminense. Essa ferramenta utiliza a infraestrutura do Oceano, aplicação desenvolvida em outro projeto do grupo. O Ostra processa todo o histórico de desenvolvimento de um projeto de software a partir do sistema de controle de versão (SVN) e do sistema de controle de construção (Maven). Para cada versão do projeto minerado, o Ostra calcula métricas de código a partir das classes compiladas pelo sistema de controle de construção e armazena os resultados. Após essa etapa, a ferramenta aplica técnicas de mineração de dados para extrair regras de associação dos dados minerados. Além disso, a ferramenta possui uma interface web pela qual o usuário cadastra os projetos e vizualiza gráficos e tabelas com o resultados das métricas mineradas.
     \section{Quadro comparativo}
 
 % explicar o que é git, svn, cvs e as bantagens de processamento de código em texto puro
@@ -334,13 +335,42 @@ Nesta Seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
     
 \chapter{MetricMiner} \label{ch:arquitetura}
 
-    O MetricMiner surgiu a partir do rEvolution\footnote{http://github.com/mauricioaniche/rEvolution}, uma ferramenta de linha de comando que extrai dados de um repositório local e persiste em banco de dados  relacional. Boa parte do código do rEvolution pôde ser reutilizada no MetricMiner, como o componente que realiza a interface com o sistema de controle de versão, que é descrito com mais detalhes na Seção \ref{sc:tecnologias}. Todo o código e o histórico de desenvolvimento do MetricMiner se encontra hospedado no github: \url{http://github.com/metricminer/metricminer}.
+O MetricMiner surgiu a partir do
+rEvolution\footnote{http://github.com/mauricioaniche/rEvolution}, uma
+ferramenta de linha de comando que extrai dados de um repositório local e
+persiste em banco de dados  relacional. Boa parte do código do rEvolution pôde
+ser reutilizada no MetricMiner, como o componente que realiza a interface com o
+sistema de controle de versão, que é descrito com mais detalhes na Seção
+\ref{sc:tecnologias}. Todo o código e o histórico de desenvolvimento do
+MetricMiner se encontra hospedado no github:
+\url{http://github.com/metricminer/metricminer}.
 
-    As limitações do rEvolution serviram de motivação para o desenvolvimento do MetricMiner. Primeiramente, o rEvolution coleta dados de apenas único projeto, de forma que é necessário executar o programa manualmente para a mineração de sistemas diferentes. Além disso, a configuração para se executar o rEvolution é complexa. É necessário configurar a conexão com o banco de dados, instalar o sistema de controle de versão utilizado pelo projeto a ser minerado e carregar o projeto localmente (o que pode ser demorado dependendo do tamanho do projeto). 
+As limitações do rEvolution serviram de motivação para o desenvolvimento do
+MetricMiner. Primeiramente, o rEvolution coleta dados de apenas único projeto,
+de forma que é necessário executar o programa manualmente para a mineração de
+sistemas diferentes. Além disso, a configuração para se executar o rEvolution é
+complexa. É necessário configurar a conexão com o banco de dados, instalar o
+sistema de controle de versão utilizado pelo projeto a ser minerado e carregar
+o projeto localmente (o que pode ser demorado dependendo do tamanho do
+projeto). 
 
-    Assim, decidiu-se que o MetricMiner deveria ser uma aplicação web, poupando o pesquisador de instalar e configurar qualquer ferramenta localmente. Além disso, sendo uma aplicação web, a ferramenta pode aproveitar a escalabilidade da computação em nuvem. Atualmente o MetricMiner está implantando sobre a infraestrutura de computação em nuvem da locaweb. Durante a fase de testes da ferramenta, a capacidade de armazenamento do disco chegou ao seu limite e foi necessário aumentar tal capacidade. Esse aprimoramento foi feito sem que fosse necessário reinstalar o servidor e sem que houvesse qualquer perda dos dados armazenados. O mesmo não seria possível se o MetricMiner não fosse uma aplicação web.
+Assim, decidiu-se que o MetricMiner deveria ser uma aplicação web, poupando o
+pesquisador de instalar e configurar qualquer ferramenta localmente. Além
+disso, sendo uma aplicação web, a ferramenta pode aproveitar a escalabilidade
+da computação em nuvem. Atualmente o MetricMiner está implantando sobre a
+infraestrutura de computação em nuvem da locaweb. Durante a fase de testes da
+ferramenta, a capacidade de armazenamento do disco chegou ao seu limite e foi
+necessário aumentar tal capacidade. Esse aprimoramento foi feito sem que fosse
+necessário reinstalar o servidor e sem que houvesse qualquer perda dos dados
+armazenados. O mesmo não seria possível se o MetricMiner não fosse uma
+aplicação web.
 
-    Nas subçeções seguintes, o MetricMiner é descrito com maiores detalhes. Em \ref{sc:abordagem}, é apresentado o fluxo do processo de mineração realizado pelo MetricMiner e as principais funcionalidades implementadas. Na Seção \ref{sc:tecnologias}, as tecnologias utilizadas para o desenvolvimento do sistema serão descritas brevemente. Em \ref{sc:arquitetura}, são presentados os detalhes da arquitetura da ferramenta.
+Nas subseções seguintes, o MetricMiner é descrito com maiores detalhes. Em
+\ref{sc:abordagem}, é apresentado o fluxo do processo de mineração realizado
+pelo MetricMiner e as principais funcionalidades implementadas. Na Seção
+\ref{sc:tecnologias}, as tecnologias utilizadas para o desenvolvimento do
+sistema serão descritas brevemente. Em \ref{sc:arquitetura}, são presentados os
+detalhes da arquitetura da ferramenta.
 
     
     \section{Principais funcionalidades} \label{sc:abordagem}
@@ -388,9 +418,24 @@ Nesta Seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
             \label{fig:screen_projeto}
         \end{figure}
 
-        Após o fim do processamento do projeto, o usuário pode realizar consultas aos dados processados pela ferramenta. A Figura \ref{fig:screen_query} exibe a tela na qual é possível inserir uma consulta em SQL ao banco de dados do MetricMiner. Para preservarção da identidade, o nome e email dos autores são anonimizados, de forma que ao consultar o email de um desenvolvedor, por exemplo, é devolvido o resultado de uma função de hash do email desejado. Além disso, não é permitido realizar consultas sobre o código fonte dos projetos. Dessa forma será possível minerar também sistemas de software da indústria, que não são distribuídos sob uma licença de código aberto.
+Após o fim do processamento do projeto, o usuário pode realizar consultas aos
+dados processados pela ferramenta. A Figura \ref{fig:screen_query} exibe a tela
+na qual é possível inserir uma consulta em SQL ao banco de dados do
+MetricMiner. Para preservarção da identidade, o nome e email dos autores são
+anonimizados, de forma que ao consultar o email de um desenvolvedor, por
+exemplo, é devolvido o resultado de uma função de hash do email desejado. Além
+disso, não é permitido realizar consultas sobre o código fonte dos projetos.
+Dessa forma será possível minerar também sistemas de software da indústria, que
+não são distribuídos sob uma licença de código aberto.
 
-        Depois de salvar a consulta, uma nova tarefa é adicionada à fila de execução e, ao final dessa tarefa, o usuário é informado por email do fim da execução da consulta e pode acessar a página da query para baixar os resultados em um arquivo no formato CSV (\textit{Comma Separated Values}). O usuário também pode acessar as queries criadas por outros usuários e reexecutar tais queries sobre a base de dados. Caso ocorra alguma falha na execução da query (um erro de sintaxe de SQL, por exemplo), a \textit{stacktrace} da falha é armazenada e o usuário pode visulizá-la na página de resultados.
+Depois de salvar a consulta, uma nova tarefa é adicionada à fila de execução e,
+ao final dessa tarefa, o usuário é informado por email do fim da execução da
+consulta e pode acessar a página da query para baixar os resultados em um
+arquivo no formato CSV (\textit{Comma Separated Values}). O usuário também pode
+acessar as queries criadas por outros usuários e reexecutar tais queries sobre
+a base de dados. Caso ocorra alguma falha na execução da query (um erro de
+sintaxe de SQL, por exemplo), a \textit{stacktrace} da falha é armazenada e o
+usuário pode vizulizá-la na página de resultados.
 
         \begin{figure}[ht]
             \centering
@@ -417,7 +462,7 @@ Nesta Seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
     \section{Decisões arquiteturais} \label{sc:arquitetura}
 
-    O MetricMiner é um sistema em Java, que pode ser implantado em qualquer container web Java. Atualmente, a aplicação está em produção, implantada em um servidor web \textit{Apache Tomcat}\footnote{\url{http://tomcat.apache.org/}}. O MetricMiner utiliza o sistema gerenciador de banco de dados MySQL para armazenar os dados minerados. O sistema executa as tarefas assíncronamente por meio de um fila de execução representada no banco de dados. Nas seções a seguir, são descritos os detalhes dessa arquitetura.
+    O MetricMiner é um sistema em Java, que pode ser implantado em qualquer container web Java. Atualmente, a aplicação está em produção, implantada em um servidor web \textit{Apache Tomcat}\footnote{\url{http://tomcat.apache.org/}}. O MetricMiner utiliza o sistema gerenciador de banco de dados MySQL para armazenar os dados minerados. O sistema executa as tarefas assincronamente por meio de um fila de execução representada no banco de dados. Nas seções a seguir, são descritos os detalhes dessa arquitetura.
 
         \subsection*{Modelo de dados}
             O diagrama da Figura \ref{fig:uml_modelo} exibe as principais classes do modelo de dados minerados pelo MetricMiner. As classes e relacionamentos representados nesse diagrama são mapeados em tabelas no banco de dados por meio do Hibernate. 
@@ -576,7 +621,7 @@ Nesta Seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
 
         Ao final do processo de mineração dos repositórios da Apache, o MetricMiner processou e armazenou mais de 800 mil \textit{commits} de mais 2 mil autores diferentes, mais 1.5 milhões de artefatos e 5 milhões de versões de arquivos de código. Todo esse volume de dados está armazenado em um banco de dados de mais de 180 GB e disponível para consultas por meio da interface web. O processo de mineração, desde o início do download do primeiro projeto até o cálculo das métricas do último, levou no total aproximadamente 90 horas de duração.
 
-    \section{Exemplo de uso 2: expansão de um estudo da literatura} \label{sc:estudo-caso}
+    \section{Exemplo de uso 2: reprodução e expansão de um estudo da literatura} \label{sc:estudo-caso}
         Para mostrar o valor da ferramenta no contexto de pesquisa em Mineração de Repositórios, foi feita a reprodução de um estudo publicado na área. O trabalho publicado em \cite{SoetensQUATIC2010} foi reproduzido e estendido utilizando os dados minerados no MetricMiner por meio de sua interface de consultas ao banco de dados.
 
         \subsection*{Artigo publicado}
@@ -697,7 +742,7 @@ Nesta Seção serão apresentadas ferramentas que se relacionam ao MetricMiner.
             \item {\bf Paralelizar a execução de tarefas}: as tarefas de mineração executadas são totalmente independentes entre projetos diferentes, portanto, podem ser executadas concorrentemente, seja no mesmo servidor (em múltiplas \textit{threads}) ou até mesmo de forma distribuída em várias máquinas.
             \item {\bf Novas métricas}: outras métricas de código da literatura podem ser implementadas no MetricMiner. Além disso, métricas de código para outras linguagens de programação também podem ser desenvolvidas (no momento a única linguagem com suporte nas métricas atuais é o Java).
             \item {\bf Novas tarefas de mineração}: a mineração de outras fontes de dados como sistemas de \textit{bug tracking} e listas de email podem ser implementadas para enriquecer a base de dados do MetricMiner.
-            \item {\bf Usabilidade da interface web}: é preciso tornar a interface mais informativa ao usuário. Não é claro, por exemplo, que as tarefas pesadas de mineração são executadas assíncronamente.
+            \item {\bf Usabilidade da interface web}: é preciso tornar a interface mais informativa ao usuário. Não é claro, por exemplo, que as tarefas pesadas de mineração são executadas assincronamente.
         \end{itemize}
 
 % retomar problema inicial e dizer que o metric miner resolve
