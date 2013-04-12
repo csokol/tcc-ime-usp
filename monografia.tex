@@ -619,16 +619,34 @@ usuário pode vizulizá-la na página de resultados.
         \caption{Dez projetos com maior número de artefatos processados pelo MetricMiner \label{tab:artefatos}}
         \end{center}\end{table}
 
-        Ao final do processo de mineração dos repositórios da Apache, o MetricMiner processou e armazenou mais de 800 mil \textit{commits} de mais 2 mil autores diferentes, mais 1.5 milhões de artefatos e 5 milhões de versões de arquivos de código. Todo esse volume de dados está armazenado em um banco de dados de mais de 180 GB e disponível para consultas por meio da interface web. O processo de mineração, desde o início do download do primeiro projeto até o cálculo das métricas do último, levou no total aproximadamente 90 horas de duração.
+        Ao final do processo de mineração dos repositórios da Apache, o
+        MetricMiner processou e armazenou mais de 800 mil \textit{commits} de
+        mais 2 mil autores diferentes, mais 1.5 milhões de artefatos e 5
+        milhões de versões de arquivos de código. Todo esse volume de dados
+        está armazenado em um banco de dados de mais de 180 GB e disponível
+        para consultas por meio da interface web. O processo de mineração,
+        desde o início do download do primeiro projeto até o cálculo das
+        métricas do último, levou no total aproximadamente 90 horas de duração.
 
     \section{Exemplo de uso 2: reprodução e expansão de um estudo da literatura} \label{sc:estudo-caso}
         Para mostrar o valor da ferramenta no contexto de pesquisa em Mineração de Repositórios, foi feita a reprodução de um estudo publicado na área. O trabalho publicado em \cite{SoetensQUATIC2010} foi reproduzido e estendido utilizando os dados minerados no MetricMiner por meio de sua interface de consultas ao banco de dados.
 
         \subsection*{Artigo publicado}
 
-        Neste trabalho, os autores estudaram o efeito de refatorações sobre a complexidade do sistema. Uma refatoração é o processo de modificar o código para melhorar sua estrutura interna, mas sem modificar seu comportamento externo \cite{fowler-refactoring}. Assim, se aplicada corretamente, a refatoração de código aprimora a manutenabilidade do sistema, sem acrescentar ou remover funcionalidades.
+        Neste trabalho, os autores estudaram o efeito de refatorações sobre a
+        complexidade do sistema. Uma refatoração é o processo de modificar o
+        código para melhorar sua estrutura interna, mas sem modificar seu
+        comportamento externo \cite{fowler-refactoring}. Assim, se aplicada
+        corretamente, a refatoração de código aprimora a manutenabilidade do
+        sistema, sem acrescentar ou remover funcionalidades.
 
-        Para estudar o efeito das refatorações, os autores utilizam a métrica de complexidade ciclomática como medida da complexidade total de um sistema, ou seja, consideram que a complexidade do sistema é a soma da complexidade ciclomática de suas classes. O artigo apresenta uma breve análise matemática sobre o efeito de refatorações comuns sobre a complexidade ciclomática de uma classe. As refatorações analisadas foram:
+        Para estudar o efeito das refatorações, os autores utilizam a métrica
+        de complexidade ciclomática como medida da complexidade total de um
+        sistema, ou seja, consideram que a complexidade do sistema é a soma da
+        complexidade ciclomática de suas classes. O artigo apresenta uma breve
+        análise matemática sobre o efeito de refatorações comuns sobre a
+        complexidade ciclomática de uma classe. As refatorações analisadas
+        foram:
 
         \begin{itemize}
             \item Subir método (\textit{pull up method})
@@ -636,7 +654,17 @@ usuário pode vizulizá-la na página de resultados.
             \item Colocar método em linha (\textit{inline method})
         \end{itemize}
 
-        O tabalho analisa 776 versões extraídas do sistema de controle de versão do projeto de código aberto PMD\footnote{\url{http://pmd.sourceforge.net/}}. Para fazer essa análise, os autores utilizaram dois \textit{plugins} da IDE Eclipse: o SVNKit, para extrair o código do repositório e o Eclipse Metrics, para calcular a métrica de complexidade ciclomática. Com esses dois plugins instalados, eles desenvolveram um plugin próprio para realizar o processo de carregar a versão do código, calcular as métricas e armazenar os resultados em arquivos XML. Depois disso, os arquivos XML foram processados e as métricas calculadas foram associadas com as mensagens de cada \textit{commit}.
+        O tabalho analisa 776 versões extraídas do sistema de controle de
+        versão do projeto de código aberto
+        PMD\footnote{\url{http://pmd.sourceforge.net/}}. Para fazer essa
+        análise, os autores utilizaram dois \textit{plugins} da IDE Eclipse: o
+        SVNKit, para extrair o código do repositório e o Eclipse Metrics, para
+        calcular a métrica de complexidade ciclomática. Com esses dois plugins
+        instalados, eles desenvolveram um plugin próprio para realizar o
+        processo de carregar a versão do código, calcular as métricas e
+        armazenar os resultados em arquivos XML. Depois disso, os arquivos XML
+        foram processados e as métricas calculadas foram associadas com as
+        mensagens de cada \textit{commit}.
 
         \begin{figure}[ht]
             \centering
